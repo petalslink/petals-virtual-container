@@ -14,13 +14,13 @@ instance of PetalsVirtualContainer {
 	instance of PetalsRegistry {
 		name: registry-node-1;
 		
-		member-id = registry-node-1;
+		member-id: registry-node-1;
 	}
 	
 	instance of PetalsRegistry {
 		name: registry-node-2;
 		
-		member-id = registry-node-2;
+		member-id: registry-node-2;
 	}
 	
 	##########################
@@ -29,12 +29,12 @@ instance of PetalsVirtualContainer {
 	instance of PetalsContainer {
 		name: container-node-1;
 		
-		container-name = container-node-1;
+		container-name: container-node-1;
 	}
 	
 	instance of PetalsContainer {
 		name: container-node-2;
 		
-		container-name = container-node-2;
+		container-name: container-node-2;
 	}
 }
