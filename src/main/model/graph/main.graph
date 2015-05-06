@@ -10,14 +10,24 @@
 
 PetalsVirtualContainer {
 	installer: target;
-	children: PetalsContainer, PetalsRegistry;
+	children: PetalsContainer-VM, PetalsRegistry-VM;
 	exports: domain = pvc-demo-domain, subdomain = pvc-demo-subdomain;
+}
+
+PetalsRegistry-VM {
+    installer: target;
+	children: PetalsRegistry;
 }
 
 PetalsRegistry {
     installer: script;
 	exports: member-id = sample-member-0, ip, port = 7900, credentials-group = default-sample, credentials-password = s3cr3t;
 	imports: PetalsRegistry.* (optional);
+}
+
+PetalsContainer-VM {
+    installer: target;
+	children: PetalsContainer;
 }
 
 PetalsContainer {

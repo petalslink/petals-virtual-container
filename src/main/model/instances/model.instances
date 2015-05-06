@@ -11,30 +11,46 @@ instance of PetalsVirtualContainer {
 	##########################
 	# Registry part
 	##########################
-	instance of PetalsRegistry {
-		name: registry-node-1;
+	instance of PetalsRegistry-VM {
+		name: registry-vm-1;
 		
-		member-id: registry-node-1;
+		instance of PetalsRegistry {
+			name: registry-node-1;
+			
+			member-id: registry-node-1;
+		}
 	}
 	
-	instance of PetalsRegistry {
-		name: registry-node-2;
+	instance of PetalsRegistry-VM {
+		name: registry-vm-2;
 		
-		member-id: registry-node-2;
+		instance of PetalsRegistry {
+			name: registry-node-2;
+			
+			member-id: registry-node-2;
+		}
 	}
 	
 	##########################
 	# Container part
 	##########################
-	instance of PetalsContainer {
-		name: container-node-1;
+	instance of PetalsContainer-VM {
+		name: container-vm-1;
 		
-		container-name: container-node-1;
+		instance of PetalsContainer {
+			name: container-node-1;
+			
+			container-name: container-node-1;
+		}
 	}
 	
-	instance of PetalsContainer {
-		name: container-node-2;
-		
-		container-name: container-node-2;
+	instance of PetalsContainer-VM {
+		name: container-vm-2;
+	
+		instance of PetalsContainer {
+			name: container-node-2;
+			
+			container-name: container-node-2;
+		}
 	}
 }
