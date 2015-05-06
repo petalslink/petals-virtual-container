@@ -1,0 +1,27 @@
+##########################################################################
+# Main file for the graph(s) definition(s) of a Petals Virtual Container
+#
+# A Petals Virtual container is composed of:
+#   - a distributed registry with at least 2 nodes running on their own
+#     dedicated VM
+#   - a distributed container with at least 2 nodes running on their own
+#     dedicated VM.       
+##########################################################################
+
+PetalsVirtualContainer {
+	installer: target;
+	children: PetalsContainer, PetalsRegistry;
+	exports: domain = pvc-demo-domain, subdomain = pvc-demo-subdomain;
+}
+
+PetalsRegistry {
+    installer: script;
+	exports: member-id = sample-member-0, ip, port = 7900, credentials-group = default-sample, credentials-password = s3cr3t;
+	imports: PetalsRegistry.* (optional);
+}
+
+PetalsContainer {
+    installer: script;
+	exports: container-name = sample-0, ip;
+	imports: PetalsVirtualContainer.domain, PetalsVirtualContainer.subdomain, PetalsContainer.* (optional), PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentials-group, PetalsRegistry.credentials-password;
+}

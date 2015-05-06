@@ -1,0 +1,40 @@
+########################
+# Component Instances
+########################
+
+instance of PetalsVirtualContainer {
+	name: pvc-demo;
+	
+	domain: pvc-demo-domain;
+	subdomain: pvc-demo-subdomain;
+	
+	##########################
+	# Registry part
+	##########################
+	instance of PetalsRegistry {
+		name: registry-node-1;
+		
+		member-id = registry-node-1;
+	}
+	
+	instance of PetalsRegistry {
+		name: registry-node-2;
+		
+		member-id = registry-node-2;
+	}
+	
+	##########################
+	# Container part
+	##########################
+	instance of PetalsContainer {
+		name: container-node-1;
+		
+		container-name = container-node-1;
+	}
+	
+	instance of PetalsContainer {
+		name: container-node-2;
+		
+		container-name = container-node-2;
+	}
+}
