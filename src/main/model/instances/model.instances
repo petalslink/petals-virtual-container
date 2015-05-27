@@ -2,11 +2,7 @@
 # Component Instances
 ########################
 
-instance of PetalsVirtualContainer {
-	name: pvc-demo;
-	
-	domain: pvc-demo-domain;
-	subdomain: pvc-demo-subdomain;
+
 	
 	##########################
 	# Registry part
@@ -53,4 +49,3 @@ instance of PetalsVirtualContainer {
 			container-name: container-node-2;
 		}
 	}
-}

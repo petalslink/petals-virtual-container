@@ -8,12 +8,6 @@
 #     dedicated VM.       
 ##########################################################################
 
-PetalsVirtualContainer {
-	installer: target;
-	children: PetalsContainer-VM, PetalsRegistry-VM;
-	exports: domain = pvc-demo-domain, subdomain = pvc-demo-subdomain;
-}
-
 PetalsRegistry-VM {
     installer: target;
 	children: PetalsRegistry;
@@ -33,5 +27,5 @@ PetalsContainer-VM {
 PetalsContainer {
     installer: script;
 	exports: container-name = sample-0, ip;
-	imports: PetalsVirtualContainer.domain, PetalsVirtualContainer.subdomain, PetalsContainer.* (optional), PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentials-group, PetalsRegistry.credentials-password;
+	imports: PetalsContainer.* (optional), PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentials-group, PetalsRegistry.credentials-password;
 }
