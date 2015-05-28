@@ -1,6 +1,21 @@
 #!/bin/sh
 
+#
+# Generate the basic configuration of the Petals Registry
+# ----------------
+# The basic configuration is a cluster composed of only member. Other members will be added dynamically through the script 'update.sh'
+# that will register other members to the current one
+#
+./generate-cluster-cfg.sh
+./generate-member-properties.sh
+./generate-logging-properties.sh
+
 sudo -u petals rm -f /var/log/petals-registry/petals-registry-overlay.log.0
+
+
+#
+# Start the registry node
+#
 sudo -u petals petals-registry -c file:///etc/petals-registry/member-available/${memberId}/member.properties &
 
 ret="1"

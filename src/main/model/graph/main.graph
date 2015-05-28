@@ -15,8 +15,18 @@ PetalsRegistry-VM {
 
 PetalsRegistry {
     installer: script;
-	exports: memberId = sample-member-0, ip, port = 7900, credentialsGroup = default-sample, credentialsPassword = s3cr3t;
+	exports: memberId = sample-member-0, ip, port = 7900, credentialsGroup = default-sample, credentialsPassword = s3cr3t, managementUrl = http://192.168.1.100:8080/mancenter;
+}
+
+# Note: To be able to add a new member to the cluster, the member must known at least one member of the cluster. That's why we introduce the master node that is the referent node.
+PetalsRegistryMaster {
+    extends: PetalsRegistry;
 	imports: PetalsRegistry.* (optional);
+}
+
+PetalsRegistrySlave {
+    extends: PetalsRegistry;
+	imports: PetalsRegistry.*;
 }
 
 PetalsContainer-VM {
