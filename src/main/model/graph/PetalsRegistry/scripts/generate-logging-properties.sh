@@ -39,11 +39,7 @@ cat > /etc/petals-registry/member-available/${memberId}/logging.properties << EO
 #############################################################################
 
 # Logging Handlers
-handlers = java.util.logging.ConsoleHandler, java.util.logging.FileHandler
-
-# Console Logging
-java.util.logging.ConsoleHandler.level = FINEST
-java.util.logging.ConsoleHandler.formatter = org.ow2.petals.log.formatter.LogDataFormatter
+handlers = java.util.logging.FileHandler
 
 # File logging
 java.util.logging.FileHandler.pattern = /var/log/petals-registry/petals-registry-overlay.log
