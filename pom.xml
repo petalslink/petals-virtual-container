@@ -46,8 +46,16 @@
 			<plugin>
 				<groupId>net.roboconf</groupId>
 				<artifactId>roboconf-maven-plugin</artifactId>
-				<version>0.2</version>
+				<version>0.3</version>
 				<extensions>true</extensions>
+				<configuration>
+					<renderers>
+						<renderer>html</renderer>
+					</renderers>
+					<locales>
+						<locale>fr_FR</locale>
+					</locales>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
