@@ -18,17 +18,28 @@
 #
 #############################################################################
 
+. ./functions.sh
+
 #
-# Undeploy the container :
-#   - the container must be detached from the PVC sub-domain:
-#       - we must restart it because the container is stopped (see Roboconf lifecycle),
-#       - next, detach it,
-#       - next, stop it.
-#   - uninstall Petals ESB runtime removing all configuration files
+# Start the container
+#-----------------------------
+# On the first start:
+#   - the container configuration is generated,
+#   - the container is started.
+# On next starts, the container is only started.
+#
+# To know if it is the first start, we check existence of the directory containing the container configuration files
 #
 
-start_container ${containerId} && \
-detach_container ${ip} && \
-stop_container ${containerId} && \
-dpkg -P petals-cli petals-esb petals-commons
-exit $?
+if [ ! -e /etc/petals-esb/container-available/${containerId} ]
+then
+   generate_topology ${domainName} ${subdomainName} ${containerId} ${ip} ${PetalsRegistry_0_ip} \
+                     ${PetalsRegistry_0_port} ${PetalsRegistry_0_credentialsGroup} ${PetalsRegistry_0_credentialsPassword} && \
+   generate_server_properties ${containerId} && \
+   generate_loggers_properties ${containerId} && \
+   start_container ${containerId}
+   exit $?
+else
+   start_container ${containerId}
+   exit $?
+fi 

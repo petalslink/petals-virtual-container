@@ -21,22 +21,22 @@
 # Registry part
 ##########################
 instance of PetalsRegistry-VM {
-	name: registry-vm-1;
+	name: registry-bootstrap-vm;
 
 	instance of PetalsRegistryMaster {
-		name: registry-node-1;
+		name: registry-bootstrap-node;
 
-		memberId: registry-node-1;
+		memberId: registry-bootstrap-node;
 	}
 }
 
 instance of PetalsRegistry-VM {
-	name: registry-vm-2;
+	name: registry-vm-1;
 
 	instance of PetalsRegistrySlave {
-		name: registry-node-2;
+		name: registry-node-1;
 
-		memberId: registry-node-2;
+		memberId: registry-node-1;
 	}
 }
 
@@ -44,21 +44,25 @@ instance of PetalsRegistry-VM {
 # Container part
 ##########################
 instance of PetalsContainer-VM {
+	name: container-bootstrap-vm;
+
+	instance of PetalsContainerBootstrap {
+		name: container-bootstrap-node;
+
+		# We duplicate export about containerId and ip waiting https://github.com/roboconf/roboconf-platform/issues/317
+		PetalsContainerBootstrap.containerId: container-bootstrap-node;
+		PetalsContainerTemplate.containerId: container-bootstrap-node;
+		domainName: roboconf-demo;
+		subdomainName: roboconf-demo-1;
+	}
+}
+
+instance of PetalsContainer-VM {
 	name: container-vm-1;
 
 	instance of PetalsContainer {
 		name: container-node-1;
 
-		containerName: container-node-1;
-	}
-}
-
-instance of PetalsContainer-VM {
-	name: container-vm-2;
-
-	instance of PetalsContainer {
-		name: container-node-2;
-
-		containerName: container-node-2;
+		containerId: container-node-1;
 	}
 }

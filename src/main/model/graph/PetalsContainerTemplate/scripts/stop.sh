@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -17,3 +17,12 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
+
+. ./functions.sh
+
+# TODO: When stopping the PetalsContainerBoostrap instance, all containers instances are stopped. So, the topology is cleaned in the registry.
+#       Restarting slave containers fails because slave containers are not known in the PVC topology.
+#       Here, we should detach containers and reset their configuration when PetalsContainerBoostrap is stopped. So, on startup all will be regenerated
+#       and slave containers re-attached. This can be done when https://github.com/roboconf/roboconf-platform/issues/320 will be fixed
+stop_container ${containerId}
+exit $?

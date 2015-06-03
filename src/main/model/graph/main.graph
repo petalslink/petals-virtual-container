@@ -36,6 +36,7 @@ PetalsRegistry {
 }
 
 # Note: To be able to add a new member to the cluster, the member must known at least one member of the cluster. That's why we introduce the master node that is the referent node.
+# TODO: Replace PetalsRegistryMaster and PetalsRegistrySlave by only one component when Roboconf will support it
 PetalsRegistryMaster {
     extends: PetalsRegistry;
 	imports: PetalsRegistry.* (optional);
@@ -48,11 +49,24 @@ PetalsRegistrySlave {
 
 PetalsContainer-VM {
     installer: target;
-	children: PetalsContainer;
+	children: PetalsContainerTemplate;
+}
+
+# Note: To be able to move a container into another sub-domain, we must known at least one container of the target sub-domain, the container "bootstrap"
+# TODO: Replace PetalsContainerBootstrap and PetalsContainer by only one component when Roboconf will support it
+PetalsContainerTemplate {
+    installer: script;
+	exports: containerId = sample-0, ip;
+	imports: PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentialsGroup, PetalsRegistry.credentialsPassword;
+}
+
+PetalsContainerBootstrap {
+    extends: PetalsContainerTemplate;
+    # We duplicate export about containerId and ip waiting https://github.com/roboconf/roboconf-platform/issues/317
+	exports: domainName = sample-domain, subdomainName = sample-subdomain, containerId = sample-0, ip;
 }
 
 PetalsContainer {
-    installer: script;
-	exports: containerName = sample-0, ip;
-	imports: PetalsContainer.* (optional), PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentialsGroup, PetalsRegistry.credentialsPassword;
+    extends: PetalsContainerTemplate;
+    imports: PetalsContainerBootstrap.*;
 }

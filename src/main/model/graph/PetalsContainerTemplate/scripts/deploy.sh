@@ -19,16 +19,10 @@
 #############################################################################
 
 #
-# Undeploy the container :
-#   - the container must be detached from the PVC sub-domain:
-#       - we must restart it because the container is stopped (see Roboconf lifecycle),
-#       - next, detach it,
-#       - next, stop it.
-#   - uninstall Petals ESB runtime removing all configuration files
+# Install runtime of Petals ESB
 #
 
-start_container ${containerId} && \
-detach_container ${ip} && \
-stop_container ${containerId} && \
-dpkg -P petals-cli petals-esb petals-commons
+PACKAGES_PATH=$(dirname "$0")/../packages
+
+dpkg -i ${PACKAGES_PATH}/*.deb
 exit $?

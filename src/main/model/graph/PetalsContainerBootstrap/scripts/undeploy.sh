@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -17,3 +17,6 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
+
+dpkg -P petals-esb petals-commons
+exit $?
