@@ -58,6 +58,7 @@ PetalsContainerTemplate {
     installer: script;
 	exports: containerId = sample-0, ip;
 	imports: PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentialsGroup, PetalsRegistry.credentialsPassword;
+	children: PetalsJBIComponent;
 }
 
 PetalsContainerBootstrap {
@@ -69,4 +70,21 @@ PetalsContainerBootstrap {
 PetalsContainer {
     extends: PetalsContainerTemplate;
     imports: PetalsContainerBootstrap.*;
+}
+
+PetalsJBIComponent {
+    installer: script;
+    # TODO: No default value should be set on 'componentId' because it has no sens
+    exports: componentId = my-component-id;
+    imports: PetalsContainerTemplate.*;
+}
+
+PetalsBC {
+    extends: PetalsJBIComponent;
+    exports: componentType = BC;
+}
+
+PetalsSE {
+    extends: PetalsJBIComponent;
+    exports: componentType = SE;
 }

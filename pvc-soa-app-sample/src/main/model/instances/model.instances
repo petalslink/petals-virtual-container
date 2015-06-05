@@ -1,0 +1,80 @@
+#
+# Copyright (c) 2015 Linagora
+#
+# This program/library is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 2.1 of the License, or (at your
+# option) any later version.
+#
+# This program/library is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+# for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program/library; If not, see <http://www.gnu.org/licenses/>
+# for the GNU Lesser General Public License version 2.1.
+#
+#############################################################################
+
+##########################
+# Registry part
+##########################
+instance of PetalsRegistry-VM {
+	name: registry-bootstrap-vm;
+
+	instance of PetalsRegistryMaster {
+		name: registry-bootstrap-node;
+
+		memberId: registry-bootstrap-node;
+	}
+}
+
+instance of PetalsRegistry-VM {
+	name: registry-vm-1;
+
+	instance of PetalsRegistrySlave {
+		name: registry-node-1;
+
+		memberId: registry-node-1;
+	}
+}
+
+##########################
+# Container part
+##########################
+instance of PetalsContainer-VM {
+	name: container-bootstrap-vm;
+
+	instance of PetalsContainerBootstrap {
+		name: container-bootstrap-node;
+
+		# We duplicate export about containerId and ip waiting https://github.com/roboconf/roboconf-platform/issues/317
+		PetalsContainerBootstrap.containerId: container-bootstrap-node;
+		PetalsContainerTemplate.containerId: container-bootstrap-node;
+		domainName: roboconf-demo;
+		subdomainName: roboconf-demo-1;
+		
+		instance of PetalsBCSoap {
+		    name: petals-bc-soap-1;
+		    
+		    componentId: petals-bc-soap;
+		}
+	}
+}
+
+instance of PetalsContainer-VM {
+	name: container-vm-1;
+
+	instance of PetalsContainer {
+		name: container-node-1;
+
+		containerId: container-node-1;
+		
+		instance of PetalsBCSoap {
+		    name: petals-bc-soap-2;
+		    
+		    componentId: petals-bc-soap;
+		}
+	}
+}

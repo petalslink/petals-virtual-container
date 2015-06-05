@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2015 Linagora
+
+ This program/library is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 2.1 of the License, or (at your
+ option) any later version.
+
+ This program/library is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program/library; If not, see <http://www.gnu.org/licenses/>
+ for the GNU Lesser General Public License version 2.1.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+   <prerequisites>
+      <maven>3.0.3</maven>
+   </prerequisites>
+
+   <groupId>org.ow2.petals.cloud</groupId>
+   <artifactId>petals-pvc</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+   <packaging>roboconf-app</packaging>
+
+   <name>Petals PVC</name>
+   <description>Petals Virtual Container</description>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <timestamp>${maven.build.timestamp}</timestamp>
+      <maven.build.timestamp.format>yyyy-MM-dd--HH-mm</maven.build.timestamp.format>
+      <petals-commons-deb.version>1.0-SNAPSHOT</petals-commons-deb.version>
+      <petals-esb-default-deb.version>5.0.0-1.0-SNAPSHOT</petals-esb-default-deb.version>
+      <petals-cli-distrib-deb.version>2.2.0-1.0-SNAPSHOT</petals-cli-distrib-deb.version>
+   </properties>
+
+   <build>
+      <finalName>${project.artifactId}--${project.version}--${timestamp}</finalName>
+      <plugins>
+         <plugin>
+            <groupId>net.roboconf</groupId>
+            <artifactId>roboconf-maven-plugin</artifactId>
+            <version>0.3</version>
+            <extensions>true</extensions>
+            <configuration>
+               <renderers>
+                  <renderer>html</renderer>
+               </renderers>
+               <locales>
+                  <locale>fr_FR</locale>
+               </locales>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.10</version>
+            <executions>
+               <execution>
+                  <id>copy-packages-for-PetalsContainerBootstrap</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-commons-deb</artifactId>
+                           <version>${petals-commons-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-commons.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-esb-default-deb</artifactId>
+                           <version>${petals-esb-default-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-esb-default.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <!-- Petals CLI is required on the container boostrap to deploy components and service assemblies -->
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-cli-distrib-deb</artifactId>
+                           <version>${petals-cli-distrib-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-cli.deb</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsContainerBootstrap/packages</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-packages-for-PetalsContainer</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-commons-deb</artifactId>
+                           <version>${petals-commons-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-commons.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-esb-default-deb</artifactId>
+                           <version>${petals-esb-default-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-esb-default.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <!-- Petals CLI is required on the container to attach it to the PVC topology and to deploy components and service assemblies -->
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-cli-distrib-deb</artifactId>
+                           <version>${petals-cli-distrib-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-cli.deb</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsContainer/packages</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+               <execution>
+                  <id>copy-scripts-for-PetalsContainerBootstrap</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${basedir}/target/roboconf-model/graph/PetalsContainerBootstrap</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/main/model/graph/PetalsContainerTemplate</directory>
+                           <filtering>false</filtering>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-scripts-for-PetalsContainer</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${basedir}/target/roboconf-model/graph/PetalsContainer</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/main/model/graph/PetalsContainerTemplate</directory>
+                           <filtering>false</filtering>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>

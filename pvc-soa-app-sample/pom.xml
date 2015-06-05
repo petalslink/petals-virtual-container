@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2015 Linagora
+
+ This program/library is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 2.1 of the License, or (at your
+ option) any later version.
+
+ This program/library is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program/library; If not, see <http://www.gnu.org/licenses/>
+ for the GNU Lesser General Public License version 2.1.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+   <prerequisites>
+      <maven>3.0.3</maven>
+   </prerequisites>
+
+   <groupId>org.ow2.petals.cloud</groupId>
+   <artifactId>pvc-soa-app-sample</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+   <packaging>roboconf-app</packaging>
+
+   <name>Sample SOA Application for Petals PVC</name>
+   <description>Smaple SOA Application for Petals PVC</description>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <timestamp>${maven.build.timestamp}</timestamp>
+      <maven.build.timestamp.format>yyyy-MM-dd--HH-mm</maven.build.timestamp.format>
+   </properties>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.ow2.petals.cloud</groupId>
+         <artifactId>petals-pvc</artifactId>
+         <version>1.0.0-SNAPSHOT</version>
+         <type>zip</type>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <finalName>${project.artifactId}--${project.version}--${timestamp}</finalName>
+      <plugins>
+         <plugin>
+            <groupId>net.roboconf</groupId>
+            <artifactId>roboconf-maven-plugin</artifactId>
+            <version>0.3</version>
+            <extensions>true</extensions>
+            <configuration>
+               <renderers>
+                  <renderer>html</renderer>
+               </renderers>
+               <locales>
+                  <locale>fr_FR</locale>
+               </locales>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.10</version>
+            <executions>
+               <execution>
+                  <id>copy-bc-soap-archive</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-bc-soap</artifactId>
+                           <version>4.4.0-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>petals-bc-soap.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsBCSoap/packages</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.7</version>
+            <executions>
+               <execution>
+                  <id>copy-scripts-for-PetalsBCSoap</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsBCSoap/scripts">
+                           <patternset>
+                              <include name="graph/PetalsJBIComponent/scripts/*" />
+                           </patternset>
+                           <cutdirsmapper dirs="3"/>
+                        </unzip>
+                     </tasks>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>
