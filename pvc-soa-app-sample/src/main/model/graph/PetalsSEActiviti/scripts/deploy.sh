@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -16,11 +17,17 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-target.id = docker
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = http://localhost:4243
-docker.image = roboconf-petals-esb
-docker.agent.package = http://repo1.maven.org/maven2/net/roboconf/roboconf-karaf-dist-agent/0.3/roboconf-karaf-dist-agent-0.3.tar.gz
-docker.agent.jre-packages = openjdk-7-jdk curl base-files wget
+env
+
+petals-cli - << EOF
+connect -h localhost -n 7700 -u petals -p petals
+deploy -u file://${ROBOCONF_FILES_DIR}/petals-se-activiti.zip -D jdbcUrl=jdbc:postgresql://${ActivitiPgSQLDatabase_0_ip}:5432/${ActivitiPgSQLDatabase_0_databaseName},jdbcDriver=org.postgresql.Driver,jdbcUsername=${ActivitiPgSQLDatabase_0_databaseUser},jdbcPassword=${ActivitiPgSQLDatabase_0_databasePwd}
+stop-artifact -a ${componentId} -t ${componentType}
+EOF
+if [ $? -eq 0 ]
+then
+   return 0
+else
+   return 1
+fi

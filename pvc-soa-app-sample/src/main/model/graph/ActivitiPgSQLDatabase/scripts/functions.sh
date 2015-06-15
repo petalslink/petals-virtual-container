@@ -109,11 +109,10 @@ stop_container()
 # Attaches a container to the PVC sub-domain:
 #
 # Usage:
-#   attach_container <containerIp> <jmxPort> <pvcSubdomain> <targetContainerName> <targetContainerHost>
+#   attach_container <containerIp> <pvcSubdomain> <targetContainerName> <targetContainerHost>
 #
 # where:
 #   <contrainerIp> is the host-name or IP address of the container to attach to the PVC sub-domain,
-#   <jmxPort> is the JMX port of the container to attach,
 #   <pvcSubdomain> is the sub-domain name of the PVC to join,
 #   <targetContainerName> is the identifier of a container already attached to the PVC sub-domain,
 #   <targetContainerHost> is the host-name of a container (the same used for <targetContainerName>) already attached to the PVC sub-domain.
@@ -128,11 +127,10 @@ stop_container()
 attach_container()
 {
    CONTAINER_IP=$1
-   JMX_PORT=$2
-   PVC_SUBDOMAIN=$3
-   TARGET_CONTAINER_NAME=$4
-   TARGET_CONTAINER_HOST=$5
-   petals-cli -h ${CONTAINER_IP} -n ${JMX_PORT} -u petals -p petals -c -- move-container --target-subdomain ${PVC_SUBDOMAIN} \
+   PVC_SUBDOMAIN=$2
+   TARGET_CONTAINER_NAME=$3
+   TARGET_CONTAINER_HOST=$4
+   petals-cli -h ${CONTAINER_IP} -n 7700 -u petals -p petals -c -- move-container --target-subdomain ${PVC_SUBDOMAIN} \
        --target-name ${TARGET_CONTAINER_NAME} --target-host ${TARGET_CONTAINER_HOST} --target-port 7700 --target-user petals \
        --target-pwd petals --target-pass-phrase petals -y
    if [ $? -eq 0 ]
@@ -150,8 +148,7 @@ attach_container()
 #   detach_container <containerIp>
 #
 # where:
-#   <contrainerIp> is the host-name or IP address of the container to detach from the PVC sub-domain,
-#   <jmxPort> is the JMX port of the container to attach.
+#   <contrainerIp> is the host-name or IP address of the container to detach from the PVC sub-domain.
 #
 # Returns:
 #   0: The container is successfully detached,
@@ -163,8 +160,7 @@ attach_container()
 detach_container()
 {
    CONTAINER_IP=$1
-   JMX_PORT=$2
-   petals-cli -h ${CONTAINER_IP} -n ${JMX_PORT} -u petals -p petals -c -- move-container -y
+   petals-cli -h ${CONTAINER_IP} -n 7700 -u petals -p petals -c -- move-container -y
    if [ $? -eq 0 ]
    then
       return 0
@@ -177,7 +173,7 @@ detach_container()
 # Generates the topology configuration
 #
 # Usage:
-#   generate-topology <domainName> <subdomainName> <containerId> <containerIp> <registryHostIp> <registryHostPort> <registryCredentialsGroup> <registryCredentialsPwd> <jmxPort>
+#   generate-topology <domainName> <subdomainName> <containerId> <containerIp> <registryHostIp> <registryHostPort> <registryCredentialsGroup> <registryCredentialsPwd>
 #
 # where:
 #   <domainName> is the domain name in which the container will run,
@@ -187,8 +183,7 @@ detach_container()
 #   <registryHostIp> is the host-name of a registry member that must be used by the container,
 #   <registryHostPort> is the listening port of the registry member that must be used by the container,
 #   <registryCredentialsGroup> is the group part of the credentials of the registry to use,
-#   <registryCredentialsPwd> is the password part of the credentials of the registry to use,
-#   <jmxPort> is the port listening JMX requests.
+#   <registryCredentialsPwd> is the password part of the credentials of the registry to use.
 #
 # Returns:
 #   0: The topology generation is successfully attached,
@@ -207,7 +202,6 @@ generate_topology()
    REGISTRY_HOST_PORT=$6
    REGISTRY_CREDENTIALS_GROUP=$7
    REGISTRY_CREDENTIALS_PWD=$8
-   JMX_PORT=$9
    
    
    mkdir -p /etc/petals-esb/container-available/${CONTAINER_ID}
@@ -248,7 +242,7 @@ generate_topology()
 				<tns:user>petals</tns:user>
 				<tns:password>petals</tns:password>
 				<tns:jmx-service>
-					<tns:rmi-port>${JMX_PORT}</tns:rmi-port>
+					<tns:rmi-port>7700</tns:rmi-port>
 				</tns:jmx-service>
 				<tns:transport-service>
 					<tns:tcp-port>7800</tns:tcp-port>

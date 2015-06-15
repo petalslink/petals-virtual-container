@@ -28,7 +28,7 @@
 #
 
 start_container ${containerId} && \
-detach_container ${ip} && \
+detach_container ${ip} ${jmxPort} && \
 stop_container ${containerId} && \
 dpkg -P petals-cli petals-esb petals-commons
 exit $?

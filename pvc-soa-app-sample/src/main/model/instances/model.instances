@@ -18,6 +18,26 @@
 #############################################################################
 
 ##########################
+# Other resources
+##########################
+instance of PostgreSQL-VM {
+	name: postgresql-vm;
+	
+	instance of PostgreSQLServer {
+		name: postgresql-server;
+
+		instance of ActivitiPgSQLDatabase {
+			name: activiti-database;
+	
+			databaseName: activiti;
+			# The database user name must be defined in lower case and '-' is forbidden
+			databaseUser: petalsseactiviti;
+			databasePwd: PetalsSeActiviti;
+		}
+	}
+}
+
+##########################
 # Registry part
 ##########################
 instance of PetalsRegistry-VM {
@@ -59,6 +79,32 @@ instance of PetalsContainer-VM {
 		    name: petals-bc-soap-1;
 		    
 		    componentId: petals-bc-soap;
+		}
+		
+		instance of PetalsSLPostgreSQL {
+		    name: petals-sl-postgresql;
+		    
+		    componentId: petals-sl-postgresql-9.4-1201-jdbc4;
+		}
+		
+		# As SL are not supported by Roboconf because:
+	    #   - a SL export no configuration parameter
+	    #   - Roboconf is not able to manage local dependency
+	    # we work with only one instance of Petals SE Activiti over all Petals containers
+	    instance of PetalsSEActiviti {
+		    name: petals-se-activiti-1;
+		    
+		    componentId: petals-se-activiti;
+		}
+		
+		# Depedency between SE Activiti and its SA is not supported by Roboconf:
+	    #   - SE Activiti exports no configuration parameter,
+	    #   - Roboconf is not able to manage local dependency
+	    # we work with only one instance of Petals SE Activiti over all Petals containers
+	    instance of PetalsSAVacation {
+		    name: petals-sa-vacation-1;
+		    
+		    componentId: sa-vacation-sample;
 		}
 	}
 }

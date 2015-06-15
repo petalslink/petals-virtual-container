@@ -34,7 +34,8 @@
 if [ ! -e /etc/petals-esb/container-available/${containerId} ]
 then
    generate_topology ${domainName} ${subdomainName} ${containerId} ${ip} ${PetalsRegistry_0_ip} \
-                     ${PetalsRegistry_0_port} ${PetalsRegistry_0_credentialsGroup} ${PetalsRegistry_0_credentialsPassword} && \
+                     ${PetalsRegistry_0_port} ${PetalsRegistry_0_credentialsGroup} ${PetalsRegistry_0_credentialsPassword} \
+                     ${jmxPort} && \
    generate_server_properties ${containerId} && \
    generate_loggers_properties ${containerId} && \
    start_container ${containerId}

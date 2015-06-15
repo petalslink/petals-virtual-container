@@ -36,6 +36,7 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <timestamp>${maven.build.timestamp}</timestamp>
       <maven.build.timestamp.format>yyyy-MM-dd--HH-mm</maven.build.timestamp.format>
+      <activiti-engine.version>5.18.0-PETALS-0</activiti-engine.version>
    </properties>
 
    <dependencies>
@@ -65,10 +66,57 @@
             </configuration>
          </plugin>
          <plugin>
+            <groupId>org.ow2.petals</groupId>
+            <artifactId>maven-petals-plugin</artifactId>
+            <version>2.4.0-SNAPSHOT</version>
+            <extensions>true</extensions>
+            <executions>
+               <execution>
+                  <id>copy-se-activiti-archive</id>
+                  <phase>compile</phase>
+                  <goals>
+                     <goal>jbi-configure</goal>
+                  </goals>
+                  <configuration>
+                     <jbiSharedLibrariesMappingFileURL>file:${basedir}/src/main/resources/sharedlibraries.properties</jbiSharedLibrariesMappingFileURL>
+                     <groupId>org.ow2.petals</groupId>
+                     <artifactId>petals-se-activiti</artifactId>
+                     <version>1.1.0-SNAPSHOT</version>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSEActiviti/files</outputDirectory>
+                     <targetName>petals-se-activiti</targetName>
+                  </configuration>
+               </execution>
+            </executions>
+            <configuration>
+               <verbose>true</verbose>
+            </configuration>
+         </plugin>
+         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
             <version>2.10</version>
             <executions>
+               <execution>
+                  <id>copy-sl-postgresql-archive</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-sl-postgresql-9.4-1201-jdbc4</artifactId>
+                           <version>1.1-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>petals-sl-postgresql.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSLPostgreSQL/files</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
                <execution>
                   <id>copy-bc-soap-archive</id>
                   <phase>prepare-package</phase>
@@ -85,7 +133,54 @@
                            <destFileName>petals-bc-soap.zip</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsBCSoap/packages</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsBCSoap/files</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-sa-activiti-sample-archive</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals.samples</groupId>
+                           <artifactId>sa-vacation-sample</artifactId>
+                           <version>5.0.0-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>sa-vacation-sample.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSAVacation/files</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>unpack-activiti-database-scripts</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>unpack</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals.activiti</groupId>
+                           <artifactId>activiti-engine</artifactId>
+                           <version>${activiti-engine.version}</version>
+                           <type>jar</type>
+                        </artifactItem>
+                     </artifactItems>
+                     <includes>
+                        org/activiti/db/create/activiti.postgres.create.engine.sql, 
+                        org/activiti/db/create/activiti.postgres.create.history.sql,
+                        org/activiti/db/create/activiti.postgres.drop.engine.sql, 
+                        org/activiti/db/create/activiti.postgres.drop.history.sql
+                     </includes>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/ActivitiPgSQLDatabase/files</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
@@ -97,6 +192,7 @@
             <version>1.7</version>
             <executions>
                <execution>
+                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
                   <id>copy-scripts-for-PetalsBCSoap</id>
                   <phase>prepare-package</phase>
                   <goals>
@@ -105,6 +201,60 @@
                   <configuration>
                      <tasks>
                         <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsBCSoap/scripts">
+                           <patternset>
+                              <include name="graph/PetalsJBIComponent/scripts/*" />
+                           </patternset>
+                           <cutdirsmapper dirs="3"/>
+                        </unzip>
+                     </tasks>
+                  </configuration>
+               </execution>
+               <execution>
+                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
+                  <id>copy-scripts-for-PetalsSLPostgreSQL</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSLPostgreSQL/scripts">
+                           <patternset>
+                              <include name="graph/PetalsJBIComponent/scripts/*" />
+                           </patternset>
+                           <cutdirsmapper dirs="3"/>
+                        </unzip>
+                     </tasks>
+                  </configuration>
+               </execution>
+               <execution>
+                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
+                  <id>copy-scripts-for-PetalsSEActiviti</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSEActiviti/scripts">
+                           <patternset>
+                              <include name="graph/PetalsJBIComponent/scripts/*" />
+                           </patternset>
+                           <cutdirsmapper dirs="3"/>
+                        </unzip>
+                     </tasks>
+                  </configuration>
+               </execution>
+               <execution>
+                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
+                  <id>copy-scripts-for-PetalsSAVacation</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSAVacation/scripts">
                            <patternset>
                               <include name="graph/PetalsJBIComponent/scripts/*" />
                            </patternset>

@@ -18,10 +18,13 @@
 #
 #############################################################################
 
-ARCHIVE_PATH=$(dirname "$0")/../packages
+env
 
-petals-cli -h localhost -n 7700 -u petals -p petals -c -- deploy -s -u file://${ARCHIVE_PATH}/petals-bc-soap.zip \
-           -D httpPort=${httpPort}
+petals-cli - << EOF
+connect -h localhost -n 7700 -u petals -p petals
+deploy -u file://${ROBOCONF_FILES_DIR}/petals-bc-soap.zip -D httpPort=${httpPort}
+stop-artifact -a ${componentId} -t ${componentType}
+EOF
 if [ $? -eq 0 ]
 then
    return 0

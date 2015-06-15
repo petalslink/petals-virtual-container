@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -16,11 +17,8 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-target.id = docker
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = http://localhost:4243
-docker.image = roboconf-petals-esb
-docker.agent.package = http://repo1.maven.org/maven2/net/roboconf/roboconf-karaf-dist-agent/0.3/roboconf-karaf-dist-agent-0.3.tar.gz
-docker.agent.jre-packages = openjdk-7-jdk curl base-files wget
+#
+# Nothing to do, we have used the default configuration
+#
+
