@@ -16,14 +16,37 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-target.id = docker
+# Main file for the graph(s) definition(s) of a Petals Virtual Container
+#
+# A Petals Virtual container is composed of:
+#   - a distributed registry with at least 2 nodes running on their own
+#     dedicated VM
+#   - a distributed container with at least 2 nodes running on their own
+#     dedicated VM.       
+#############################################################################
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = http://localhost:4243
-docker.image = roboconf-petals-registry
-docker.base.image = ubuntu:15.04
-docker.agent.package = ${roboconf-agent.url}
+Tomcat8_VM {
+	installer: target;
+	children: Tomcat8;
+}
 
-# We install Java 7, utility tools not provided with ubuntu:15.04 and packages required by the Petals registry
-docker.agent.jre-packages = openjdk-7-jre-headless vim net-tools curl base-files wget
+Tomcat8 {
+	installer: script;
+	exports: ip, port = 8080;
+	children: samples_Activiti_SOAP_services;
+}
+
+samples_Activiti_SOAP_services {
+	installer: script;
+}
+
+HAProxy_VM {
+	installer: target;
+	children: HAProxy;
+}
+
+HAProxy {
+	installer: script;
+	imports: Tomcat8.port (optional), Tomcat8.ip (optional);
+	exports: ip, httpPort = 80, statsPort = 8080;
+}

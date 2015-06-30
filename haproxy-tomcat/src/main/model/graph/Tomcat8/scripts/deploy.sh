@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -16,14 +17,20 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-target.id = docker
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = http://localhost:4243
-docker.image = roboconf-petals-registry
-docker.base.image = ubuntu:15.04
-docker.agent.package = ${roboconf-agent.url}
-
-# We install Java 7, utility tools not provided with ubuntu:15.04 and packages required by the Petals registry
-docker.agent.jre-packages = openjdk-7-jre-headless vim net-tools curl base-files wget
+cat > /etc/tomcat8/tomcat-users.xml << EOF
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+              version="1.0">
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <role rolename="manager-status"/>
+  <role rolename="admin-gui"/>
+  <role rolename="admin-script"/>
+  <user username="tomcat" password="tomcat" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
+</tomcat-users>
+EOF
+exit $?

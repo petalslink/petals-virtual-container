@@ -16,14 +16,41 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-target.id = docker
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = http://localhost:4243
-docker.image = roboconf-petals-registry
-docker.base.image = ubuntu:15.04
-docker.agent.package = ${roboconf-agent.url}
+# A VM with HAProxy_VM load balancer
+instance of HAProxy_VM {
+	name: HAProxy VM;
+	
+	instance of HAProxy {
+		name: Haproxy;
+		
+		httpPort: 80;
+		statsPort: 8080;
+	}
+}
 
-# We install Java 7, utility tools not provided with ubuntu:15.04 and packages required by the Petals registry
-docker.agent.jre-packages = openjdk-7-jre-headless vim net-tools curl base-files wget
+# A VM with Tomcat
+instance of Tomcat8_VM {
+	name: Tomcat VM1;
+	
+	instance of Tomcat8 {
+		name: Tomcat1;
+		
+		instance of samples_Activiti_SOAP_services {
+			name: samplesActivitiSOAPservices1;
+		}
+	}
+}
+
+# Another VM with Tomcat
+instance of Tomcat8_VM {
+	name: Tomcat VM2;
+	
+	instance of Tomcat8 {
+		name: Tomcat2;
+		
+		instance of samples_Activiti_SOAP_services {
+			name: samplesActivitiSOAPservices2;
+		}
+	}
+}

@@ -26,7 +26,7 @@ instance of PetalsRegistry-VM {
 	instance of PetalsRegistryMaster {
 		name: registry-bootstrap-node;
 
-		memberId: registry-bootstrap-node;
+		PetalsRegistry.memberId: registry-bootstrap-node;
 	}
 }
 
@@ -36,7 +36,7 @@ instance of PetalsRegistry-VM {
 	instance of PetalsRegistrySlave {
 		name: registry-node-1;
 
-		memberId: registry-node-1;
+		PetalsRegistry.memberId: registry-node-1;
 	}
 }
 
@@ -49,9 +49,7 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainerBootstrap {
 		name: container-bootstrap-node;
 
-		# We duplicate export about containerId and ip waiting https://github.com/roboconf/roboconf-platform/issues/317
 		PetalsContainerBootstrap.containerId: container-bootstrap-node;
-		PetalsContainerTemplate.containerId: container-bootstrap-node;
 		domainName: roboconf-demo;
 		subdomainName: roboconf-demo-1;
 	}
@@ -63,6 +61,6 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainer {
 		name: container-node-1;
 
-		containerId: container-node-1;
+		PetalsContainerTemplate.containerId: container-node-1;
 	}
 }

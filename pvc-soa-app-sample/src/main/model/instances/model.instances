@@ -46,7 +46,7 @@ instance of PetalsRegistry-VM {
 	instance of PetalsRegistryMaster {
 		name: registry-bootstrap-node;
 
-		memberId: registry-bootstrap-node;
+		PetalsRegistry.memberId: registry-bootstrap-node;
 	}
 }
 
@@ -56,7 +56,7 @@ instance of PetalsRegistry-VM {
 	instance of PetalsRegistrySlave {
 		name: registry-node-1;
 
-		memberId: registry-node-1;
+		PetalsRegistry.memberId: registry-node-1;
 	}
 }
 
@@ -69,22 +69,20 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainerBootstrap {
 		name: container-bootstrap-node;
 
-		# We duplicate export about containerId and ip waiting https://github.com/roboconf/roboconf-platform/issues/317
 		PetalsContainerBootstrap.containerId: container-bootstrap-node;
-		PetalsContainerTemplate.containerId: container-bootstrap-node;
 		domainName: roboconf-demo;
 		subdomainName: roboconf-demo-1;
 		
 		instance of PetalsBCSoap {
 		    name: petals-bc-soap-1;
 		    
-		    componentId: petals-bc-soap;
+		    PetalsJBIComponent.componentId: petals-bc-soap;
 		}
 		
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql;
 		    
-		    componentId: petals-sl-postgresql-9.4-1201-jdbc4;
+		    PetalsJBIComponent.componentId: petals-sl-postgresql-9.4-1201-jdbc4;
 		}
 		
 		# As SL are not supported by Roboconf because:
@@ -94,7 +92,7 @@ instance of PetalsContainer-VM {
 	    instance of PetalsSEActiviti {
 		    name: petals-se-activiti-1;
 		    
-		    componentId: petals-se-activiti;
+		    PetalsJBIComponent.componentId: petals-se-activiti;
 		}
 		
 		# Depedency between SE Activiti and its SA is not supported by Roboconf:
@@ -104,7 +102,7 @@ instance of PetalsContainer-VM {
 	    instance of PetalsSAVacation {
 		    name: petals-sa-vacation-1;
 		    
-		    componentId: sa-vacation-sample;
+		    PetalsJBIComponent.componentId: sa-vacation-sample;
 		}
 	}
 }
@@ -115,12 +113,12 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainer {
 		name: container-node-1;
 
-		containerId: container-node-1;
+		PetalsContainerTemplate.containerId: container-node-1;
 		
 		instance of PetalsBCSoap {
 		    name: petals-bc-soap-2;
 		    
-		    componentId: petals-bc-soap;
+		    PetalsJBIComponent.componentId: petals-bc-soap;
 		}
 	}
 }

@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -16,14 +17,6 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-target.id = docker
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = http://localhost:4243
-docker.image = roboconf-petals-registry
-docker.base.image = ubuntu:15.04
-docker.agent.package = ${roboconf-agent.url}
-
-# We install Java 7, utility tools not provided with ubuntu:15.04 and packages required by the Petals registry
-docker.agent.jre-packages = openjdk-7-jre-headless vim net-tools curl base-files wget
+service haproxy start
+exit $?
