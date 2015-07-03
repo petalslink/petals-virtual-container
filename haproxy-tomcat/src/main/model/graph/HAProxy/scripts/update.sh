@@ -22,10 +22,10 @@
 
 env
 
-#iptables -I INPUT -p tcp --dport ${httpPort} --syn -j DROP && \ 
-#sleep 1 && \
+iptables -I INPUT -p tcp --dport ${httpPort} --syn -j DROP && \ 
+sleep 1 && \
 generate_configuration ${httpPort} ${statsPort} && \
-service haproxy reload 
-#iptables -D INPUT -p tcp --dport ${httpPort} --syn -j DROP
+service haproxy reload && \ 
+iptables -D INPUT -p tcp --dport ${httpPort} --syn -j DROP
 
 exit $?
