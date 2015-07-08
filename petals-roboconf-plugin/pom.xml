@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2015 Linagora
+ 
+ This program/library is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, either version 2.1 of the License, or (at your
+ option) any later version.
+ 
+ This program/library is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program/library; If not, see <http://www.gnu.org/licenses />
+ for the GNU Lesser General Public License version 2.1. 
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>org.ow2.petals</groupId>
+      <artifactId>petals-root-parent</artifactId>
+      <relativePath />
+      <version>20.2.3-SNAPSHOT</version>
+   </parent>
+
+   <groupId>org.ow2.petals</groupId>
+   <artifactId>petals-roboconf-plugin</artifactId>
+   <packaging>bundle</packaging>
+   <version>1.0.0-SNAPSHOT</version>
+   <name>Petals plug-in for Roboconf</name>
+   <description>Petals plug-in for Roboconf providing service assembly generation to deploy service units defined as children of JBI components</description>
+
+   <properties>
+      <roboconf.version>0.4</roboconf.version>
+   </properties>
+
+   <dependencies>
+      <dependency>
+         <groupId>commons-io</groupId>
+         <artifactId>commons-io</artifactId>
+      </dependency>
+      <!-- Roboconf dependencies -->
+      <dependency>
+         <groupId>net.roboconf</groupId>
+         <artifactId>roboconf-core</artifactId>
+         <version>${roboconf.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>net.roboconf</groupId>
+         <artifactId>roboconf-plugin-api</artifactId>
+         <version>${roboconf.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      
+      <!-- Petals dependencies -->
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-jbi-descriptor</artifactId>
+         <version>2.3.2-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-admin-api</artifactId>
+         <version>1.4.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-admin-jmx</artifactId>
+         <version>1.4.0-SNAPSHOT</version>
+         <scope>runtime</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <version>2.4.0</version>
+            <extensions>true</extensions>
+            <configuration>
+               <instructions>
+                  <Import-Package>net.roboconf.*;version="${roboconf.version}"</Import-Package>
+                  <Embed-Dependency>*;scope=compile|runtime;inline=true;groupId=!net.roboconf</Embed-Dependency>
+                  <Embed-Transitive>true</Embed-Transitive>
+               </instructions>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-ipojo-plugin</artifactId>
+            <version>1.12.0</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>ipojo-bundle</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <metadata><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+                  <ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+                         xmlns="org.apache.felix.ipojo">
+                  
+                      <component classname="org.ow2.petals.roboconf.PluginPetals" name="roboconf-plugin-petals">
+                          <provides />
+                      </component>
+                  
+                      <instance component="roboconf-plugin-petals" name="Roboconf Plugin - Petals" />
+                  </ipojo>]]>
+               </metadata>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>analyze</id>
+                  <configuration>
+                     <usedDependencies>
+                        <!-- This one is needed for runtime -->
+                        <usedDependency>org.ow2.petals:petals-admin-jmx</usedDependency>
+                     </usedDependencies>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+
+   <scm>
+      <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
+      <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
+   </scm>
+</project>
