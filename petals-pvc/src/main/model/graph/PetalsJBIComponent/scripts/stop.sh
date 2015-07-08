@@ -18,10 +18,16 @@
 #
 #############################################################################
 
-petals-cli -h localhost -n 7700 -u petals -p petals -c -- stop-artifact -a ${componentId} -t ${componentType}
-if [ $? -eq 0 ]
+if [ "${componentType}" != "SL" ]
 then
-   return 0
+   # A shared library can not be stopped, because it can not be started !!
+   petals-cli -h localhost -n 7700 -u petals -p petals -c -- stop-artifact -a ${componentId} -t ${componentType}
+   if [ $? -eq 0 ]
+   then
+      return 0
+   else
+      return 1
+   fi
 else
-   return 1
+   return 0
 fi
