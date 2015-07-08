@@ -95,7 +95,7 @@ instance of PetalsContainer-VM {
 		    PetalsJBIComponent.componentId: petals-se-activiti;
 		}
 		
-		# Depedency between SE Activiti and its SA is not supported by Roboconf:
+		# Dependency between SE Activiti and its SA is not supported by Roboconf:
 	    #   - SE Activiti exports no configuration parameter,
 	    #   - Roboconf is not able to manage local dependency
 	    # we work with only one instance of Petals SE Activiti over all Petals containers
