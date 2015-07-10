@@ -37,13 +37,12 @@
       <timestamp>${maven.build.timestamp}</timestamp>
       <maven.build.timestamp.format>yyyy-MM-dd--HH-mm</maven.build.timestamp.format>
       
-      <roboconf.version>0.4-SNAPSHOT</roboconf.version>
+      <roboconf.version>0.5-SNAPSHOT</roboconf.version>
       
       <!-- Use the right definition for 'roboconf-agent.url' according to the version: snasphot or release -->
       <roboconf-agent.url><![CDATA[https://oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots&g=net.roboconf&a=roboconf-karaf-dist-agent&v=${roboconf.version}&p=zip]]></roboconf-agent.url>
-      <!-- roboconf-agent.url>https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&amp;g=net.roboconf&amp;a=roboconf-karaf-dist-agent&amp;v=${roboconf.version}&amp;p=zip</roboconf-agent.url -->
-      <!-- roboconf-agent.url>https://oss.sonatype.org/content/repositories/snapshots/net/roboconf/roboconf-karaf-dist-agent/${roboconf.version}/roboconf-karaf-dist-agent-0.4-20150624.172802-8.tar.gz</roboconf-agent.url-->
-   
+      <!-- roboconf-agent.url><![CDATA[https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=net.roboconf&a=roboconf-karaf-dist-agent&v=${roboconf.version}&p=zip]]></roboconf-agent.url-->
+  
    </properties>
 
    <build>
