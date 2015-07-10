@@ -18,5 +18,7 @@
 #
 #############################################################################
 
-dpkg -P petals-esb petals-commons
+
+rm -rf /etc/petals-esb/container-available/${containerId} && \
+dpkg -P petals-cli petals-esb petals-commons
 exit $?

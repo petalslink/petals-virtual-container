@@ -24,11 +24,13 @@
 #       - we must restart it because the container is stopped (see Roboconf lifecycle),
 #       - next, detach it,
 #       - next, stop it.
+#   - remove configuration files
 #   - uninstall Petals ESB runtime removing all configuration files
 #
 
 start_container ${containerId} && \
 detach_container ${ip} ${jmxPort} && \
 stop_container ${containerId} && \
+rm -rf /etc/petals-esb/container-available/${containerId} && \
 dpkg -P petals-cli petals-esb petals-commons
 exit $?
