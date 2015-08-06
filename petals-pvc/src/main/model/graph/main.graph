@@ -56,7 +56,7 @@ PetalsContainer-VM {
 # TODO: Replace PetalsContainerBootstrap and PetalsContainer by only one component when Roboconf will support it
 PetalsContainerTemplate {
     installer: script;
-	exports: containerId = sample-0, ip, jmxPort = 7700;
+	exports: containerId = sample-0, ip, jmxPort = 7700, jmxUser = petals, jmxPassword = petals;
 	imports: PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentialsGroup, PetalsRegistry.credentialsPassword;
 	children: PetalsJBIComponent;
 }
@@ -77,17 +77,19 @@ PetalsJBIComponent {
     # TODO: No default value should be set on 'componentId' because it has no sens
     exports: componentId = my-component-id;
     # TODO: Waiting https://github.com/roboconf/roboconf-platform/issues/184, we are not able to get value of JMX attributes of the container
-    #       where the JBI component is runnning, so we use default values. When fixed, we can use env var in scripts to access these values.
+    #       where the JBI component is running, so we use default values. When fixed, we can use env var in scripts to access these values.
 }
 
 PetalsBC {
     extends: PetalsJBIComponent;
     exports: componentType = BC;
+    children: PetalsSU;
 }
 
 PetalsSE {
     extends: PetalsJBIComponent;
     exports: componentType = SE;
+    children: PetalsSU;
 }
 
 PetalsSL {
@@ -95,7 +97,6 @@ PetalsSL {
     exports: componentType = SL;
 }
 
-PetalsSA {
-    extends: PetalsJBIComponent;
-    exports: componentType = SA;
+PetalsSU {
+    installer: petals-su-installer;
 }

@@ -123,7 +123,7 @@
                   </configuration>
                </execution>
                <execution>
-                  <id>copy-sa-activiti-sample-archive</id>
+                  <id>copy-su-SOAP-vacationService-consume</id>
                   <phase>prepare-package</phase>
                   <goals>
                      <goal>copy</goal>
@@ -132,13 +132,97 @@
                      <artifactItems>
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
-                           <artifactId>sa-vacation-sample</artifactId>
+                           <artifactId>su-SOAP-vacationService-consume</artifactId>
                            <version>5.0.0-SNAPSHOT</version>
                            <type>zip</type>
-                           <destFileName>sa-vacation-sample.zip</destFileName>
+                           <destFileName>su-SOAP-vacationService-consume.zip</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSAVacation/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-SOAP-VacationServiceConsumer</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-su-SOAP-notifyVacationService-provide</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals.samples</groupId>
+                           <artifactId>su-SOAP-notifyVacationService-provide</artifactId>
+                           <version>5.0.0-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>su-SOAP-notifyVacationService-provide.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-SOAP-NotificationServiceProvider</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-su-SOAP-archiveService-provide</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals.samples</groupId>
+                           <artifactId>su-SOAP-archiveService-provide</artifactId>
+                           <version>5.0.0-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>su-SOAP-archiveService-provide.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-SOAP-ArchivingServiceProvider</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-su-SOAP-activitiIntegrationService-consume</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals.samples</groupId>
+                           <artifactId>su-SOAP-activitiIntegrationService-consume</artifactId>
+                           <version>5.0.0-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>su-SOAP-activitiIntegrationService-consume.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-SOAP-ActivitiIntegrationConsumer</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-su-activiti-vacationService-provide</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals.samples</groupId>
+                           <artifactId>su-activiti-vacationService-provide</artifactId>
+                           <version>5.0.0-SNAPSHOT</version>
+                           <type>zip</type>
+                           <destFileName>su-activiti-vacationService-provide.zip</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-Activiti-VacationRequest</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>

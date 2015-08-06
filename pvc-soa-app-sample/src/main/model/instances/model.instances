@@ -77,6 +77,22 @@ instance of PetalsContainer-VM {
 		    name: petals-bc-soap-1;
 		    
 		    PetalsJBIComponent.componentId: petals-bc-soap;
+		
+			instance of SU-SOAP-VacationServiceConsumer {
+			    name: su-SOAP-vacationService-consume;
+			}
+		
+			instance of SU-SOAP-NotificationServiceProvider {
+			    name: su-SOAP-notifyVacationService-provide;
+			}
+		
+			instance of SU-SOAP-ArchivingServiceProvider {
+			    name: su-SOAP-archiveService-provide;
+			}
+		
+			instance of SU-SOAP-ActivitiIntegrationConsumer {
+			    name: su-SOAP-activitiIntegrationService-consume;
+			}
 		}
 		
 		instance of PetalsSLPostgreSQL {
@@ -93,16 +109,10 @@ instance of PetalsContainer-VM {
 		    name: petals-se-activiti-1;
 		    
 		    PetalsJBIComponent.componentId: petals-se-activiti;
-		}
 		
-		# Dependency between SE Activiti and its SA is not supported by Roboconf:
-	    #   - SE Activiti exports no configuration parameter,
-	    #   - Roboconf is not able to manage local dependency
-	    # we work with only one instance of Petals SE Activiti over all Petals containers
-	    instance of PetalsSAVacation {
-		    name: petals-sa-vacation-1;
-		    
-		    PetalsJBIComponent.componentId: sa-vacation-sample;
+			instance of SU-Activiti-VacationRequest {
+			    name: su-activiti-vacationService-provide;
+			}
 		}
 	}
 }
@@ -119,6 +129,22 @@ instance of PetalsContainer-VM {
 		    name: petals-bc-soap-2;
 		    
 		    PetalsJBIComponent.componentId: petals-bc-soap;
+		
+			instance of SU-SOAP-VacationServiceConsumer {
+			    name: su-SOAP-vacationService-consume;
+			}
+		
+			instance of SU-SOAP-NotificationServiceProvider {
+			    name: su-SOAP-notifyVacationService-provide;
+			}
+		
+			instance of SU-SOAP-ArchivingServiceProvider {
+			    name: su-SOAP-archiveService-provide;
+			}
+		
+			instance of SU-SOAP-ActivitiIntegrationConsumer {
+			    name: su-SOAP-activitiIntegrationService-consume;
+			}
 		}
 	}
 }

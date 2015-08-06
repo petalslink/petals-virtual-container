@@ -73,6 +73,19 @@
          <version>1.4.0-SNAPSHOT</version>
          <scope>runtime</scope>
       </dependency>
+      
+      <!-- Test dependencies -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-admin-mock</artifactId>
+         <version>1.0.0-SNAPSHOT</version>
+         <scope>test</scope>
+      </dependency>
    </dependencies>
 
    <build>
@@ -107,11 +120,11 @@
                          xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
                          xmlns="org.apache.felix.ipojo">
                   
-                      <component classname="org.ow2.petals.roboconf.PluginPetals" name="roboconf-plugin-petals">
+                      <component classname="org.ow2.petals.roboconf.PluginPetalsSuInstaller" name="roboconf-plugin-petals-su-installer">
                           <provides />
                       </component>
                   
-                      <instance component="roboconf-plugin-petals" name="Roboconf Plugin - Petals" />
+                      <instance component="roboconf-plugin-petals-su-installer" name="Roboconf Plugin - Petals" />
                   </ipojo>]]>
                </metadata>
             </configuration>

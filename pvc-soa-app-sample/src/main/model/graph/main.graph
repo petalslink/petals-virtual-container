@@ -50,15 +50,24 @@ PetalsSEActiviti {
     extends: PetalsSE;
     # See comment on PetalsSLPostgreSQL
 	imports: PetalsSLPostgreSQL.*, ActivitiPgSQLDatabase.*;
-	# Depedency between SE Activiti and its SA is not supported by Roboconf:
-	#   - SE Activiti exports no configuration parameter,
-	#   - Roboconf is not able to manage local dependency
-	# We create a dummy exported variable and work with only one instance of Petals SE Activiti over all Petals containers
-	exports: present = true;
 }
 
-PetalsSAVacation {
-    extends: PetalsSA;
-    # See comment on PetalsSEActiviti
-	imports: PetalsSEActiviti.*, PetalsBCSoap.*;
+SU-Activiti-VacationRequest {
+    extends: PetalsSU;
+}
+
+SU-SOAP-VacationServiceConsumer {
+    extends: PetalsSU;
+}
+
+SU-SOAP-NotificationServiceProvider {
+    extends: PetalsSU;
+}
+
+SU-SOAP-ArchivingServiceProvider {
+    extends: PetalsSU;
+}
+
+SU-SOAP-ActivitiIntegrationConsumer {
+    extends: PetalsSU;
 }
