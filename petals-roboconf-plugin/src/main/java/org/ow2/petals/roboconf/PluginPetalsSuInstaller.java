@@ -20,7 +20,6 @@ package org.ow2.petals.roboconf;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -46,7 +45,6 @@ import org.ow2.petals.admin.api.exception.ArtifactAdministrationException;
 import org.ow2.petals.admin.api.exception.ContainerAdministrationException;
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
-import org.ow2.petals.jbi.descriptor.JBIDescriptorException;
 import org.ow2.petals.jbi.descriptor.original.JBIDescriptorBuilder;
 import org.ow2.petals.jbi.descriptor.original.generated.Identification;
 import org.ow2.petals.jbi.descriptor.original.generated.Jbi;
@@ -66,6 +64,21 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     protected static final String ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT = "PetalsJBIComponent";
 
     /**
+     * Name of the Roboconf component associated to a Petals Binding Component
+     */
+    protected static final String ROBOCONF_COMPONENT_BC_COMPONENT = "PetalsBC";
+
+    /**
+     * Name of the Roboconf component associated to a Petals Service Engine
+     */
+    protected static final String ROBOCONF_COMPONENT_SE_COMPONENT = "PetalsSE";
+
+    /**
+     * Name of the Roboconf component associated to a Petals Service Unit
+     */
+    protected static final String ROBOCONF_COMPONENT_SU_COMPONENT = "PetalsSU";
+
+    /**
      * Name of the Roboconf component associated to an abstract Petals container
      */
     protected static final String ROBOCONF_COMPONENT_ABTRACT_CONTAINER = "PetalsContainerTemplate";
@@ -79,6 +92,9 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     protected static final String CONTAINER_VARIABLE_NAME_JMXPASSWORD = ROBOCONF_COMPONENT_ABTRACT_CONTAINER
             + ".jmxPassword";
 
+    protected static final String JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER = ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT
+            + ".componentId";
+
     private final Logger logger = Logger.getLogger(getClass().getName());
 
     private String agentId;
@@ -86,12 +102,19 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     private PetalsAdministrationFactory paf;
 
     public PluginPetalsSuInstaller() throws DuplicatedServiceException, MissingServiceException {
-        this.paf = PetalsAdministrationFactory.newInstance();
+        // TODO: Try to improve access to the java SPI of Petals Admin using a dedicated bundle for Petals Admin API instead of setting the classloader
+        final ClassLoader old = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(PluginPetalsSuInstaller.class.getClassLoader());
+        try {
+            this.paf = PetalsAdministrationFactory.newInstance();
+        } finally {
+            Thread.currentThread().setContextClassLoader(old);
+        }
     }
 
     @Override
     public void initialize(final Instance instance) throws PluginException {
-        // NOP
+        this.logger.fine(this.agentId + ": initializing the plugin for instance " + instance);
     }
 
     @Override
@@ -99,12 +122,15 @@ public class PluginPetalsSuInstaller implements PluginInterface {
 
         File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(instance);
         final File suFile = new File(instanceDirectory, instance.getName() + ".zip");
+        // TODO: Try to improve access to the java SPI of Petals Admin using a dedicated bundle for Petals Admin API instead of setting the classloader
+        final ClassLoader old = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(PluginPetalsSuInstaller.class.getClassLoader());
         try {
             final File saFile = File.createTempFile(PluginPetalsSuInstaller.getSAName(instance), ".zip");
 
             // Generate the SA including the SU
-            this.logger.fine(this.agentId + " is generating the SA (" + saFile.getAbsolutePath()
-                    + ") associated to the instance " + instance);
+            this.logger.fine(this.agentId + ": generating the SA (" + saFile.getAbsolutePath() + ") for instance "
+                    + instance + " from the SU " + suFile.getAbsolutePath());
             final Jbi saJbiDescriptor = new Jbi();
             saJbiDescriptor.setVersion(new BigDecimal(1));
             final ServiceAssembly serviceAssembly = new ServiceAssembly();
@@ -119,7 +145,8 @@ public class PluginPetalsSuInstaller implements PluginInterface {
             serviceUnit.setIdentification(suIdentifiaction);
             final Target componentTarget = new Target();
             componentTarget.setArtifactsZip(suFile.getName());
-            componentTarget.setComponentName(instance.getParent().getName());
+            componentTarget.setComponentName(instance.getParent().overriddenExports
+                    .get(JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER));
             serviceUnit.setTarget(componentTarget);
             serviceAssembly.getServiceUnit().add(serviceUnit);
             saJbiDescriptor.setServiceAssembly(serviceAssembly);
@@ -128,6 +155,7 @@ public class PluginPetalsSuInstaller implements PluginInterface {
                     final ZipOutputStream zipOutputStream = new ZipOutputStream(saOutputStream)) {
 
                 // ZIP entry associated to the SU archive
+                this.logger.fine(this.agentId + ": putting the SU into the SA");
                 final ZipEntry suEntry = new ZipEntry(suFile.getName());
                 zipOutputStream.putNextEntry(suEntry);
                 try (final InputStream suInputStream = new FileInputStream(suFile)) {
@@ -136,6 +164,7 @@ public class PluginPetalsSuInstaller implements PluginInterface {
                 zipOutputStream.closeEntry();
 
                 // ZIP entry associated to the JBI descriptor
+                this.logger.fine(this.agentId + ": putting the JBI descriptor into the SA");
                 final ZipEntry jbiDescrEntry = new ZipEntry(JBIDescriptorBuilder.JBI_DESCRIPTOR_RESOURCE_IN_ARCHIVE);
                 zipOutputStream.putNextEntry(jbiDescrEntry);
                 JBIDescriptorBuilder.getInstance().writeXMLJBIdescriptor(saJbiDescriptor, zipOutputStream);
@@ -143,7 +172,7 @@ public class PluginPetalsSuInstaller implements PluginInterface {
             }
 
             // Deploy the SA previously generated
-            this.logger.fine(this.agentId + " is deploying the SA associated to the instance " + instance);
+            this.logger.fine(this.agentId + ": deploying the SA for instance " + instance);
             this.connectToContainer(instance);
             try {
                 this.paf.newArtifactAdministration().deployAndStartArtifact(saFile.toURI().toURL(), true);
@@ -155,16 +184,18 @@ public class PluginPetalsSuInstaller implements PluginInterface {
             } finally {
                 this.paf.newContainerAdministration().disconnect();
             }
-        } catch (final IOException | JBIDescriptorException | ContainerAdministrationException
-                | ArtifactAdministrationException e) {
+        } catch (final Throwable e) {
+            this.logger.log(Level.SEVERE, "An error occurs", e);
             throw new PluginException(e);
+        } finally {
+            Thread.currentThread().setContextClassLoader(old);
         }
     }
 
     @Override
     public void start(final Instance instance) throws PluginException {
         // Start the SA previously generated
-        this.logger.fine(this.agentId + " is starting the SA associated to the instance " + instance);
+        this.logger.fine(this.agentId + ": starting the SA for instance " + instance);
         try {
             this.connectToContainer(instance);
             try {
@@ -187,7 +218,7 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     @Override
     public void stop(final Instance instance) throws PluginException {
         // Stop the SA previously generated
-        this.logger.fine(this.agentId + " is stopping the SA associated to the instance " + instance);
+        this.logger.fine(this.agentId + ": stopping the SA for instance " + instance);
         try {
             this.connectToContainer(instance);
             try {
@@ -203,7 +234,7 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     @Override
     public void undeploy(final Instance instance) throws PluginException {
         // Undeploy the SA previously generated
-        this.logger.fine(this.agentId + " is undeploying the SA associated to the instance " + instance);
+        this.logger.fine(this.agentId + ": undeploying the SA for instance " + instance);
         try {
             this.connectToContainer(instance);
             try {
@@ -237,24 +268,33 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     private final void connectToContainer(final Instance instance) throws ContainerAdministrationException,
             PluginException {
 
-        final Instance jbiComponentInstance = instance.getParent();
-        final Component jbiComponentAbstractJbiComponent = jbiComponentInstance.getComponent().getExtendedComponent();
-        if (jbiComponentAbstractJbiComponent == null
-                || !ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT.equals(jbiComponentAbstractJbiComponent.getName())) {
+        final Instance seOrBcInstance = instance.getParent();
+        final Component seOrBcComponent = seOrBcInstance.getComponent().getExtendedComponent();
+        if (seOrBcComponent == null
+                || (!ROBOCONF_COMPONENT_SE_COMPONENT.equals(seOrBcComponent.getName()) && !ROBOCONF_COMPONENT_BC_COMPONENT
+                        .equals(seOrBcComponent.getName()))) {
             throw new PluginException(String.format(
-                    "Unexpected parent for the Service Unit. It MUST be inherited from '%s'",
-                    ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT));
+                    "Unexpected parent for the Service Unit. It MUST be inherited from '%s' or '%s' (current '%s')",
+                    ROBOCONF_COMPONENT_SE_COMPONENT, ROBOCONF_COMPONENT_BC_COMPONENT, seOrBcComponent.getName()));
         }
-        final Instance containerInstance = jbiComponentInstance.getParent();
-        final Component containerComponent = containerInstance.getComponent();
-        final Component jbiComponentAbstractContainer = containerComponent.getExtendedComponent();
+        final Component jbiComponentComponent = seOrBcComponent.getExtendedComponent();
+        if (jbiComponentComponent == null
+                || !ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT.equals(jbiComponentComponent.getName())) {
+            throw new PluginException(String.format(
+                    "Unexpected parent for the Service Unit. It MUST be inherited from '%s' (current '%s')",
+                    ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT, jbiComponentComponent.getName()));
+        }
+        final Instance containerInstance = seOrBcInstance.getParent();
+        final Component jbiComponentAbstractContainer = containerInstance.getComponent().getExtendedComponent();
         if (jbiComponentAbstractContainer == null
                 || !ROBOCONF_COMPONENT_ABTRACT_CONTAINER.equals(jbiComponentAbstractContainer.getName())) {
-            throw new PluginException(String.format(
-                    "Unexpected parent for the JBI component running the Service Unit. It MUST be inherited from '%s'",
-                    ROBOCONF_COMPONENT_ABTRACT_CONTAINER));
+            throw new PluginException(
+                    String.format(
+                            "Unexpected parent for the JBI component running the Service Unit. It MUST be inherited from '%s' (current '%s')",
+                            ROBOCONF_COMPONENT_ABTRACT_CONTAINER, jbiComponentAbstractContainer.getName()));
         }
-        final Map<String, String> containerExportedVariables = containerComponent.exportedVariables;
+        final Map<String, String> containerExportedVariables = InstanceHelpers
+                .findAllExportedVariables(containerInstance);
         final String ip = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_IP);
         final String jmxPort = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_JMXPORT);
         final String jmxUser = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_JMXUSER);

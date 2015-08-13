@@ -53,22 +53,32 @@ public class PluginPetalsSuInstallerTest {
     public void start() throws PluginException, DuplicatedServiceException, MissingServiceException,
             FileNotFoundException, IOException {
 
-        final Component suAbstractContainer = new Component(
+        final Component abstractContainerComponent = new Component(
                 PluginPetalsSuInstaller.ROBOCONF_COMPONENT_ABTRACT_CONTAINER);
-        final Component suContainer = new Component("my-container-component");
-        suContainer.extendComponent(suAbstractContainer);
-        suContainer.exportedVariables.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_IP, "localhost");
-        suContainer.exportedVariables.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
-        suContainer.exportedVariables.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
-        suContainer.exportedVariables.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
-        final Component suAbstractParentComponent = new Component(
+        final Component containerComponent = new Component("my-container-component");
+        containerComponent.extendComponent(abstractContainerComponent);
+        final Component abstractJbiComponentComponent = new Component(
                 PluginPetalsSuInstaller.ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT);
+        final Component bcComponent = new Component(PluginPetalsSuInstaller.ROBOCONF_COMPONENT_BC_COMPONENT);
+        bcComponent.extendComponent(abstractJbiComponentComponent);
         final Component suParentComponent = new Component("my-component-component");
-        suParentComponent.extendComponent(suAbstractParentComponent);
-        final Instance instance = new Instance(INSTANCE_SU_NAME).parent(new Instance("component-id").component(
-                suParentComponent).parent(new Instance().component(suContainer)));
+        suParentComponent.extendComponent(bcComponent);
 
-        final File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(instance);
+        final Instance containerInstance = new Instance("my-container");
+        containerInstance.component(containerComponent);
+        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_IP, "localhost");
+        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
+        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
+        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
+        final Instance jbiComponentInstance = new Instance("component-id");
+        jbiComponentInstance.component(suParentComponent);
+        jbiComponentInstance.overriddenExports.put(PluginPetalsSuInstaller.JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER,
+                "my-container-component-id");
+        jbiComponentInstance.parent(containerInstance);
+        final Instance suInstance = new Instance(INSTANCE_SU_NAME).parent(jbiComponentInstance);
+        suInstance.component(new Component(PluginPetalsSuInstaller.ROBOCONF_COMPONENT_SU_COMPONENT));
+
+        final File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(suInstance);
         assertTrue(instanceDirectory.mkdirs());
         try {
             new FileOutputStream(new File(instanceDirectory, INSTANCE_SU_NAME + ".zip")).close();
@@ -76,10 +86,10 @@ public class PluginPetalsSuInstallerTest {
             final PluginPetalsSuInstaller ppsi = new PluginPetalsSuInstaller();
             ppsi.setPetalsAdministrationApi(this.petalsAdminApi.getPetalsAdministrationFactory());
 
-            ppsi.deploy(instance);
-            ppsi.start(instance);
-            ppsi.stop(instance);
-            ppsi.undeploy(instance);
+            ppsi.deploy(suInstance);
+            ppsi.start(suInstance);
+            ppsi.stop(suInstance);
+            ppsi.undeploy(suInstance);
         } finally {
             FileUtils.deleteDirectory(instanceDirectory);
         }

@@ -97,7 +97,22 @@
             <extensions>true</extensions>
             <configuration>
                <instructions>
-                  <Import-Package>net.roboconf.*;version="${roboconf.version}"</Import-Package>
+                  <!--
+                     The packages javax.management, javax.xml.bind, javax.xml.parsers, javax.xml.transform, javax.xml.validation, javax.xml.xpath, org.xml.sax and org.ow3c.dom
+                     are required by petals-jbi-descriptor.
+                     TODO: Try to improve this using a bundle instead of declaring explicitly the package import
+                   -->
+                  <Import-Package>
+                     net.roboconf.*;version="${roboconf.version}",
+                     javax.management.*,
+                     javax.xml.bind.*,
+                     javax.xml.parsers.*,
+                     javax.xml.transform.*,
+                     javax.xml.validation.*,
+                     javax.xml.xpath.*,
+                     org.xml.sax.*,
+                     org.w3c.dom.*
+                  </Import-Package>
                   <Embed-Dependency>*;scope=compile|runtime;inline=true;groupId=!net.roboconf</Embed-Dependency>
                   <Embed-Transitive>true</Embed-Transitive>
                </instructions>
