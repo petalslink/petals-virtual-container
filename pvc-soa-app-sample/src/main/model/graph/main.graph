@@ -49,7 +49,7 @@ PetalsSLPostgreSQL {
 PetalsSEActiviti {
     extends: PetalsSE;
     # See comment on PetalsSLPostgreSQL
-	imports: PetalsSLPostgreSQL.*, ActivitiPgSQLDatabase.*;
+	imports: PetalsSLPostgreSQL.present, ActivitiPgSQLDatabase.*;
 }
 
 SU-Activiti-VacationRequest {

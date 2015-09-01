@@ -73,9 +73,17 @@ instance of PetalsContainer-VM {
 		domainName: roboconf-demo;
 		subdomainName: roboconf-demo-1;
 		
+		instance of PetalsSLPostgreSQL {
+		    name: petals-sl-postgresql;
+		    
+		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId'
+		    PetalsJBIComponent.componentId: petals-sl-postgresql-9.4-1201-jdbc4;
+		}
+		
 		instance of PetalsBCSoap {
 		    name: petals-bc-soap-1;
 		    
+		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId'
 		    PetalsJBIComponent.componentId: petals-bc-soap;
 		
 			instance of SU-SOAP-VacationServiceConsumer {
@@ -95,12 +103,6 @@ instance of PetalsContainer-VM {
 			}
 		}
 		
-		instance of PetalsSLPostgreSQL {
-		    name: petals-sl-postgresql;
-		    
-		    PetalsJBIComponent.componentId: petals-sl-postgresql-9.4-1201-jdbc4;
-		}
-		
 		# As SL are not supported by Roboconf because:
 	    #   - a SL export no configuration parameter
 	    #   - Roboconf is not able to manage local dependency
@@ -108,7 +110,9 @@ instance of PetalsContainer-VM {
 	    instance of PetalsSEActiviti {
 		    name: petals-se-activiti-1;
 		    
+		    # TODO: Why PetalsJBIComponent and PetalsSEActiviti must be used ? We should use only 'componentId'
 		    PetalsJBIComponent.componentId: petals-se-activiti;
+		    PetalsSEActiviti.componentId: petals-se-activiti;
 		
 			instance of SU-Activiti-VacationRequest {
 			    name: su-activiti-vacationService-provide;
