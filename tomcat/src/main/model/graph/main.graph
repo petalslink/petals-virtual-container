@@ -1,4 +1,3 @@
-#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -17,8 +16,27 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
+# Main file for the graph(s) definition(s) of a Petals Virtual Container
+#
+# A Petals Virtual container is composed of:
+#   - a distributed registry with at least 2 nodes running on their own
+#     dedicated VM
+#   - a distributed container with at least 2 nodes running on their own
+#     dedicated VM.       
+#############################################################################
 
-env
+Tomcat8_VM {
+	installer: target;
+	children: Tomcat8;
+}
 
-cp ${ROBOCONF_FILES_DIR}/samples-SOAP-services.war /var/lib/tomcat8/webapps
-exit $?
+Tomcat8 {
+	installer: script;
+	exports: ip, port = 8080;
+	children: Tomcat8_Application;
+}
+
+Tomcat8_Application {
+	installer: script;
+	exports: applicationFile = my-tomcat8-app-file;
+}

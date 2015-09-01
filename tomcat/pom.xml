@@ -20,22 +20,28 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
-   <prerequisites>
-      <maven>3.0.3</maven>
-   </prerequisites>
+
+   <parent>
+      <groupId>org.ow2.petals.cloud</groupId>
+      <artifactId>pvc-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../parent/pom.xml</relativePath>
+   </parent>
 
    <groupId>org.ow2.petals.cloud</groupId>
-   <artifactId>pvc-rootbuilder</artifactId>
+   <artifactId>petals-tomcat</artifactId>
    <version>1.0.0-SNAPSHOT</version>
-   <packaging>pom</packaging>
+   <packaging>roboconf-app</packaging>
 
-   <modules>
-      <module>petals-pvc</module>
-      <module>pvc-soa-app-sample</module>
-      <module>parent</module>
-      <module>haproxy-tomcat</module>
-      <module>petals-roboconf-plugin</module>
-      <module>tomcat</module>
-      <module>pvc-portal-sample</module>
-   </modules>
+   <name>Empty Tomcat server</name>
+   <description>Empty Tomcat server</description>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>net.roboconf</groupId>
+            <artifactId>roboconf-maven-plugin</artifactId>
+         </plugin>
+      </plugins>
+   </build>
 </project>

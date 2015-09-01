@@ -268,6 +268,9 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     private final void connectToContainer(final Instance instance) throws ContainerAdministrationException,
             PluginException {
 
+        // TODO: Perhaps review how to retrieve container exported variables when
+        // https://github.com/roboconf/roboconf-platform/issues/184 will be fixed
+
         final Instance seOrBcInstance = instance.getParent();
         final Component seOrBcComponent = seOrBcInstance.getComponent().getExtendedComponent();
         if (seOrBcComponent == null

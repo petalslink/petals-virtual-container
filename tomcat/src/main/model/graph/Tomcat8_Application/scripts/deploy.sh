@@ -18,8 +18,7 @@
 #
 #############################################################################
 
-
 env
 
-rm /var/lib/tomcat8/webapps/samples-SOAP-services.war
+cp ${ROBOCONF_FILES_DIR}/${applicationFile} /var/lib/tomcat8/webapps
 exit $?

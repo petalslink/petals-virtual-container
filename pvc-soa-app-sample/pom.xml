@@ -34,7 +34,7 @@
    <packaging>roboconf-app</packaging>
 
    <name>Sample SOA Application for Petals PVC</name>
-   <description>Smaple SOA Application for Petals PVC</description>
+   <description>Sample SOA Application for Petals PVC</description>
 
    <properties>
       <activiti-engine.version>5.18.0-PETALS-0</activiti-engine.version>

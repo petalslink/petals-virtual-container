@@ -16,23 +16,17 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-# Main file for the graph(s) definition(s) of a Petals Virtual Container
-#
-# A Petals Virtual container is composed of:
-#   - a distributed registry with at least 2 nodes running on their own
-#     dedicated VM
-#   - a distributed container with at least 2 nodes running on their own
-#     dedicated VM.       
-#############################################################################
-import petals-tomcat/main.graph;
 
-HAProxy_VM {
-	installer: target;
-	children: HAProxy;
-}
-
-HAProxy {
-	installer: script;
-	imports: Tomcat8.port (optional), Tomcat8.ip (optional);
-	exports: ip, httpPort = 80, statsPort = 8080;
+# A VM with Tomcat
+instance of Tomcat8_VM {
+	name: Tomcat VM1;
+	
+	instance of Tomcat8 {
+		name: Tomcat1;
+		
+		instance of Tomcat8_Application {
+			name: samplesActivitiSOAPservices1;
+			applicationFile: samplesActivitiSOAPservices.war;
+		}
+	}
 }

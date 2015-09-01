@@ -26,13 +26,8 @@
 #############################################################################
 import petals-tomcat/main.graph;
 
-HAProxy_VM {
-	installer: target;
-	children: HAProxy;
-}
-
-HAProxy {
-	installer: script;
-	imports: Tomcat8.port (optional), Tomcat8.ip (optional);
-	exports: ip, httpPort = 80, statsPort = 8080;
+Portal_Application {
+	extends: Tomcat8_Application;
+	
+	# Add imports link to the Petals BC SOAP used as entry point into the ESB part
 }
