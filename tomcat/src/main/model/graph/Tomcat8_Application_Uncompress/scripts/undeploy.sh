@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -17,16 +18,8 @@
 #
 #############################################################################
 
-# A VM with Tomcat
-instance of Tomcat8_VM {
-	name: Tomcat VM1;
-	
-	instance of Tomcat8 {
-		name: Tomcat1;
-		
-		instance of Tomcat8_Application_WAR {
-			name: samplesActivitiSOAPservices1;
-			applicationFile: samplesActivitiSOAPservices.war;
-		}
-	}
-}
+
+env
+
+rm -r /var/lib/tomcat8/webapps/${applicationDir}
+exit $?

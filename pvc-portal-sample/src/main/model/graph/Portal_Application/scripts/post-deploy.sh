@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -17,16 +18,4 @@
 #
 #############################################################################
 
-# A VM with Tomcat
-instance of Tomcat8_VM {
-	name: Tomcat VM1;
-	
-	instance of Tomcat8 {
-		name: Tomcat1;
-		
-		instance of Tomcat8_Application_WAR {
-			name: samplesActivitiSOAPservices1;
-			applicationFile: samplesActivitiSOAPservices.war;
-		}
-	}
-}
+sed -ie "s/localhost:8084/172.17.0.10:8084/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties

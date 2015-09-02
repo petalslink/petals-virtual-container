@@ -36,7 +36,7 @@ instance of Tomcat8_VM {
 	instance of Tomcat8 {
 		name: Tomcat1;
 		
-		instance of Tomcat8_Application {
+		instance of Tomcat8_Application_WAR {
 			name: samplesActivitiSOAPservices1;
 			
 			applicationFile: samples-SOAP-services.war;
@@ -51,7 +51,7 @@ instance of Tomcat8_VM {
 	instance of Tomcat8 {
 		name: Tomcat2;
 		
-		instance of Tomcat8_Application {
+		instance of Tomcat8_Application_WAR {
 			name: samplesActivitiSOAPservices2;
 			
 			applicationFile: samples-SOAP-services.war;

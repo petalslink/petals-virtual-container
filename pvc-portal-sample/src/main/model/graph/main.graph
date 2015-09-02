@@ -16,18 +16,10 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-# Main file for the graph(s) definition(s) of a Petals Virtual Container
-#
-# A Petals Virtual container is composed of:
-#   - a distributed registry with at least 2 nodes running on their own
-#     dedicated VM
-#   - a distributed container with at least 2 nodes running on their own
-#     dedicated VM.       
-#############################################################################
 import petals-tomcat/main.graph;
 
 Portal_Application {
-	extends: Tomcat8_Application;
+	extends: Tomcat8_Application_Uncompress;
 	
 	# Add imports link to the Petals BC SOAP used as entry point into the ESB part
 }

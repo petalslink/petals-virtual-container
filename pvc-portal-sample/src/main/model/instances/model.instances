@@ -19,15 +19,17 @@
 
 # A VM with Tomcat
 instance of Tomcat8_VM {
-	name: Tomcat VM for Portal;
+	name: Tomcat8 VM for Portal;
 	
 	instance of Tomcat8 {
-		name: Tomcat for Portal;
+		name: Tomcat8 for Portal;
 		
 		instance of Portal_Application {
 			name: portal1;
 			
-			Tomcat8_Application.applicationFile: sample-vacation-webapp.war;
+			# TODO: Why Tomcat8_Application_Uncompress and Portal_Application must be used ? We should use only 'applicationFile' and 'applicationDir'
+		    Portal_Application.applicationFile: sample-vacation-webapp.war;
+			Tomcat8_Application_Uncompress.applicationDir: sample-vacation-webapp;
 		}
 	}
 }

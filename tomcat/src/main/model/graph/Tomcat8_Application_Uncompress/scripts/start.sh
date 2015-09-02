@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -16,17 +17,3 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-
-# A VM with Tomcat
-instance of Tomcat8_VM {
-	name: Tomcat VM1;
-	
-	instance of Tomcat8 {
-		name: Tomcat1;
-		
-		instance of Tomcat8_Application_WAR {
-			name: samplesActivitiSOAPservices1;
-			applicationFile: samplesActivitiSOAPservices.war;
-		}
-	}
-}

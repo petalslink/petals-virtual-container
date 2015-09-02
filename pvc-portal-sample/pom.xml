@@ -29,7 +29,7 @@
    </parent>
 
    <groupId>org.ow2.petals.cloud</groupId>
-   <artifactId>pvc-portail-sample</artifactId>
+   <artifactId>pvc-portal-sample</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>roboconf-app</packaging>
 
@@ -56,7 +56,7 @@
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
                <execution>
-                  <id>copy-packages-for-samples_Activiti_SOAP_services</id>
+                  <id>copy-packages-for-portal-webapp</id>
                   <phase>prepare-package</phase>
                   <goals>
                      <goal>copy</goal>
@@ -71,9 +71,33 @@
                            <destFileName>sample-vacation-webapp.war</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/Tomcat8_Application/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/Portal_Application/files</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
+                  <id>copy-scripts-for-Portal_Application</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <unzip src="${org.ow2.petals.cloud:petals-tomcat:zip}" dest="${basedir}/target/roboconf-model/graph/Portal_Application/scripts">
+                           <patternset>
+                              <include name="graph/Tomcat8_Application_Uncompress/scripts/*" />
+                           </patternset>
+                           <cutdirsmapper dirs="3" />
+                        </unzip>
+                     </tasks>
                   </configuration>
                </execution>
             </executions>

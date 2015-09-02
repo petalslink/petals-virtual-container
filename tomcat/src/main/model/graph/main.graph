@@ -33,10 +33,15 @@ Tomcat8_VM {
 Tomcat8 {
 	installer: script;
 	exports: ip, port = 8080;
-	children: Tomcat8_Application;
+	children: Tomcat8_Application_WAR, Tomcat8_Application_Uncompress;
 }
 
-Tomcat8_Application {
+Tomcat8_Application_WAR {
 	installer: script;
-	exports: applicationFile = my-tomcat8-app-file;
+	exports: applicationFile = my-tomcat8-app-file.war;
+}
+
+Tomcat8_Application_Uncompress {
+	installer: script;
+	exports: applicationDir = my-tomcat8-app-file, applicationFile = my-tomcat8-app-file.zip;
 }

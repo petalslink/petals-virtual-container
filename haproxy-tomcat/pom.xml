@@ -71,7 +71,7 @@
                            <destFileName>samples-SOAP-services.war</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/Tomcat8_Application/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/Tomcat8_Application_WAR/files</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
