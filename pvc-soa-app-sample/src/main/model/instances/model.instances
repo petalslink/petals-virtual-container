@@ -46,6 +46,7 @@ instance of PetalsRegistry-VM {
 	instance of PetalsRegistryMaster {
 		name: registry-bootstrap-node;
 
+		# TODO: Why PetalsRegistry must be used ? We should use only 'memberId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		PetalsRegistry.memberId: registry-bootstrap-node;
 	}
 }
@@ -56,6 +57,7 @@ instance of PetalsRegistry-VM {
 	instance of PetalsRegistrySlave {
 		name: registry-node-1;
 
+		# TODO: Why PetalsRegistry must be used ? We should use only 'memberId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		PetalsRegistry.memberId: registry-node-1;
 	}
 }
@@ -69,6 +71,7 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainerBootstrap {
 		name: container-bootstrap-node;
 
+		# TODO: Why PetalsContainerBootstrap must be used ? We should use only 'containerId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		PetalsContainerBootstrap.containerId: container-bootstrap-node;
 		domainName: roboconf-demo;
 		subdomainName: roboconf-demo-1;
@@ -76,14 +79,14 @@ instance of PetalsContainer-VM {
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql;
 		    
-		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId'
+		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		    PetalsJBIComponent.componentId: petals-sl-postgresql-9.4-1201-jdbc4;
 		}
 		
 		instance of PetalsBCSoap {
 		    name: petals-bc-soap-1;
 		    
-		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId'
+		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		    PetalsJBIComponent.componentId: petals-bc-soap;
 		
 			instance of SU-SOAP-VacationServiceConsumer {
@@ -110,7 +113,7 @@ instance of PetalsContainer-VM {
 	    instance of PetalsSEActiviti {
 		    name: petals-se-activiti-1;
 		    
-		    # TODO: Why PetalsJBIComponent and PetalsSEActiviti must be used ? We should use only 'componentId'
+		    # TODO: Why PetalsJBIComponent and PetalsSEActiviti must be used ? We should use only 'componentId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		    PetalsJBIComponent.componentId: petals-se-activiti;
 		    PetalsSEActiviti.componentId: petals-se-activiti;
 		
@@ -132,6 +135,7 @@ instance of PetalsContainer-VM {
 		instance of PetalsBCSoap {
 		    name: petals-bc-soap-2;
 		    
+		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		    PetalsJBIComponent.componentId: petals-bc-soap;
 		
 			instance of SU-SOAP-VacationServiceConsumer {

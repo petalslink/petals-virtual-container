@@ -27,7 +27,7 @@ instance of Tomcat8_VM {
 		instance of Portal_Application {
 			name: portal1;
 			
-			# TODO: Why Tomcat8_Application_Uncompress and Portal_Application must be used ? We should use only 'applicationFile' and 'applicationDir'
+			# TODO: Why Tomcat8_Application_Uncompress and Portal_Application must be used ? We should use only 'applicationFile' and 'applicationDir' (https://github.com/roboconf/roboconf-platform/issues/420)
 		    Portal_Application.applicationFile: sample-vacation-webapp.war;
 			Tomcat8_Application_Uncompress.applicationDir: sample-vacation-webapp;
 		}
