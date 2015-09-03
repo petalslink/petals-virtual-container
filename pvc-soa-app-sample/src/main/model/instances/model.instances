@@ -77,10 +77,7 @@ instance of PetalsContainer-VM {
 		subdomainName: roboconf-demo-1;
 		
 		instance of PetalsSLPostgreSQL {
-		    name: petals-sl-postgresql;
-		    
-		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'componentId' (https://github.com/roboconf/roboconf-platform/issues/420)
-		    PetalsJBIComponent.componentId: petals-sl-postgresql-9.4-1201-jdbc4;
+		    name: petals-sl-postgresql-9.4-1201-jdbc4;
 		}
 		
 		instance of PetalsBCSoap {

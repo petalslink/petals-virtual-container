@@ -93,10 +93,10 @@
                            <artifactId>petals-sl-postgresql-9.4-1201-jdbc4</artifactId>
                            <version>1.1-SNAPSHOT</version>
                            <type>zip</type>
-                           <destFileName>petals-sl-postgresql.zip</destFileName>
+                           <destFileName>petals-sl-postgresql-9.4-1201-jdbc4.zip</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSLPostgreSQL/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSLPostgreSQL</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
@@ -279,24 +279,6 @@
                </execution>
                <execution>
                   <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
-                  <id>copy-scripts-for-PetalsSLPostgreSQL</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-                  <configuration>
-                     <tasks>
-                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSLPostgreSQL/scripts">
-                           <patternset>
-                              <include name="graph/PetalsJBIComponent/scripts/*" />
-                           </patternset>
-                           <cutdirsmapper dirs="3"/>
-                        </unzip>
-                     </tasks>
-                  </configuration>
-               </execution>
-               <execution>
-                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
                   <id>copy-scripts-for-PetalsSEActiviti</id>
                   <phase>prepare-package</phase>
                   <goals>
@@ -305,24 +287,6 @@
                   <configuration>
                      <tasks>
                         <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSEActiviti/scripts">
-                           <patternset>
-                              <include name="graph/PetalsJBIComponent/scripts/*" />
-                           </patternset>
-                           <cutdirsmapper dirs="3"/>
-                        </unzip>
-                     </tasks>
-                  </configuration>
-               </execution>
-               <execution>
-                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
-                  <id>copy-scripts-for-PetalsSAVacation</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-                  <configuration>
-                     <tasks>
-                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSAVacation/scripts">
                            <patternset>
                               <include name="graph/PetalsJBIComponent/scripts/*" />
                            </patternset>

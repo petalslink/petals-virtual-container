@@ -58,7 +58,7 @@ PetalsContainerTemplate {
     installer: script;
 	exports: containerId = sample-0, ip, jmxPort = 7700, jmxUser = petals, jmxPassword = petals;
 	imports: PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentialsGroup, PetalsRegistry.credentialsPassword;
-	children: PetalsJBIComponent;
+	children: PetalsJBIComponent, PetalsSL;
 }
 
 PetalsContainerBootstrap {
@@ -93,8 +93,7 @@ PetalsSE {
 }
 
 PetalsSL {
-    extends: PetalsJBIComponent;
-    exports: componentType = SL;
+    installer: petals-sl-installer;
 }
 
 PetalsSU {

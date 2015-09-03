@@ -24,24 +24,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
-import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import net.roboconf.core.model.beans.Component;
-import net.roboconf.core.model.beans.Import;
 import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.beans.Instance.InstanceStatus;
 import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
 
 import org.apache.commons.io.IOUtils;
-import org.ow2.petals.admin.api.ContainerAdministration;
-import org.ow2.petals.admin.api.PetalsAdministrationFactory;
-import org.ow2.petals.admin.api.exception.ArtifactAdministrationException;
 import org.ow2.petals.admin.api.exception.ContainerAdministrationException;
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
@@ -52,69 +45,14 @@ import org.ow2.petals.jbi.descriptor.original.generated.ServiceAssembly;
 import org.ow2.petals.jbi.descriptor.original.generated.ServiceUnit;
 import org.ow2.petals.jbi.descriptor.original.generated.Target;
 
-public class PluginPetalsSuInstaller implements PluginInterface {
+public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller implements PluginInterface {
 
     private static final String PLUGIN_NAME = "petals-su-installer";
 
     private static final String SA_NAME_TEMPLATE = "sa-%s";
 
-    /**
-     * Name of the Roboconf component associated to an abstract Petals JBI component
-     */
-    protected static final String ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT = "PetalsJBIComponent";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Binding Component
-     */
-    protected static final String ROBOCONF_COMPONENT_BC_COMPONENT = "PetalsBC";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Service Engine
-     */
-    protected static final String ROBOCONF_COMPONENT_SE_COMPONENT = "PetalsSE";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Service Unit
-     */
-    protected static final String ROBOCONF_COMPONENT_SU_COMPONENT = "PetalsSU";
-
-    /**
-     * Name of the Roboconf component associated to an abstract Petals container
-     */
-    protected static final String ROBOCONF_COMPONENT_ABTRACT_CONTAINER = "PetalsContainerTemplate";
-
-    protected static final String CONTAINER_VARIABLE_NAME_IP = ROBOCONF_COMPONENT_ABTRACT_CONTAINER + ".ip";
-
-    protected static final String CONTAINER_VARIABLE_NAME_JMXPORT = ROBOCONF_COMPONENT_ABTRACT_CONTAINER + ".jmxPort";
-
-    protected static final String CONTAINER_VARIABLE_NAME_JMXUSER = ROBOCONF_COMPONENT_ABTRACT_CONTAINER + ".jmxUser";
-
-    protected static final String CONTAINER_VARIABLE_NAME_JMXPASSWORD = ROBOCONF_COMPONENT_ABTRACT_CONTAINER
-            + ".jmxPassword";
-
-    protected static final String JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER = ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT
-            + ".componentId";
-
-    private final Logger logger = Logger.getLogger(getClass().getName());
-
-    private String agentId;
-
-    private PetalsAdministrationFactory paf;
-
     public PluginPetalsSuInstaller() throws DuplicatedServiceException, MissingServiceException {
-        // TODO: Try to improve access to the java SPI of Petals Admin using a dedicated bundle for Petals Admin API instead of setting the classloader
-        final ClassLoader old = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(PluginPetalsSuInstaller.class.getClassLoader());
-        try {
-            this.paf = PetalsAdministrationFactory.newInstance();
-        } finally {
-            Thread.currentThread().setContextClassLoader(old);
-        }
-    }
-
-    @Override
-    public void initialize(final Instance instance) throws PluginException {
-        this.logger.fine(this.agentId + ": initializing the plugin for instance " + instance);
+        super();
     }
 
     @Override
@@ -173,16 +111,16 @@ public class PluginPetalsSuInstaller implements PluginInterface {
 
             // Deploy the SA previously generated
             this.logger.fine(this.agentId + ": deploying the SA for instance " + instance);
-            this.connectToContainer(instance);
+            this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
-                this.paf.newArtifactAdministration().deployAndStartArtifact(saFile.toURI().toURL(), true);
+                this.artifactAdministration.deployAndStartArtifact(saFile.toURI().toURL(), true);
             } catch (final MalformedURLException e) {
                 // This error should not occur because the URL is generated from a local file
                 this.logger.log(Level.WARNING, "An error occurs", e);
             } catch (final NumberFormatException e) {
                 throw new PluginException("Invalid value for JMX port (Not a number)", e);
             } finally {
-                this.paf.newContainerAdministration().disconnect();
+                this.containerAdministration.disconnect();
             }
         } catch (final Throwable e) {
             this.logger.log(Level.SEVERE, "An error occurs", e);
@@ -193,85 +131,34 @@ public class PluginPetalsSuInstaller implements PluginInterface {
     }
 
     @Override
-    public void start(final Instance instance) throws PluginException {
-        // Start the SA previously generated
-        this.logger.fine(this.agentId + ": starting the SA for instance " + instance);
-        try {
-            this.connectToContainer(instance);
-            try {
-                this.paf.newArtifactAdministration().startArtifact("SA", PluginPetalsSuInstaller.getSAName(instance));
-            } finally {
-                this.paf.newContainerAdministration().disconnect();
-            }
-        } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
-            throw new PluginException(e);
-        }
-    }
-
-    @Override
-    public void update(final Instance instance, final Import importChanged, final InstanceStatus statusChanged)
-            throws PluginException {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void stop(final Instance instance) throws PluginException {
-        // Stop the SA previously generated
-        this.logger.fine(this.agentId + ": stopping the SA for instance " + instance);
-        try {
-            this.connectToContainer(instance);
-            try {
-                this.paf.newArtifactAdministration().stopArtifact("SA", PluginPetalsSuInstaller.getSAName(instance));
-            } finally {
-                this.paf.newContainerAdministration().disconnect();
-            }
-        } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
-            throw new PluginException(e);
-        }
-    }
-
-    @Override
-    public void undeploy(final Instance instance) throws PluginException {
-        // Undeploy the SA previously generated
-        this.logger.fine(this.agentId + ": undeploying the SA for instance " + instance);
-        try {
-            this.connectToContainer(instance);
-            try {
-                this.paf.newArtifactAdministration().stopAndUndeployArtifact("SA",
-                        PluginPetalsSuInstaller.getSAName(instance), null);
-            } finally {
-                this.paf.newContainerAdministration().disconnect();
-            }
-        } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
-            throw new PluginException(e);
-        }
-    }
-
-    @Override
-    public void setNames(final String applicationName, final String rootInstanceName) {
-        this.agentId = "'" + rootInstanceName + "' agent";
-    }
-
-    @Override
     public String getPluginName() {
         return PLUGIN_NAME;
     }
 
-    /**
-     * A method dedicated to unit tests to inject the Petals Administration Mock as Petals Admin API implementation.
-     */
-    protected void setPetalsAdministrationApi(final PetalsAdministrationFactory paf) {
-        this.paf = paf;
+    @Override
+    protected String getManagedArtifactType() {
+        return "SA";
     }
 
-    private final void connectToContainer(final Instance instance) throws ContainerAdministrationException,
+    @Override
+    protected String getManagedArtifactName(final Instance suInstance) {
+        return PluginPetalsSuInstaller.getSAName(suInstance);
+    }
+
+    @Override
+    protected String getManagedArtifactVersion() {
+        return null;
+    }
+
+    @Override
+    protected final Instance retrieveContainerInstance(final Instance suInstance)
+            throws ContainerAdministrationException,
             PluginException {
 
         // TODO: Perhaps review how to retrieve container exported variables when
         // https://github.com/roboconf/roboconf-platform/issues/184 will be fixed
 
-        final Instance seOrBcInstance = instance.getParent();
+        final Instance seOrBcInstance = suInstance.getParent();
         final Component seOrBcComponent = seOrBcInstance.getComponent().getExtendedComponent();
         if (seOrBcComponent == null
                 || (!ROBOCONF_COMPONENT_SE_COMPONENT.equals(seOrBcComponent.getName()) && !ROBOCONF_COMPONENT_BC_COMPONENT
@@ -296,26 +183,7 @@ public class PluginPetalsSuInstaller implements PluginInterface {
                             "Unexpected parent for the JBI component running the Service Unit. It MUST be inherited from '%s' (current '%s')",
                             ROBOCONF_COMPONENT_ABTRACT_CONTAINER, jbiComponentAbstractContainer.getName()));
         }
-        final Map<String, String> containerExportedVariables = InstanceHelpers
-                .findAllExportedVariables(containerInstance);
-        final String ip = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_IP);
-        final String jmxPort = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_JMXPORT);
-        final String jmxUser = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_JMXUSER);
-        final String jmxPassword = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_JMXPASSWORD);
-        if (ip == null || ip.isEmpty() || jmxPort == null || jmxPort.isEmpty() || jmxUser == null
-                || jmxPassword == null) {
-            throw new PluginException("An exported variables is missing. Available exported variables are: "
-                    + containerExportedVariables);
-        } else {
-            this.logger.fine("Exported variables of container: " + containerExportedVariables);
-        }
-
-        try {
-            final ContainerAdministration pafContainer = this.paf.newContainerAdministration();
-            pafContainer.connect(ip, Integer.parseInt(jmxPort), jmxUser, jmxPassword);
-        } catch (final NumberFormatException e) {
-            throw new PluginException("Invalid value for JMX port (Not a number)", e);
-        }
+        return containerInstance;
     }
 
     protected final static String getSAName(final Instance instance) {

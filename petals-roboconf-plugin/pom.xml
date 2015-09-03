@@ -139,7 +139,13 @@
                           <provides />
                       </component>
                   
-                      <instance component="roboconf-plugin-petals-su-installer" name="Roboconf Plugin - Petals" />
+                      <instance component="roboconf-plugin-petals-su-installer" name="Roboconf Plugin - Petals SU Installer" />
+                  
+                      <component classname="org.ow2.petals.roboconf.PluginPetalsSlInstaller" name="roboconf-plugin-petals-sl-installer">
+                          <provides />
+                      </component>
+                  
+                      <instance component="roboconf-plugin-petals-sl-installer" name="Roboconf Plugin - Petals SL Installer" />
                   </ipojo>]]>
                </metadata>
             </configuration>
