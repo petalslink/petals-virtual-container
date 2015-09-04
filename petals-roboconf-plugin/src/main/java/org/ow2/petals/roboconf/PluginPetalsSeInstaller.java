@@ -17,28 +17,18 @@
  */
 package org.ow2.petals.roboconf;
 
-import net.roboconf.core.model.beans.Import;
-import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.beans.Instance.InstanceStatus;
-import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
 
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
 
-public class PluginPetalsSlInstaller extends PluginPetalsJbiArtifactInstaller implements PluginInterface {
+public class PluginPetalsSeInstaller extends PluginPetalsComponentInstaller implements PluginInterface {
 
-    private static final String PLUGIN_NAME = "petals-sl-installer";
-
-    public PluginPetalsSlInstaller() throws DuplicatedServiceException, MissingServiceException {
+    public PluginPetalsSeInstaller() throws DuplicatedServiceException, MissingServiceException {
         super();
     }
 
-    @Override
-    public void update(final Instance instance, final Import importChanged, final InstanceStatus statusChanged)
-            throws PluginException {
-        // NOP
-    }
+    private static final String PLUGIN_NAME = "petals-se-installer";
 
     @Override
     public String getPluginName() {
@@ -47,7 +37,7 @@ public class PluginPetalsSlInstaller extends PluginPetalsJbiArtifactInstaller im
 
     @Override
     protected String getManagedArtifactType() {
-        return "SL";
+        return "SE";
     }
 
 }

@@ -70,10 +70,8 @@ public class PluginPetalsSuInstallerTest {
         containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
         containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
         containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
-        final Instance jbiComponentInstance = new Instance("component-id");
+        final Instance jbiComponentInstance = new Instance("my-container-component-id");
         jbiComponentInstance.component(suParentComponent);
-        jbiComponentInstance.overriddenExports.put(PluginPetalsSuInstaller.JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER,
-                "my-container-component-id");
         jbiComponentInstance.parent(containerInstance);
         final Instance suInstance = new Instance(INSTANCE_SU_NAME).parent(jbiComponentInstance);
         suInstance.component(new Component(PluginPetalsSuInstaller.ROBOCONF_COMPONENT_SU_COMPONENT));

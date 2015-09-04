@@ -29,7 +29,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.Import;
 import net.roboconf.core.model.beans.Instance;
+import net.roboconf.core.model.beans.Instance.InstanceStatus;
 import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
@@ -83,8 +85,7 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
             serviceUnit.setIdentification(suIdentifiaction);
             final Target componentTarget = new Target();
             componentTarget.setArtifactsZip(suFile.getName());
-            componentTarget.setComponentName(instance.getParent().overriddenExports
-                    .get(JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER));
+            componentTarget.setComponentName(instance.getParent().getName());
             serviceUnit.setTarget(componentTarget);
             serviceAssembly.getServiceUnit().add(serviceUnit);
             saJbiDescriptor.setServiceAssembly(serviceAssembly);
@@ -128,6 +129,12 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
         } finally {
             Thread.currentThread().setContextClassLoader(old);
         }
+    }
+
+    @Override
+    public void update(final Instance instance, final Import importChanged, final InstanceStatus statusChanged)
+            throws PluginException {
+        // NOP
     }
 
     @Override

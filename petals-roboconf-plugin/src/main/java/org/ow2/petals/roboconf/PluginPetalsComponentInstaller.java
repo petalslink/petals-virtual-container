@@ -17,37 +17,37 @@
  */
 package org.ow2.petals.roboconf;
 
+import java.util.Map.Entry;
+import java.util.Properties;
+
 import net.roboconf.core.model.beans.Import;
 import net.roboconf.core.model.beans.Instance;
 import net.roboconf.core.model.beans.Instance.InstanceStatus;
 import net.roboconf.plugin.api.PluginException;
-import net.roboconf.plugin.api.PluginInterface;
 
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
 
-public class PluginPetalsSlInstaller extends PluginPetalsJbiArtifactInstaller implements PluginInterface {
+public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArtifactInstaller {
 
-    private static final String PLUGIN_NAME = "petals-sl-installer";
-
-    public PluginPetalsSlInstaller() throws DuplicatedServiceException, MissingServiceException {
+    public PluginPetalsComponentInstaller() throws DuplicatedServiceException, MissingServiceException {
         super();
+    }
+
+    @Override
+    protected Properties getConfigurationProperties(final Instance componentInstance) {
+
+        final Properties configurationProperties = super.getConfigurationProperties(componentInstance);
+        for (final Entry<String, String> entry : componentInstance.overriddenExports.entrySet()) {
+            configurationProperties.setProperty(entry.getKey(), entry.getValue());
+        }
+
+        return configurationProperties;
     }
 
     @Override
     public void update(final Instance instance, final Import importChanged, final InstanceStatus statusChanged)
             throws PluginException {
-        // NOP
+        // TODO: Reload properties conf file for JBI component
     }
-
-    @Override
-    public String getPluginName() {
-        return PLUGIN_NAME;
-    }
-
-    @Override
-    protected String getManagedArtifactType() {
-        return "SL";
-    }
-
 }

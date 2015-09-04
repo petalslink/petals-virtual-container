@@ -20,9 +20,7 @@ package org.ow2.petals.roboconf;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import net.roboconf.core.model.beans.Import;
 import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.beans.Instance.InstanceStatus;
 import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
@@ -76,9 +74,6 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
     protected static final String CONTAINER_VARIABLE_NAME_JMXPASSWORD = ROBOCONF_COMPONENT_ABTRACT_CONTAINER
             + ".jmxPassword";
 
-    protected static final String JBI_COMPONENT_VARIABLE_NAME_IDENTIFIER = ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT
-            + ".componentId";
-
     protected final Logger logger = Logger.getLogger(getClass().getName());
 
     protected String agentId;
@@ -102,13 +97,6 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
     @Override
     public void initialize(final Instance instance) throws PluginException {
         this.logger.fine(this.agentId + ": initializing the plugin for instance " + instance);
-    }
-
-    @Override
-    public void update(final Instance instance, final Import importChanged, final InstanceStatus statusChanged)
-            throws PluginException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

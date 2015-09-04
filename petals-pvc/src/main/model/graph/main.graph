@@ -73,23 +73,21 @@ PetalsContainer {
 }
 
 PetalsJBIComponent {
-    installer: script;
-    # TODO: No default value should be set on 'componentId' because it has no sens
-    exports: componentId = my-component-id;
-    # TODO: Waiting https://github.com/roboconf/roboconf-platform/issues/184, we are not able to get value of JMX attributes of the container
-    #       where the JBI component is running, so we use default values. When fixed, we can use env var in scripts to access these values.
+    # TODO: PetalsJBIComponent is an abstract component, the real installer to use is depending on inherited components
+	installer: script;
+    children: PetalsSU;
+    
+    # Note: the instance name of a PetalsJBI component is the JBI identifier of the component
 }
 
 PetalsBC {
     extends: PetalsJBIComponent;
-    exports: componentType = BC;
-    children: PetalsSU;
+    installer: petals-bc-installer;
 }
 
 PetalsSE {
     extends: PetalsJBIComponent;
-    exports: componentType = SE;
-    children: PetalsSU;
+    installer: petals-se-installer;
 }
 
 PetalsSL {

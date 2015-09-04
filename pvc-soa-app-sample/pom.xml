@@ -70,7 +70,7 @@
                      <groupId>org.ow2.petals</groupId>
                      <artifactId>petals-se-activiti</artifactId>
                      <version>1.1.0-SNAPSHOT</version>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSEActiviti/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSEActiviti</outputDirectory>
                      <targetName>petals-se-activiti</targetName>
                   </configuration>
                </execution>
@@ -117,7 +117,7 @@
                            <destFileName>petals-bc-soap.zip</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsBCSoap/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsBCSoap</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
@@ -251,48 +251,6 @@
                      <outputDirectory>${project.build.directory}/roboconf-model/graph/ActivitiPgSQLDatabase/files</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-               <execution>
-                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
-                  <id>copy-scripts-for-PetalsBCSoap</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-                  <configuration>
-                     <tasks>
-                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsBCSoap/scripts">
-                           <patternset>
-                              <include name="graph/PetalsJBIComponent/scripts/*" />
-                           </patternset>
-                           <cutdirsmapper dirs="3"/>
-                        </unzip>
-                     </tasks>
-                  </configuration>
-               </execution>
-               <execution>
-                  <!-- TODO: Should be included at roboconf-maven-plugin by https://github.com/roboconf/roboconf-platform/issues/314 -->
-                  <id>copy-scripts-for-PetalsSEActiviti</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-                  <configuration>
-                     <tasks>
-                        <unzip src="${org.ow2.petals.cloud:petals-pvc:zip}" dest="${basedir}/target/roboconf-model/graph/PetalsSEActiviti/scripts">
-                           <patternset>
-                              <include name="graph/PetalsJBIComponent/scripts/*" />
-                           </patternset>
-                           <cutdirsmapper dirs="3"/>
-                        </unzip>
-                     </tasks>
                   </configuration>
                </execution>
             </executions>
