@@ -39,16 +39,11 @@ ActivitiPgSQLDatabase {
 
 PetalsSLPostgreSQL {
 	extends: PetalsSL;
-	# As SL are not supported by Roboconf because:
-	#   - a SL export no configuration parameter
-	#   - Roboconf is not able to manage local dependency
-	# We create a dummy exported variable and work with only one instance of Petals SE Activiti over all Petals containers
-	exports: present = true;
 }
 
 PetalsSEActiviti {
     extends: PetalsSE;
-    # See comment on PetalsSLPostgreSQL
+    # See comment on PetalsSL
 	imports: PetalsSLPostgreSQL.present, ActivitiPgSQLDatabase.*;
 }
 

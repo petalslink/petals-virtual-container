@@ -55,7 +55,7 @@ instance of PetalsRegistry-VM {
 	name: registry-vm-1;
 
 	instance of PetalsRegistrySlave {
-		name: registry-node-1;
+		name: registry-node;
 
 		# TODO: Why PetalsRegistry must be used ? We should use only 'memberId' (https://github.com/roboconf/roboconf-platform/issues/420)
 		PetalsRegistry.memberId: registry-node-1;
@@ -118,7 +118,7 @@ instance of PetalsContainer-VM {
 	name: container-vm-1;
 
 	instance of PetalsContainer {
-		name: container-node-1;
+		name: container-node;
 
 		PetalsContainerTemplate.containerId: container-node-1;
 		

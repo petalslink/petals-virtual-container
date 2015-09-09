@@ -34,9 +34,9 @@ instance of PetalsRegistry-VM {
 	name: registry-vm-1;
 
 	instance of PetalsRegistrySlave {
-		name: registry-node-1;
+		name: registry-node;
 
-		PetalsRegistry.memberId: registry-node-1;
+		PetalsRegistry.memberId: registry-node;
 	}
 }
 
@@ -59,8 +59,8 @@ instance of PetalsContainer-VM {
 	name: container-vm-1;
 
 	instance of PetalsContainer {
-		name: container-node-1;
+		name: container-node;
 
-		PetalsContainerTemplate.containerId: container-node-1;
+		PetalsContainerTemplate.containerId: container-node;
 	}
 }

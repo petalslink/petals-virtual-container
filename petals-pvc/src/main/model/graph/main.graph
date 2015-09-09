@@ -63,8 +63,7 @@ PetalsContainerTemplate {
 
 PetalsContainerBootstrap {
     extends: PetalsContainerTemplate;
-    # We duplicate export about containerId and ip waiting https://github.com/roboconf/roboconf-platform/issues/317
-	exports: domainName = sample-domain, subdomainName = sample-subdomain, containerId = sample-0, ip;
+    exports: domainName = sample-domain, subdomainName = sample-subdomain;
 }
 
 PetalsContainer {
@@ -92,6 +91,11 @@ PetalsSE {
 
 PetalsSL {
     installer: petals-sl-installer;
+	# As SL are not supported by Roboconf because:
+	#   - a SL export no configuration parameter
+	#   - Roboconf is not able to manage local dependency
+	# We create a dummy exported variable and work with only one instance of Petals SE Activiti over all Petals containers
+	exports: present = true;
 }
 
 PetalsSU {

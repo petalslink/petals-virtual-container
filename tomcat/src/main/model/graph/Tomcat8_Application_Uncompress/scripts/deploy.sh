@@ -20,9 +20,9 @@
 
 env
 
-if [ -f ./post-deploy.sh ]
+if [ -f ${ROBOCONF_FILES_DIR}/../scripts/post-deploy.sh ]
 then
-	unzip ${ROBOCONF_FILES_DIR}/${applicationFile} -d /var/lib/tomcat8/webapps/${applicationDir} && . ./post-deploy.sh
+	unzip ${ROBOCONF_FILES_DIR}/${applicationFile} -d /var/lib/tomcat8/webapps/${applicationDir} && . ${ROBOCONF_FILES_DIR}/../scripts/post-deploy.sh
 else
 	unzip ${ROBOCONF_FILES_DIR}/${applicationFile} -d /var/lib/tomcat8/webapps/${applicationDir}
 fi
