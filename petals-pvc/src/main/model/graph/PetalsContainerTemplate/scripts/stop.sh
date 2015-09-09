@@ -24,5 +24,5 @@
 #       Restarting slave containers fails because slave containers are not known in the PVC topology.
 #       Here, we should detach containers and reset their configuration when PetalsContainerBoostrap is stopped. So, on startup all will be regenerated
 #       and slave containers re-attached. This can be done when https://github.com/roboconf/roboconf-platform/issues/320 will be fixed
-stop_container ${containerId}
+stop_container ${ROBOCONF_INSTANCE_NAME}
 exit $?

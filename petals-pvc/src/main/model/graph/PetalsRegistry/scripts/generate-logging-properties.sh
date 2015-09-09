@@ -18,7 +18,7 @@
 #
 #############################################################################
 
-cat > /etc/petals-registry/member-available/${memberId}/logging.properties << EOF
+cat > /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/logging.properties << EOF
 #
 # Copyright (c) 2013-2015 Linagora
 #

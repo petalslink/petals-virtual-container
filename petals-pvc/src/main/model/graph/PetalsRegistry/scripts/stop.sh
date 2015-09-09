@@ -18,7 +18,7 @@
 #
 #############################################################################
 
-sudo -u petals petals-registry -c file:///etc/petals-registry/member-available/${memberId}/member.properties stop
+sudo -u petals petals-registry -c file:///etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/member.properties stop
 
 ret="1"
 try=0

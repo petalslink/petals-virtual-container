@@ -19,6 +19,6 @@
 #############################################################################
 
 
-rm -rf /etc/petals-esb/container-available/${containerId} && \
+rm -rf /etc/petals-esb/container-available/${ROBOCONF_INSTANCE_NAME} && \
 dpkg -P petals-cli petals-esb petals-commons
 exit $?

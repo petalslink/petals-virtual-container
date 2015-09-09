@@ -18,7 +18,7 @@
 #
 #############################################################################
 
-cat > /etc/petals-registry/member-available/${memberId}/member.properties << EOF
+cat > /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/member.properties << EOF
 #
 # Copyright (c) 2013-2015 Linagora
 #
@@ -43,7 +43,7 @@ cat > /etc/petals-registry/member-available/${memberId}/member.properties << EOF
 
 # This property specifies the name of the local member. This property is mandatory
 # and must match a member name in the Petals Registry Overlay configuration file (ie. cluster.xml).
-petals.registry.overlay.member.local-identifier = ${memberId}
+petals.registry.overlay.member.local-identifier = ${ROBOCONF_INSTANCE_NAME}
 
 # This property defines the configuration file of the logging system. Check the Petals Registry Overlay documentation
 # for more information about the default value.

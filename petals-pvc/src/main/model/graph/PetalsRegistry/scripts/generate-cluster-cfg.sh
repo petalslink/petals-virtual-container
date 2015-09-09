@@ -18,8 +18,8 @@
 #
 #############################################################################
 
-mkdir -p /etc/petals-registry/member-available/${memberId}
-cat > /etc/petals-registry/member-available/${memberId}/cluster.xml << EOF
+mkdir -p /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}
+cat > /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/cluster.xml << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  Copyright (c) 2015 Linagora
@@ -47,7 +47,7 @@ cat > /etc/petals-registry/member-available/${memberId}/cluster.xml << EOF
         <tns:password>${credentialsPassword}</tns:password>
    </tns:credentials>
    <tns:members>
-        <tns:member id="${memberId}" port="${port}">${ip}</tns:member>
+        <tns:member id="${ROBOCONF_INSTANCE_NAME}" port="${port}">${ip}</tns:member>
 EOF
 
 if [ -z "$PetalsRegistry_size" ]
@@ -60,8 +60,9 @@ while [ $i -gt 0 ]
 do
    i=`expr $i - 1`
    
-   remote_memberId_var_name="PetalsRegistry_${i}_memberId"
-   eval remote_memberId=\$${remote_memberId_var_name}
+   remote_memberId_var_name="PetalsRegistry_${i}_name"
+   eval remote_memberId_full=\$${remote_memberId_var_name}
+   remote_memberId=`echo ${remote_memberId_full} | cut -d'/' -f 3`
    
    remote_port_var_name="PetalsRegistry_${i}_port"
    eval remote_port=\$${remote_port_var_name}
@@ -69,12 +70,12 @@ do
    remote_ip_var_name="PetalsRegistry_${i}_ip"
    eval remote_ip=\$${remote_ip_var_name}
    
-   cat >> /etc/petals-registry/member-available/${memberId}/cluster.xml << EOF
+   cat >> /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/cluster.xml << EOF
         <tns:member id="${remote_memberId}" port="${remote_port}">${remote_ip}</tns:member>   
 EOF
 done
 
-cat >> /etc/petals-registry/member-available/${memberId}/cluster.xml << EOF
+cat >> /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/cluster.xml << EOF
    </tns:members>
 
    <!-- By default, the support of the Hazelcast Management Center is enable -->

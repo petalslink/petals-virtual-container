@@ -34,23 +34,24 @@
 
 env
 
-if [ ! -e /etc/petals-esb/container-available/${containerId} ]
+if [ ! -e /etc/petals-esb/container-available/${ROBOCONF_INSTANCE_NAME} ]
 then
    #
    # Domain definition of the container. We use temporary domain and sub-domain names
    #
    DOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_domainName}_$RANDOM`
    SUBDOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_subdomainName}_$RANDOM`
+   BOOTSTRAP_CONTAINER_NAME=`echo ${PetalsContainerBootstrap_0_name} | cut -d'/' -f 3`
    
-   generate_topology ${DOMAIN_NAME} ${SUBDOMAIN_NAME} ${containerId} ${ip} ${PetalsRegistry_0_ip} \
+   generate_topology ${DOMAIN_NAME} ${SUBDOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistry_0_ip} \
                      ${PetalsRegistry_0_port} ${PetalsRegistry_0_credentialsGroup} ${PetalsRegistry_0_credentialsPassword} \
                      ${jmxPort} && \
-   generate_server_properties ${containerId} && \
-   generate_loggers_properties ${containerId} && \
-   start_container ${containerId} && \
-   attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_subdomainName} ${PetalsContainerBootstrap_0_containerId} ${PetalsContainerBootstrap_0_ip}
+   generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
+   generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} && \
+   start_container ${ROBOCONF_INSTANCE_NAME} && \
+   attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_subdomainName} ${BOOTSTRAP_CONTAINER_NAME} ${PetalsContainerBootstrap_0_ip}
    exit $?
 else
-   start_container ${containerId}
+   start_container ${ROBOCONF_INSTANCE_NAME}
    exit $?
 fi 

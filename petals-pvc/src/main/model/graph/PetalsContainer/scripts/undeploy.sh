@@ -18,6 +18,8 @@
 #
 #############################################################################
 
+. ./functions.sh
+
 #
 # Undeploy the container :
 #   - the container must be detached from the PVC sub-domain:
@@ -28,9 +30,11 @@
 #   - uninstall Petals ESB runtime removing all configuration files
 #
 
-start_container ${containerId} && \
+env
+
+start_container ${ROBOCONF_INSTANCE_NAME} && \
 detach_container ${ip} ${jmxPort} && \
-stop_container ${containerId} && \
-rm -rf /etc/petals-esb/container-available/${containerId} && \
+stop_container ${ROBOCONF_INSTANCE_NAME} && \
+rm -rf /etc/petals-esb/container-available/${ROBOCONF_INSTANCE_NAME} && \
 dpkg -P petals-cli petals-esb petals-commons
 exit $?

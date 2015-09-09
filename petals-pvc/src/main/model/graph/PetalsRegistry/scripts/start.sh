@@ -34,7 +34,7 @@ sudo -u petals rm -f /var/log/petals-registry/petals-registry-overlay.log.0
 #
 # Start the registry node
 #
-sudo -u petals petals-registry -c file:///etc/petals-registry/member-available/${memberId}/member.properties &
+sudo -u petals petals-registry -c file:///etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/member.properties &
 
 ret="1"
 try=0

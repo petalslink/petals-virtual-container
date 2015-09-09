@@ -31,16 +31,16 @@
 # To know if it is the first start, we check existence of the directory containing the container configuration files
 #
 
-if [ ! -e /etc/petals-esb/container-available/${containerId} ]
+if [ ! -e /etc/petals-esb/container-available/${ROBOCONF_INSTANCE_NAME} ]
 then
-   generate_topology ${domainName} ${subdomainName} ${containerId} ${ip} ${PetalsRegistry_0_ip} \
+   generate_topology ${domainName} ${subdomainName} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistry_0_ip} \
                      ${PetalsRegistry_0_port} ${PetalsRegistry_0_credentialsGroup} ${PetalsRegistry_0_credentialsPassword} \
                      ${jmxPort} && \
-   generate_server_properties ${containerId} && \
-   generate_loggers_properties ${containerId} && \
-   start_container ${containerId}
+   generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
+   generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} && \
+   start_container ${ROBOCONF_INSTANCE_NAME}
    exit $?
 else
-   start_container ${containerId}
+   start_container ${ROBOCONF_INSTANCE_NAME}
    exit $?
 fi 
