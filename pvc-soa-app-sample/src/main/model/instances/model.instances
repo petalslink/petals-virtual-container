@@ -43,7 +43,7 @@ instance of PostgreSQL-VM {
 instance of PetalsRegistry-VM {
 	name: registry-bootstrap-vm;
 
-	instance of PetalsRegistryMaster {
+	instance of PetalsRegistryBootstrap {
 		name: registry-bootstrap-node;
 	}
 }
@@ -51,7 +51,7 @@ instance of PetalsRegistry-VM {
 instance of PetalsRegistry-VM {
 	name: registry-vm-1;
 
-	instance of PetalsRegistrySlave {
+	instance of PetalsRegistry {
 		name: registry-node;
 	}
 }

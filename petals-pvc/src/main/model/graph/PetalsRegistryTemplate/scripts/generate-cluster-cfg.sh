@@ -50,24 +50,24 @@ cat > /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/cluster.xm
         <tns:member id="${ROBOCONF_INSTANCE_NAME}" port="${port}">${ip}</tns:member>
 EOF
 
-if [ -z "$PetalsRegistry_size" ]
+if [ -z "$PetalsRegistryTemplate_size" ]
 then
    i=0
 else
-   i=$PetalsRegistry_size
+   i=$PetalsRegistryTemplate_size
 fi
 while [ $i -gt 0 ]
 do
    i=`expr $i - 1`
    
-   remote_memberId_var_name="PetalsRegistry_${i}_name"
+   remote_memberId_var_name="PetalsRegistryTemplate_${i}_name"
    eval remote_memberId_full=\$${remote_memberId_var_name}
    remote_memberId=`echo ${remote_memberId_full} | cut -d'/' -f 3`
    
-   remote_port_var_name="PetalsRegistry_${i}_port"
+   remote_port_var_name="PetalsRegistryTemplate_${i}_port"
    eval remote_port=\$${remote_port_var_name}
    
-   remote_ip_var_name="PetalsRegistry_${i}_ip"
+   remote_ip_var_name="PetalsRegistryTemplate_${i}_ip"
    eval remote_ip=\$${remote_ip_var_name}
    
    cat >> /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/cluster.xml << EOF

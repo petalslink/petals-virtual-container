@@ -27,24 +27,24 @@
 
 PetalsRegistry-VM {
     installer: target;
-	children: PetalsRegistry;
+	children: PetalsRegistryTemplate;
 }
 
-PetalsRegistry {
+PetalsRegistryTemplate {
     installer: script;
 	exports: ip, port = 7900, credentialsGroup = default-sample, credentialsPassword = s3cr3t, managementUrl = http://192.168.1.100:8080/mancenter;
 }
 
-# Note: To be able to add a new member to the cluster, the member must known at least one member of the cluster. That's why we introduce the master node that is the referent node.
-# TODO: Replace PetalsRegistryMaster and PetalsRegistrySlave by only one component when Roboconf will support it
-PetalsRegistryMaster {
-    extends: PetalsRegistry;
-	imports: PetalsRegistry.* (optional);
+# Note: To be able to add a new member to the cluster, the member must known at least one member of the cluster. That's why we introduce the bootstrap node that is the referent node.
+# TODO: Replace PetalsRegistryBootstrap and PetalsRegistry by only one component when Roboconf will support it
+PetalsRegistryBootstrap {
+    extends: PetalsRegistryTemplate;
+	imports: PetalsRegistryTemplate.* (optional);
 }
 
-PetalsRegistrySlave {
-    extends: PetalsRegistry;
-	imports: PetalsRegistry.*;
+PetalsRegistry {
+    extends: PetalsRegistryTemplate;
+	imports: PetalsRegistryTemplate.*;
 }
 
 PetalsContainer-VM {
@@ -57,7 +57,7 @@ PetalsContainer-VM {
 PetalsContainerTemplate {
     installer: script;
 	exports: ip, jmxPort = 7700, jmxUser = petals, jmxPassword = petals;
-	imports: PetalsRegistry.ip, PetalsRegistry.port, PetalsRegistry.credentialsGroup, PetalsRegistry.credentialsPassword;
+	imports: PetalsRegistryTemplate.ip, PetalsRegistryTemplate.port, PetalsRegistryTemplate.credentialsGroup, PetalsRegistryTemplate.credentialsPassword;
 	children: PetalsJBIComponent, PetalsSL;
 }
 
