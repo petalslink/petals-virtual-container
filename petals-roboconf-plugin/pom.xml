@@ -31,7 +31,7 @@
    <packaging>bundle</packaging>
    <version>1.0.0-SNAPSHOT</version>
    <name>Petals plug-in for Roboconf</name>
-   <description>Petals plug-in for Roboconf providing service assembly generation to deploy service units defined as children of JBI components</description>
+   <description>Petals plug-in for Roboconf providing Petals artifact installation capabilities and a measure extension for Petals</description>
 
    <properties>
       <roboconf.version>0.4</roboconf.version>
@@ -55,6 +55,7 @@
          <version>${roboconf.version}</version>
          <scope>provided</scope>
       </dependency>
+      <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>net.roboconf</groupId>
          <artifactId>roboconf-agent-monitoring</artifactId>
@@ -67,6 +68,7 @@
          <version>${roboconf.version}</version>
          <scope>provided</scope>
       </dependency>
+      -->
       
       <!-- Petals dependencies -->
       <dependency>
@@ -85,6 +87,7 @@
          <version>1.4.0-SNAPSHOT</version>
          <scope>runtime</scope>
       </dependency>
+      <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-api</artifactId>
@@ -95,6 +98,7 @@
          <artifactId>petals-jmx-api-impl</artifactId>
          <version>1.0.1-SNAPSHOT</version>
       </dependency>
+      -->
       
       <!-- Test dependencies -->
       <dependency>
@@ -108,6 +112,7 @@
          <version>1.0.0-SNAPSHOT</version>
          <scope>test</scope>
       </dependency>
+      <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-impl</artifactId>
@@ -121,6 +126,7 @@
          <version>2.0.4</version>
          <scope>test</scope>
       </dependency>
+      -->
    </dependencies>
 
    <build>
