@@ -43,8 +43,8 @@ then
    SUBDOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_subdomainName}_$RANDOM`
    BOOTSTRAP_CONTAINER_NAME=`echo ${PetalsContainerBootstrap_0_name} | cut -d'/' -f 3`
    
-   generate_topology ${DOMAIN_NAME} ${SUBDOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistry_0_ip} \
-                     ${PetalsRegistry_0_port} ${PetalsRegistry_0_credentialsGroup} ${PetalsRegistry_0_credentialsPassword} \
+   generate_topology ${DOMAIN_NAME} ${SUBDOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
+                     ${PetalsRegistryTemplate_0_port} ${PetalsRegistryTemplate_0_credentialsGroup} ${PetalsRegistryTemplate_0_credentialsPassword} \
                      ${jmxPort} && \
    generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
    generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} && \
