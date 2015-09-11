@@ -35,6 +35,20 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
     }
 
     @Override
+    public void deploy(final Instance instance) throws PluginException {
+        // NOP: Hack to workaround https://github.com/roboconf/roboconf-platform/issues/331
+        // TODO: Remove when https://github.com/roboconf/roboconf-platform/issues/331 will be fixed
+    }
+
+    @Override
+    public void start(final Instance instance) throws PluginException {
+        // NOP: Hack to workaround https://github.com/roboconf/roboconf-platform/issues/331
+        // TODO: Remove when https://github.com/roboconf/roboconf-platform/issues/331 will be fixed
+        super.deploy(instance);
+        super.start(instance);
+    }
+
+    @Override
     protected Properties getConfigurationProperties(final Instance componentInstance) {
 
         final Properties configurationProperties = super.getConfigurationProperties(componentInstance);
