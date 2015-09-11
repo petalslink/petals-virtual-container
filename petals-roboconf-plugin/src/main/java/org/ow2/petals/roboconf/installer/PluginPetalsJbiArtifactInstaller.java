@@ -15,7 +15,9 @@
  * along with this program/library; If not, see <http://www.gnu.org/licenses/>
  * for the GNU Lesser General Public License version 2.1.
  */
-package org.ow2.petals.roboconf;
+package org.ow2.petals.roboconf.installer;
+
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_CONTAINER;
 
 import java.io.File;
 import java.net.MalformedURLException;

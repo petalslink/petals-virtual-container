@@ -15,7 +15,12 @@
  * along with this program/library; If not, see <http://www.gnu.org/licenses/>
  * for the GNU Lesser General Public License version 2.1.
  */
-package org.ow2.petals.roboconf;
+package org.ow2.petals.roboconf.installer;
+
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_IP;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPASSWORD;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPORT;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXUSER;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -34,45 +39,6 @@ import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
 
 public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
-
-    /**
-     * Name of the Roboconf component associated to an abstract Petals JBI component
-     */
-    protected static final String ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT = "PetalsJBIComponent";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Binding Component
-     */
-    protected static final String ROBOCONF_COMPONENT_BC_COMPONENT = "PetalsBC";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Service Engine
-     */
-    protected static final String ROBOCONF_COMPONENT_SE_COMPONENT = "PetalsSE";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Service Unit
-     */
-    protected static final String ROBOCONF_COMPONENT_SU_COMPONENT = "PetalsSU";
-
-    /**
-     * Name of the Roboconf component associated to a Petals Shared Library
-     */
-    protected static final String ROBOCONF_COMPONENT_SL_COMPONENT = "PetalsSL";
-
-    /**
-     * Name of the Roboconf component associated to an abstract Petals container
-     */
-    protected static final String ROBOCONF_COMPONENT_ABTRACT_CONTAINER = "PetalsContainerTemplate";
-
-    protected static final String CONTAINER_VARIABLE_NAME_IP = ROBOCONF_COMPONENT_ABTRACT_CONTAINER + ".ip";
-
-    protected static final String CONTAINER_VARIABLE_NAME_JMXPORT = ROBOCONF_COMPONENT_ABTRACT_CONTAINER + ".jmxPort";
-
-    protected static final String CONTAINER_VARIABLE_NAME_JMXUSER = ROBOCONF_COMPONENT_ABTRACT_CONTAINER + ".jmxUser";
-
-    protected static final String CONTAINER_VARIABLE_NAME_JMXPASSWORD = ROBOCONF_COMPONENT_ABTRACT_CONTAINER
-            + ".jmxPassword";
 
     protected final Logger logger = Logger.getLogger(getClass().getName());
 
@@ -205,7 +171,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
         final String jmxPassword = containerExportedVariables.get(CONTAINER_VARIABLE_NAME_JMXPASSWORD);
         if (ip == null || ip.isEmpty() || jmxPort == null || jmxPort.isEmpty() || jmxUser == null
                 || jmxPassword == null) {
-            throw new PluginException("An exported variables is missing. Available exported variables are: "
+            throw new PluginException("An exported variable is missing. Available exported variables are: "
                     + containerExportedVariables);
         } else {
             this.logger.fine("Exported variables of container: " + containerExportedVariables);

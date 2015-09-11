@@ -15,9 +15,17 @@
  * along with this program/library; If not, see <http://www.gnu.org/licenses/>
  * for the GNU Lesser General Public License version 2.1.
  */
-package org.ow2.petals.roboconf;
+package org.ow2.petals.roboconf.installer;
 
 import static org.junit.Assert.assertTrue;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_IP;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPASSWORD;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPORT;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXUSER;
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_CONTAINER;
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT;
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_BC_COMPONENT;
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_SU_COMPONENT;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,28 +61,26 @@ public class PluginPetalsSuInstallerTest {
     public void start() throws PluginException, DuplicatedServiceException, MissingServiceException,
             FileNotFoundException, IOException {
 
-        final Component abstractContainerComponent = new Component(
-                PluginPetalsSuInstaller.ROBOCONF_COMPONENT_ABTRACT_CONTAINER);
+        final Component abstractContainerComponent = new Component(ROBOCONF_COMPONENT_ABTRACT_CONTAINER);
         final Component containerComponent = new Component("my-container-component");
         containerComponent.extendComponent(abstractContainerComponent);
-        final Component abstractJbiComponentComponent = new Component(
-                PluginPetalsSuInstaller.ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT);
-        final Component bcComponent = new Component(PluginPetalsSuInstaller.ROBOCONF_COMPONENT_BC_COMPONENT);
+        final Component abstractJbiComponentComponent = new Component(ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT);
+        final Component bcComponent = new Component(ROBOCONF_COMPONENT_BC_COMPONENT);
         bcComponent.extendComponent(abstractJbiComponentComponent);
         final Component suParentComponent = new Component("my-component-component");
         suParentComponent.extendComponent(bcComponent);
 
         final Instance containerInstance = new Instance("my-container");
         containerInstance.component(containerComponent);
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_IP, "localhost");
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_IP, "localhost");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
         final Instance jbiComponentInstance = new Instance("my-container-component-id");
         jbiComponentInstance.component(suParentComponent);
         jbiComponentInstance.parent(containerInstance);
         final Instance suInstance = new Instance(INSTANCE_SU_NAME).parent(jbiComponentInstance);
-        suInstance.component(new Component(PluginPetalsSuInstaller.ROBOCONF_COMPONENT_SU_COMPONENT));
+        suInstance.component(new Component(ROBOCONF_COMPONENT_SU_COMPONENT));
 
         final File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(suInstance);
         assertTrue(instanceDirectory.mkdirs());

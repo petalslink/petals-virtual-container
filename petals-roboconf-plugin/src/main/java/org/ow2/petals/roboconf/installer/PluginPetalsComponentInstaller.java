@@ -15,7 +15,7 @@
  * along with this program/library; If not, see <http://www.gnu.org/licenses/>
  * for the GNU Lesser General Public License version 2.1.
  */
-package org.ow2.petals.roboconf;
+package org.ow2.petals.roboconf.installer;
 
 import java.util.Map.Entry;
 import java.util.Properties;

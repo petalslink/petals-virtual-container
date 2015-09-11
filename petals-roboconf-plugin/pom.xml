@@ -55,6 +55,18 @@
          <version>${roboconf.version}</version>
          <scope>provided</scope>
       </dependency>
+      <dependency>
+         <groupId>net.roboconf</groupId>
+         <artifactId>roboconf-agent-monitoring</artifactId>
+         <version>${roboconf.version}</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>net.roboconf</groupId>
+         <artifactId>roboconf-messaging-api</artifactId>
+         <version>${roboconf.version}</version>
+         <scope>provided</scope>
+      </dependency>
       
       <!-- Petals dependencies -->
       <dependency>
@@ -73,6 +85,16 @@
          <version>1.4.0-SNAPSHOT</version>
          <scope>runtime</scope>
       </dependency>
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-jmx-api-api</artifactId>
+         <version>1.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-jmx-api-impl</artifactId>
+         <version>1.0.1-SNAPSHOT</version>
+      </dependency>
       
       <!-- Test dependencies -->
       <dependency>
@@ -84,6 +106,19 @@
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-mock</artifactId>
          <version>1.0.0-SNAPSHOT</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.ow2.petals</groupId>
+         <artifactId>petals-jmx-api-impl</artifactId>
+         <version>1.0.1-SNAPSHOT</version>
+         <type>test-jar</type>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.mina</groupId>
+         <artifactId>mina-core</artifactId>
+         <version>2.0.4</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
@@ -135,25 +170,25 @@
                          xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
                          xmlns="org.apache.felix.ipojo">
                   
-                      <component classname="org.ow2.petals.roboconf.PluginPetalsSuInstaller" name="roboconf-plugin-petals-su-installer">
+                      <component classname="org.ow2.petals.roboconf.installer.PluginPetalsSuInstaller" name="roboconf-plugin-petals-su-installer">
                           <provides />
                       </component>
                   
                       <instance component="roboconf-plugin-petals-su-installer" name="Roboconf Plugin - Petals SU Installer" />
                   
-                      <component classname="org.ow2.petals.roboconf.PluginPetalsSlInstaller" name="roboconf-plugin-petals-sl-installer">
+                      <component classname="org.ow2.petals.roboconf.installer.PluginPetalsSlInstaller" name="roboconf-plugin-petals-sl-installer">
                           <provides />
                       </component>
                   
                       <instance component="roboconf-plugin-petals-sl-installer" name="Roboconf Plugin - Petals SL Installer" />
                   
-                      <component classname="org.ow2.petals.roboconf.PluginPetalsSeInstaller" name="roboconf-plugin-petals-se-installer">
+                      <component classname="org.ow2.petals.roboconf.installer.PluginPetalsSeInstaller" name="roboconf-plugin-petals-se-installer">
                           <provides />
                       </component>
                   
                       <instance component="roboconf-plugin-petals-se-installer" name="Roboconf Plugin - Petals SE Installer" />
                   
-                      <component classname="org.ow2.petals.roboconf.PluginPetalsBcInstaller" name="roboconf-plugin-petals-bc-installer">
+                      <component classname="org.ow2.petals.roboconf.installer.PluginPetalsBcInstaller" name="roboconf-plugin-petals-bc-installer">
                           <provides />
                       </component>
                   

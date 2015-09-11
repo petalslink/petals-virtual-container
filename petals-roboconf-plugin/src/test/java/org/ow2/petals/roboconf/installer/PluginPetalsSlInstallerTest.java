@@ -15,9 +15,15 @@
  * along with this program/library; If not, see <http://www.gnu.org/licenses/>
  * for the GNU Lesser General Public License version 2.1.
  */
-package org.ow2.petals.roboconf;
+package org.ow2.petals.roboconf.installer;
 
 import static org.junit.Assert.assertTrue;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_IP;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPASSWORD;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPORT;
+import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXUSER;
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_CONTAINER;
+import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_SL_COMPONENT;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,19 +59,18 @@ public class PluginPetalsSlInstallerTest {
     public void start() throws PluginException, DuplicatedServiceException, MissingServiceException,
             FileNotFoundException, IOException {
 
-        final Component abstractContainerComponent = new Component(
-                PluginPetalsSuInstaller.ROBOCONF_COMPONENT_ABTRACT_CONTAINER);
+        final Component abstractContainerComponent = new Component(ROBOCONF_COMPONENT_ABTRACT_CONTAINER);
         final Component containerComponent = new Component("my-container-component");
         containerComponent.extendComponent(abstractContainerComponent);
 
         final Instance containerInstance = new Instance("my-container");
         containerInstance.component(containerComponent);
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_IP, "localhost");
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
-        containerInstance.overriddenExports.put(PluginPetalsSuInstaller.CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_IP, "localhost");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
         final Instance slInstance = new Instance(INSTANCE_SL_NAME).parent(containerInstance);
-        slInstance.component(new Component(PluginPetalsSuInstaller.ROBOCONF_COMPONENT_SL_COMPONENT));
+        slInstance.component(new Component(ROBOCONF_COMPONENT_SL_COMPONENT));
 
         final File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(slInstance);
         assertTrue(instanceDirectory.mkdirs());
