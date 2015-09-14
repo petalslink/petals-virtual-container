@@ -69,7 +69,7 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
         }
     }
 
-    protected Properties getConfigurationProperties(final Instance jbiArtifactInstance) {
+    protected Properties getConfigurationProperties(final Instance jbiArtifactInstance) throws PluginException {
         return new Properties();
     }
 
@@ -84,13 +84,12 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
     }
 
     @Override
-    protected final Instance retrieveContainerInstance(final Instance slInstance)
-            throws ContainerAdministrationException, PluginException {
+    protected final Instance retrieveContainerInstance(final Instance jbiArtifactInstance) throws PluginException {
 
         // TODO: Perhaps review how to retrieve container exported variables when
         // https://github.com/roboconf/roboconf-platform/issues/184 will be fixed
 
-        final Instance containerInstance = slInstance.getParent();
+        final Instance containerInstance = jbiArtifactInstance.getParent();
         final Component jbiComponentAbstractContainer = containerInstance.getComponent().getExtendedComponent();
         if (jbiComponentAbstractContainer == null
                 || !ROBOCONF_COMPONENT_ABTRACT_CONTAINER.equals(jbiComponentAbstractContainer.getName())) {

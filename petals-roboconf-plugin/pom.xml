@@ -87,6 +87,11 @@
          <version>1.4.0-SNAPSHOT</version>
          <scope>runtime</scope>
       </dependency>
+      <dependency>
+         <groupId>org.ow2.easycommons</groupId>
+         <artifactId>easycommons-properties</artifactId>
+         <version>1.2-SNAPSHOT</version>
+      </dependency>
       <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>org.ow2.petals</groupId>
@@ -152,7 +157,8 @@
                      javax.xml.validation.*,
                      javax.xml.xpath.*,
                      org.xml.sax.*,
-                     org.w3c.dom.*
+                     org.w3c.dom.*,
+                     com.ebmwebsourcing.easycommons.properties.*
                   </Import-Package>
                   <Embed-Dependency>*;scope=compile|runtime;inline=true;groupId=!net.roboconf</Embed-Dependency>
                   <Embed-Transitive>true</Embed-Transitive>

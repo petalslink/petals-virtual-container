@@ -77,6 +77,9 @@ PetalsJBIComponent {
     children: PetalsSU;
     
     # Note: the instance name of a PetalsJBI component is the JBI identifier of the component
+    
+    # TODO: The configuration parameter 'propertiesFile' has not to be exported (cf. https://github.com/roboconf/roboconf-platform/issues/423)
+    exports: propertiesFile = /etc/petals-esb/container-available/${container-name}/${component-name}.properties;
 }
 
 PetalsBC {
