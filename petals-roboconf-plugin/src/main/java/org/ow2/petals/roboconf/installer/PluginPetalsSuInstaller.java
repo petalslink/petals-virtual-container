@@ -17,6 +17,7 @@
  */
 package org.ow2.petals.roboconf.installer;
 
+import static org.ow2.petals.roboconf.Constants.COMPONENT_VARIABLE_NAME_PROPERTIESFILE;
 import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_CONTAINER;
 import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT;
 import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_BC_COMPONENT;
@@ -24,11 +25,15 @@ import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_SE_COMPONENT;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
+import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -42,6 +47,7 @@ import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
 
 import org.apache.commons.io.IOUtils;
+import org.ow2.petals.admin.api.exception.ArtifactAdministrationException;
 import org.ow2.petals.admin.api.exception.ContainerAdministrationException;
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
@@ -51,6 +57,7 @@ import org.ow2.petals.jbi.descriptor.original.generated.Jbi;
 import org.ow2.petals.jbi.descriptor.original.generated.ServiceAssembly;
 import org.ow2.petals.jbi.descriptor.original.generated.ServiceUnit;
 import org.ow2.petals.jbi.descriptor.original.generated.Target;
+import org.ow2.petals.roboconf.Utils;
 
 public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller implements PluginInterface {
 
@@ -67,7 +74,8 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
 
         File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(instance);
         final File suFile = new File(instanceDirectory, instance.getName() + ".zip");
-        // TODO: Try to improve access to the java SPI of Petals Admin using a dedicated bundle for Petals Admin API instead of setting the classloader
+        // TODO: Try to improve access to the java SPI of Petals Admin using a dedicated bundle for Petals Admin API
+        // instead of setting the classloader
         final ClassLoader old = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(PluginPetalsSuInstaller.class.getClassLoader());
         try {
@@ -137,9 +145,90 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
     }
 
     @Override
-    public void update(final Instance instance, final Import importChanged, final InstanceStatus statusChanged)
+    public void start(final Instance suInstance) throws PluginException {
+        this.updatePropertiesFile(suInstance);
+        super.start(suInstance);
+    }
+
+    @Override
+    public void update(final Instance suInstance, final Import importChanged, final InstanceStatus statusChanged)
             throws PluginException {
-        // NOP
+
+        this.logger.fine(this.agentId + ": updating the " + this.getManagedArtifactType() + " for instance "
+                + suInstance);
+        this.updatePropertiesFile(suInstance);
+    }
+
+    private void updatePropertiesFile(final Instance suInstance) throws PluginException {
+
+        final Instance componentInstance = suInstance.getParent();
+
+        this.logger.fine(this.agentId + ": updating the properties file for JBI component instance "
+                + componentInstance);
+
+        final String propertiesFileName = Utils.resolvePropertiesFileName(componentInstance.overriddenExports
+                .get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE), this.retrieveContainerInstance(suInstance).getName(),
+                componentInstance.getName());
+        if (propertiesFileName != null && !propertiesFileName.isEmpty()) {
+            final File propertiesFile = new File(propertiesFileName);
+            if (!propertiesFile.exists()
+                    || (propertiesFile.exists() && propertiesFile.canWrite() && propertiesFile.isFile())) {
+
+                // If the properties file exists, we read it
+                final Properties properties = new Properties();
+                if (propertiesFile.exists()) {
+                    try {
+                        final InputStream fis = new FileInputStream(propertiesFile);
+                        try {
+                            properties.load(fis);
+                        } catch (final IOException e) {
+                            throw new PluginException(String.format(
+                                    "Error reading the properties file ('%s') of component '%s'.", propertiesFileName,
+                                    componentInstance.getName()));
+                        } finally {
+                            try {
+                                fis.close();
+                            } catch (final IOException e) {
+                                this.logger.log(Level.WARNING, String.format(
+                                        "An error occurs closing the properties file '%s'", propertiesFileName), e);
+                            }
+                        }
+                    } catch (final FileNotFoundException e) {
+                        // This exception should not occur because we have previously verified that the file exists
+                        this.logger.log(Level.WARNING, String.format(
+                                "The properties file ('%s') of component '%s' no more exist", propertiesFileName,
+                                componentInstance.getName()), e);
+                    }
+                }
+
+                // Update property values
+                this.logger.fine(String.format("Placeholders used by the SU: %s",
+                        suInstance.overriddenExports.toString()));
+                for (final Entry<String, String> entry : suInstance.overriddenExports.entrySet()) {
+                    properties.setProperty(entry.getKey(), entry.getValue());
+                }
+
+                // Store the properties file
+                Utils.storePropertiesFile(properties, propertiesFile, componentInstance.getName(), this.logger);
+
+                // Signal the component to reload its properties file
+                try {
+                    this.connectToContainer(this.retrieveContainerInstance(suInstance));
+                    try {
+                        this.artifactAdministration.reloadConfiguration(componentInstance.getName());
+                    } finally {
+                        this.containerAdministration.disconnect();
+                    }
+                } catch (final ContainerAdministrationException | ArtifactAdministrationException e) {
+                    throw new PluginException(e);
+                }
+
+            } else {
+                throw new PluginException(String.format(
+                        "Unable to create or write into the properties file ('%s') of component '%s'.",
+                        propertiesFileName, componentInstance.getName()));
+            }
+        }
     }
 
     @Override
@@ -163,9 +252,7 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
     }
 
     @Override
-    protected final Instance retrieveContainerInstance(final Instance suInstance)
-            throws ContainerAdministrationException,
-            PluginException {
+    protected final Instance retrieveContainerInstance(final Instance suInstance) throws PluginException {
 
         // TODO: Perhaps review how to retrieve container exported variables when
         // https://github.com/roboconf/roboconf-platform/issues/184 will be fixed

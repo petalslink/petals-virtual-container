@@ -85,13 +85,13 @@ instance of PetalsContainer-VM {
 			instance of SU-SOAP-NotificationServiceProvider {
 			    name: su-SOAP-notifyVacationService-provide;
 			    
-			    notification-service-url: http://localhost:8088/samples-SOAP-services/services/notifyVacationService;
+			    notifyService.url: http://localhost:8088/samples-SOAP-services/services/notifyVacationService;
 			}
 		
 			instance of SU-SOAP-ArchivingServiceProvider {
 			    name: su-SOAP-archiveService-provide;
 			    
-			    archiving-service-url: http://localhost:8088/samples-SOAP-services/services/archiveService;
+			    archiveService.url: http://localhost:8088/samples-SOAP-services/services/archiveService;
 			}
 		
 			instance of SU-SOAP-ActivitiIntegrationConsumer {

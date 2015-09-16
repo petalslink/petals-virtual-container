@@ -58,14 +58,14 @@ SU-SOAP-VacationServiceConsumer {
 SU-SOAP-NotificationServiceProvider {
     extends: PetalsSU;
     
-    exports: notification-service-url = http://localhost:8088/samples-SOAP-services/services/notifyVacationService;
+    exports: notifyService.url = http://${HAProxy.ip}:${HAProxy.httpPort}/samples-SOAP-services/services/notifyVacationService;
     #imports: HAProxy.ip, HAProxy.httpPort
 }
 
 SU-SOAP-ArchivingServiceProvider {
     extends: PetalsSU;
     
-    exports: archiving-service-url = http://localhost:8088/samples-SOAP-services/services/archiveService;
+    exports: archiveService.url = http://${HAProxy.ip}:${HAProxy.httpPort}/samples-SOAP-services/services/archiveService;
     #imports: HAProxy.ip, HAProxy.httpPort
 }
 

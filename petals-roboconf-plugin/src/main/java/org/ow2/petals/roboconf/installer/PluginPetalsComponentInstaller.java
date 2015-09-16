@@ -21,9 +21,6 @@ import static org.ow2.petals.roboconf.Constants.COMPONENT_VARIABLE_NAME_PROPERTI
 import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_SU_COMPONENT;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -35,6 +32,7 @@ import net.roboconf.plugin.api.PluginException;
 
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
+import org.ow2.petals.roboconf.Utils;
 
 import com.ebmwebsourcing.easycommons.properties.PropertiesException;
 import com.ebmwebsourcing.easycommons.properties.PropertiesHelper;
@@ -79,26 +77,9 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
 
                 final Properties serviceUnitProperties = PluginPetalsComponentInstaller
                         .getServiceUnitProperties(componentInstance);
-                try {
-                    final FileOutputStream fos = new FileOutputStream(propertiesFile);
-                    try {
-                        serviceUnitProperties.store(fos, "");
-                    } catch (final IOException e) {
-                        throw new PluginException(String.format(
-                                "An error occurs writing the properties file '%s' of component '%s'.",
-                                propertiesFileName, componentInstance.getName()), e);
-                    } finally {
-                        try {
-                            fos.close();
-                        } catch (IOException e) {
-                            this.logger.log(Level.WARNING, "An error occurs closing the properties file", e);
-                        }
-                    }
-                } catch (final FileNotFoundException e) {
-                    throw new PluginException(String.format(
-                            "The properties file '%s' of component '%s' can not be created.", propertiesFileName,
-                            componentInstance.getName()), e);
-                }
+                Utils.storePropertiesFile(serviceUnitProperties, propertiesFile, componentInstance.getName(),
+                        this.logger);
+
             } else {
                 throw new PluginException(String.format(
                         "Invalid value ('%s') for the properties file of component '%s'.", propertiesFileName,
@@ -136,6 +117,7 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
      * <p>
      * If the container name or the component name are used as placeholder (<code>${container-name}</code>,
      * <code>${component-name}</code> in the properties file name, they will be resolved.</code>
+     * </p>
      * 
      * @param componentInstance
      *            Roboconf component instance associated to the Petals JBI component to deploy
@@ -144,20 +126,10 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
      */
     private String getPropertiesFileName(final Instance componentInstance) throws PluginException {
 
-        try {
-            final String propertiesFileName = componentInstance.overriddenExports
-                    .get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE);
-            if (propertiesFileName != null && !propertiesFileName.isEmpty()) {
-                final Properties placeHolders = new Properties();
-                placeHolders.setProperty("container-name", this.retrieveContainerInstance(componentInstance).getName());
-                placeHolders.setProperty("component-name", componentInstance.getName());
-                return PropertiesHelper.resolveString(propertiesFileName, placeHolders);
-            } else {
-                return null;
-            }
-        } catch (final PropertiesException e) {
-            throw new PluginException(e);
-        }
+        final String propertiesFileName = componentInstance.overriddenExports
+                .get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE);
+        return Utils.resolvePropertiesFileName(propertiesFileName, this.retrieveContainerInstance(componentInstance)
+                .getName(), componentInstance.getName());
     }
 
     @Override
