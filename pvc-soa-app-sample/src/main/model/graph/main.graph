@@ -17,9 +17,22 @@
 #
 import petals-pvc/main.graph;
 
+# TODO: Should be mutualized with the load-balancer of haproxy-tomcat
+HAProxy_VM {
+	installer: target;
+	children: HAProxy;
+}
+
+# TODO: Should be mutualized with the load-balancer of haproxy-tomcat
+HAProxy {
+	installer: script;
+	imports: PetalsBCSoap.httpPort (optional), PetalsBCSoap.ip (optional);
+	exports: ip, httpPort = 80, statsPort = 8080;
+}
+
 PetalsBCSoap {
     extends: PetalsBC;
-    exports: httpPort = 8084;
+    exports: httpPort = 8084, ip;
 }
 
 PostgreSQL-VM {

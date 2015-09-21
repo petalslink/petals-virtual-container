@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015 Linagora
 #
@@ -16,17 +17,7 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
-import petals-tomcat/main.graph;
 
-# TODO: Should be mutualized with the load-balancer of pvc-soa-app-sample
-HAProxy_VM {
-	installer: target;
-	children: HAProxy;
-}
+. ./functions.sh
 
-# TODO: Should be mutualized with the load-balancer of pvc-soa-app-sample
-HAProxy {
-	installer: script;
-	imports: Tomcat8.port (optional), Tomcat8.ip (optional);
-	exports: ip, httpPort = 80, statsPort = 8080;
-}
+generate_configuration ${httpPort} ${statsPort}
