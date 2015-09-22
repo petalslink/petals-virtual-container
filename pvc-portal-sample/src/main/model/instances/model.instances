@@ -18,7 +18,7 @@
 #############################################################################
 
 # A VM with Tomcat
-instance of Tomcat8_VM {
+instance of Tomcat8_VM_Docker {
 	name: Tomcat8 VM for Portal;
 	
 	instance of Tomcat8 {

@@ -25,7 +25,12 @@
 #     dedicated VM.       
 #############################################################################
 
-Tomcat8_VM {
+Tomcat8_VM_Docker {
+	installer: target;
+	children: Tomcat8;
+}
+
+Tomcat8_VM_EC2 {
 	installer: target;
 	children: Tomcat8;
 }

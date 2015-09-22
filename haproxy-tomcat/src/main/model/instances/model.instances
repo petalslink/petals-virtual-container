@@ -29,8 +29,8 @@ instance of HAProxy_VM {
 	}
 }
 
-# A VM with Tomcat
-instance of Tomcat8_VM {
+# A Docker container with Tomcat
+instance of Tomcat8_VM_Docker {
 	name: Tomcat VM1;
 	
 	instance of Tomcat8 {
@@ -44,9 +44,24 @@ instance of Tomcat8_VM {
 	}
 }
 
-# Another VM with Tomcat
-instance of Tomcat8_VM {
+# Another Docker container VM with Tomcat
+instance of Tomcat8_VM_Docker {
 	name: Tomcat VM2;
+	
+	instance of Tomcat8 {
+		name: Tomcat server;
+		
+		instance of Tomcat8_Application_WAR {
+			name: samplesActivitiSOAPservices;
+			
+			applicationFile: samples-SOAP-services.war;
+		}
+	}
+}
+
+# A VM EC2 with Tomcat
+instance of Tomcat8_VM_EC2 {
+	name: Tomcat VM3;
 	
 	instance of Tomcat8 {
 		name: Tomcat server;
