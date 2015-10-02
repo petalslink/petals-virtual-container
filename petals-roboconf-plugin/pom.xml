@@ -23,7 +23,7 @@
       <groupId>org.ow2.petals</groupId>
       <artifactId>petals-root-parent</artifactId>
       <relativePath />
-      <version>20.2.3-SNAPSHOT</version>
+      <version>20.2.3</version>
    </parent>
 
    <groupId>org.ow2.petals</groupId>
@@ -34,7 +34,7 @@
    <description>Petals plug-in for Roboconf providing Petals artifact installation capabilities and a measure extension for Petals</description>
 
    <properties>
-      <roboconf.version>0.4</roboconf.version>
+      <roboconf.version>0.5-SNAPSHOT</roboconf.version>
    </properties>
 
    <dependencies>
@@ -55,10 +55,9 @@
          <version>${roboconf.version}</version>
          <scope>provided</scope>
       </dependency>
-      <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>net.roboconf</groupId>
-         <artifactId>roboconf-agent-monitoring</artifactId>
+         <artifactId>roboconf-agent-monitoring-api</artifactId>
          <version>${roboconf.version}</version>
          <scope>provided</scope>
       </dependency>
@@ -68,42 +67,39 @@
          <version>${roboconf.version}</version>
          <scope>provided</scope>
       </dependency>
-      -->
       
       <!-- Petals dependencies -->
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jbi-descriptor</artifactId>
-         <version>2.3.2-SNAPSHOT</version>
+         <version>2.3.2</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-api</artifactId>
-         <version>1.4.0-SNAPSHOT</version>
+         <version>1.4.0</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-jmx</artifactId>
-         <version>1.4.0-SNAPSHOT</version>
+         <version>1.4.0</version>
          <scope>runtime</scope>
       </dependency>
       <dependency>
          <groupId>org.ow2.easycommons</groupId>
          <artifactId>easycommons-properties</artifactId>
-         <version>1.2-SNAPSHOT</version>
+         <version>1.2.0</version>
       </dependency>
-      <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-api</artifactId>
-         <version>1.0.1-SNAPSHOT</version>
+         <version>1.0.1</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-impl</artifactId>
-         <version>1.0.1-SNAPSHOT</version>
+         <version>1.0.1</version>
       </dependency>
-      -->
       
       <!-- Test dependencies -->
       <dependency>
@@ -114,14 +110,13 @@
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-mock</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
+         <version>1.0.0</version>
          <scope>test</scope>
       </dependency>
-      <!-- Wait that Roboconf Agent is ready for the extension point for measure extension
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-impl</artifactId>
-         <version>1.0.1-SNAPSHOT</version>
+         <version>1.0.1</version>
          <type>test-jar</type>
          <scope>test</scope>
       </dependency>
@@ -131,7 +126,6 @@
          <version>2.0.4</version>
          <scope>test</scope>
       </dependency>
-      -->
    </dependencies>
 
    <build>
@@ -181,6 +175,8 @@
                   <ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                          xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
                          xmlns="org.apache.felix.ipojo">
+                         
+                      <!-- Installers -->
                   
                       <component classname="org.ow2.petals.roboconf.installer.PluginPetalsSuInstaller" name="roboconf-plugin-petals-su-installer">
                           <provides />
@@ -205,6 +201,15 @@
                       </component>
                   
                       <instance component="roboconf-plugin-petals-bc-installer" name="Roboconf Plugin - Petals BC Installer" />
+                      
+                      <!-- Monitoring handler -->
+                  
+                      <component classname="org.ow2.petals.roboconf.monitoring.PetalsMonitoringHandler" name="roboconf-plugin-petals-monitoring-handler">
+                          <provides />
+                      </component>
+                  
+                      <instance component="roboconf-plugin-petals-monitoring-handler" name="Roboconf Plugin - Petals Monitoring Handler" />
+
                   </ipojo>]]>
                </metadata>
             </configuration>
@@ -224,8 +229,40 @@
                </execution>
             </executions>
          </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>analyze</id>
+                  <configuration>
+                     <usedDependencies>
+                        <!-- As petals-admin-jmx is used only at runtime, not required for
+                             compilation, we should force its usage otherwise the analyze
+                             fails because it is detected as not used -->
+                        <usedDependency>org.ow2.petals:petals-admin-jmx</usedDependency>
+                     </usedDependencies>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
       </plugins>
    </build>
+
+   <repositories>
+      <repository>
+         <id>sonatype.snapshot</id>
+         <name>Sonatype - SNAPSHOT</name>
+         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+   </repositories>
 
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>

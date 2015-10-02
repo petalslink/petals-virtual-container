@@ -38,6 +38,9 @@
 
    <properties>
       <activiti-engine.version>5.18.0-PETALS-0</activiti-engine.version>
+      <petals-se-activiti.version>1.0.0</petals-se-activiti.version>
+      <petals-sl-postgresql-9.4-1201-jdbc4.version>1.1.0</petals-sl-postgresql-9.4-1201-jdbc4.version>
+      <petals-bc-soap.version>4.4.0</petals-bc-soap.version>
    </properties>
 
    <dependencies>
@@ -69,7 +72,7 @@
                      <jbiSharedLibrariesMappingFileURL>file:${basedir}/src/main/resources/sharedlibraries.properties</jbiSharedLibrariesMappingFileURL>
                      <groupId>org.ow2.petals</groupId>
                      <artifactId>petals-se-activiti</artifactId>
-                     <version>1.1.0-SNAPSHOT</version>
+                     <version>${petals-se-activiti.version}</version>
                      <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSEActiviti</outputDirectory>
                      <targetName>petals-se-activiti</targetName>
                   </configuration>
@@ -91,7 +94,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals</groupId>
                            <artifactId>petals-sl-postgresql-9.4-1201-jdbc4</artifactId>
-                           <version>1.1-SNAPSHOT</version>
+                           <version>${petals-sl-postgresql-9.4-1201-jdbc4.version}</version>
                            <type>zip</type>
                            <destFileName>petals-sl-postgresql-9.4-1201-jdbc4.zip</destFileName>
                         </artifactItem>
@@ -112,7 +115,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals</groupId>
                            <artifactId>petals-bc-soap</artifactId>
-                           <version>4.4.0-SNAPSHOT</version>
+                           <version>${petals-bc-soap.version}</version>
                            <type>zip</type>
                            <destFileName>petals-bc-soap.zip</destFileName>
                         </artifactItem>

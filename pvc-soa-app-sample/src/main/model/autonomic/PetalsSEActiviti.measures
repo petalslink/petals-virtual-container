@@ -15,13 +15,7 @@
 # along with this program/library; If not, see <http://www.gnu.org/licenses/>
 # for the GNU Lesser General Public License version 2.1.
 #
-#############################################################################
-target.id = iaas-ec2
 
-ec2.endpoint = eu-west-1.ec2.amazonaws.com
-ec2.access.key = AKIAJXG3KSROQPXBENXA
-ec2.secret.key = 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
-ec2.ami = ami-a3edc3d4
-ec2.instance.type = t1.micro
-ec2.ssh.key = cdeneux-laptop
-ec2.security.group = open
+# Check that the number of current requests processed by the Petals SE Activiti is upper than 5
+[EVENT petals check-requests-nb-on-se-activiti-upper-5]
+attribute org.ow2.petals:type=custom,name=monitoring_petals-se-activiti MessageExchangeProcessorThreadPoolAllocatedThreadsCurrent > 5

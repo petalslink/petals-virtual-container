@@ -15,7 +15,7 @@
  * along with this program/library; If not, see <http://www.gnu.org/licenses/>
  * for the GNU Lesser General Public License version 2.1.
  */
-package org.ow2.petals.roboconf.measure;
+package org.ow2.petals.roboconf.monitoring;
 
 import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_IP;
 import static org.ow2.petals.roboconf.Constants.CONTAINER_VARIABLE_NAME_JMXPASSWORD;
@@ -38,7 +38,7 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 
-import net.roboconf.agent.monitoring.internal.MonitoringHandler;
+import net.roboconf.agent.monitoring.api.IMonitoringHandler;
 import net.roboconf.core.model.beans.Component;
 import net.roboconf.core.model.beans.Instance;
 import net.roboconf.core.model.helpers.InstanceHelpers;
@@ -47,30 +47,60 @@ import net.roboconf.messaging.api.messages.from_agent_to_dm.MsgNotifAutonomic;
 import org.ow2.petals.jmx.api.api.exception.ConnectionErrorException;
 import org.ow2.petals.jmx.api.impl.JMXConnection;
 
-public class PetalsMeasureHandler extends MonitoringHandler {
+/**
+ * The Roboconf monitoring handler for Petals ESB
+ * 
+ * @author Christophe DENEUX - Linagora
+ *
+ */
+public class PetalsMonitoringHandler implements IMonitoringHandler {
+
+    private static final String HANDLER_NAME = "petals";
 
     private static final String ATTRIBUTE = "attribute";
 
     private static final String CONDITION_PATTERN = "(==|=|>=|>|<=|<)\\s+(\\S+)";
 
-    private static final Pattern WHOLE_PATTERN = Pattern.compile(ATTRIBUTE + "\\s+(\\S+)\\s+" + "(\\S+)" + "\\s+"
-            + CONDITION_PATTERN, Pattern.CASE_INSENSITIVE);
+    private static final String WHOLE_PATTERN_EXPR = ATTRIBUTE + "\\s+(\\S+)\\s+" + "(\\S+)" + "\\s+"
+            + CONDITION_PATTERN;
+
+    private static final Pattern WHOLE_PATTERN = Pattern.compile(WHOLE_PATTERN_EXPR, Pattern.CASE_INSENSITIVE);
 
     private final Logger logger = Logger.getLogger(getClass().getName());
 
-    private final String mBeanName;
+    private String applicationName;
 
-    private final String attributeName;
+    private String scopedInstancePath;
 
-    private final String conditionOperator;
+    private String eventId;
 
-    private final String conditionThreshold;
+    private Instance currentAssociatedInstance;
 
-    public PetalsMeasureHandler(final String eventName, final String applicationName, final String vmInstanceName,
-            final String fileContent) {
-        super(eventName, applicationName, vmInstanceName);
+    private String mBeanName;
 
-        final Matcher m = WHOLE_PATTERN.matcher(fileContent);
+    private String attributeName;
+
+    private String conditionOperator;
+
+    private String conditionThreshold;
+
+    @Override
+    public String getName() {
+        return HANDLER_NAME;
+    }
+
+    @Override
+    public void setAgentId(final String applicationName, final String scopedInstancePath) {
+        this.applicationName = applicationName;
+        this.scopedInstancePath = scopedInstancePath;
+    }
+
+    @Override
+    public void reset(final Instance associatedInstance, final String eventId, final String rawRulesText) {
+        this.currentAssociatedInstance = associatedInstance;
+        this.eventId = eventId;
+
+        final Matcher m = WHOLE_PATTERN.matcher(rawRulesText);
         if (m.find()) {
             this.mBeanName = m.group(1);
             this.attributeName = m.group(2);
@@ -78,7 +108,10 @@ public class PetalsMeasureHandler extends MonitoringHandler {
             this.conditionThreshold = m.group(4);
 
         } else {
-            this.logger.severe("Invalid content for the 'petals' handler in the agent's monitoring.");
+            this.logger
+                    .severe(String
+                            .format("Invalid content for the 'petals' handler in the agent's monitoring: '%s' does not match the pattern '%s'.",
+                                    rawRulesText, WHOLE_PATTERN_EXPR));
             this.mBeanName = null;
             this.attributeName = null;
             this.conditionOperator = null;
@@ -88,21 +121,19 @@ public class PetalsMeasureHandler extends MonitoringHandler {
 
     @Override
     public MsgNotifAutonomic process() {
-        return null;
-    }
-
-    public MsgNotifAutonomic process(final Instance instance) {
 
         if (this.mBeanName != null && this.attributeName != null && this.conditionOperator != null
                 && this.conditionThreshold != null) {
             try {
-                final JMXConnection jmxConnection = this.connect(instance);
+                final JMXConnection jmxConnection = this.connect(this.currentAssociatedInstance);
                 try {
 
                     final Object attributeValue = jmxConnection.getMBeanServerConnection().getAttribute(
                             new ObjectName(this.mBeanName), this.attributeName);
                     if (attributeValue != null) {
                         final String valueAsString = attributeValue.toString();
+                        this.logger.fine(String.format("Event '%s': Attribute value of '%s' is '%s'", this.eventId,
+                                this.attributeName, valueAsString));
                         if (this.evalCondition(valueAsString)) {
                             return new MsgNotifAutonomic(this.applicationName, this.scopedInstancePath, this.eventId,
                                     valueAsString);
