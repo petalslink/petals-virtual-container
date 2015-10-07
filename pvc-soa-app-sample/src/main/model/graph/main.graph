@@ -71,15 +71,15 @@ SU-SOAP-VacationServiceConsumer {
 SU-SOAP-NotificationServiceProvider {
     extends: PetalsSU;
     
-    exports: notifyService.url = http://${HAProxy.ip}:${HAProxy.httpPort}/samples-SOAP-services/services/notifyVacationService;
-    #imports: HAProxy.ip, HAProxy.httpPort
+    exports: notifyService.url = http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/notifyVacationService;
+    imports: external TomcatCluster.lb-ip, external TomcatCluster.lb-port;
 }
 
 SU-SOAP-ArchivingServiceProvider {
     extends: PetalsSU;
     
-    exports: archiveService.url = http://${HAProxy.ip}:${HAProxy.httpPort}/samples-SOAP-services/services/archiveService;
-    #imports: HAProxy.ip, HAProxy.httpPort
+    exports: archiveService.url = http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/archiveService;
+    imports: external TomcatCluster.lb-ip, external TomcatCluster.lb-port;
 }
 
 SU-SOAP-ActivitiIntegrationConsumer {
