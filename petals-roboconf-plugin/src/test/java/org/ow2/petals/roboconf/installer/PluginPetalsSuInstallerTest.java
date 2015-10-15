@@ -103,13 +103,15 @@ public class PluginPetalsSuInstallerTest {
         suComponent.extendComponent(abstractSuComponent);
         final Instance suInstance = new Instance(INSTANCE_SU_NAME).parent(jbiComponentInstance);
         suInstance.component(suComponent);
-        jbiComponentInstance.getChildren().add(suInstance);
         final String variable1 = "variable1";
-        final String value1 = "value1";
-        suInstance.overriddenExports.put(variable1, value1);
+        final String value1 = "http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/notifyVacationService";
+        suComponent.exportedVariables.put(variable1, value1);
         final String variable2 = "variable2";
-        final String value2 = "value2";
-        suInstance.overriddenExports.put(variable2, value2);
+        final String value2 = "http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/archiveService";
+        suComponent.exportedVariables.put(variable2, value2);
+        // suComponent.importedVariables.put("TomcatCluster.lb-ip", new ImportedVariable(name, false, true));
+        // suComponent.importedVariables.put("TomcatCluster.lb-port", new ImportedVariable(name, false, true));
+        jbiComponentInstance.getChildren().add(suInstance);
 
         final File componentInstanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(jbiComponentInstance);
         assertTrue(componentInstanceDirectory.mkdirs());

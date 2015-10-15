@@ -32,6 +32,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -58,6 +60,9 @@ import org.ow2.petals.jbi.descriptor.original.generated.ServiceAssembly;
 import org.ow2.petals.jbi.descriptor.original.generated.ServiceUnit;
 import org.ow2.petals.jbi.descriptor.original.generated.Target;
 import org.ow2.petals.roboconf.Utils;
+
+import com.ebmwebsourcing.easycommons.properties.PropertiesException;
+import com.ebmwebsourcing.easycommons.properties.PropertiesHelper;
 
 public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller implements PluginInterface {
 
@@ -201,11 +206,38 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                     }
                 }
 
-                // Update property values
-                this.logger.fine(String.format("Placeholders used by the SU: %s",
-                        suInstance.overriddenExports.toString()));
-                for (final Entry<String, String> entry : suInstance.overriddenExports.entrySet()) {
-                    properties.setProperty(entry.getKey(), entry.getValue());
+                // Update property values with values coming from SU imports
+                final Map<String, String> allExportedVariables = InstanceHelpers.findAllExportedVariables(suInstance);
+                this.logger.fine(String.format("Placeholders used by the SU: %s", allExportedVariables.toString()));
+                final Map<String, Collection<Import>> allImportedVariables = suInstance.getImports();
+                final Properties importedValues = new Properties();
+                for (final Entry<String, Collection<Import>> importEntry : allImportedVariables.entrySet()) {
+                    for (final Import anImport : importEntry.getValue()) {
+                        for (final Entry<String, String> anExportImported : anImport.getExportedVars().entrySet()) {
+                            importedValues.setProperty(anExportImported.getKey(), anExportImported.getValue());
+                        }
+                    }
+                }
+                this.logger.fine(String.format("Imported variables used by the SU: %s", importedValues.toString()));
+
+                for (final Entry<String, String> entry : allExportedVariables.entrySet()) {
+                    // We must remove the SU component name implicitely added in exported variables
+                    final String keyName;
+                    if (entry.getKey().startsWith(suInstance.getComponent().getName())) {
+                        keyName = entry.getKey().substring(suInstance.getComponent().getName().length() + 1);
+                    } else {
+                        keyName = entry.getKey();
+                    }
+
+                    // We resolved placeholder of the exported variable value with imported variables
+                    try {
+                        final String keyValue = PropertiesHelper.resolveString(entry.getValue(), importedValues);
+                        properties.setProperty(keyName, keyValue);
+                    } catch (final PropertiesException e) {
+                        throw new PluginException(String.format(
+                                "Unable to resolve placeholder ('%s') of component '%s'.", entry.getValue(),
+                                componentInstance.getName()), e);
+                    }
                 }
 
                 // Store the properties file
