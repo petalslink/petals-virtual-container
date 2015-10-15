@@ -20,9 +20,9 @@
 
 env
 
-if [ -f ${ROBOCONF_FILES_DIR}/../scripts/do-start.sh ]
+if [ -f ${ROBOCONF_FILES_DIR}/../scripts/do-update.sh ]
 then
-	. ${ROBOCONF_FILES_DIR}/../scripts/do-start.sh
+	. ${ROBOCONF_FILES_DIR}/../scripts/do-update.sh
 fi
 
 exit $?
