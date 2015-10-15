@@ -17,3 +17,12 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
+
+env
+
+if [ -f ${ROBOCONF_FILES_DIR}/../scripts/do-start.sh ]
+then
+	. ${ROBOCONF_FILES_DIR}/../scripts/do-start.sh
+fi
+
+exit $?

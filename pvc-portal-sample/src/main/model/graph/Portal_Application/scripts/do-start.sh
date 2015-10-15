@@ -18,4 +18,8 @@
 #
 #############################################################################
 
-sed -ie "s/localhost:8084/172.17.0.10:8084/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
+env
+
+sed -ie "s/localhost:8084/${ESB_0_lb_ip}:${ESB_0_lb_port}/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
+
+exit $?
