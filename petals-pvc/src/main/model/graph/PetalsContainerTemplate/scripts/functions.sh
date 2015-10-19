@@ -69,7 +69,7 @@ start_container()
 #   stop_container <containerId>
 #
 # where:
-#   <contrainerId> is the identifier of the container to stop.
+#   <contrainerId> is the base identifier of the container to stop.
 #
 # Returns:
 #   0: The container is successfully stopped,
@@ -80,9 +80,9 @@ start_container()
 #
 stop_container()
 {
-   CONTAINER_ID=$1
+   CONTAINER_ID=`ls -1d /var/log/petals-esb/${1}* | cut -d '/' -f 5`
    
-   sudo -u petals rm -f /var/log/petals-esb/${containerId}/petals.log
+   sudo -u petals rm -f /var/log/petals-esb/${CONTAINER_ID}/petals.log
    sudo -u petals petals-esb -u file:///etc/petals-esb/container-available/${CONTAINER_ID}/server.properties -e stop
    ret="$?"
    if [ $ret -eq 0 ]
