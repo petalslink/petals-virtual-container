@@ -17,3 +17,9 @@
 # for the GNU Lesser General Public License version 2.1.
 #
 #############################################################################
+
+env
+
+wget -O - http://tomcat:tomcat@localhost:8080/manager/text/stop?path=/${applicationDir}
+
+exit $?

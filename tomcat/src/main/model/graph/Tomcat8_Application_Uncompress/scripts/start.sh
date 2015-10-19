@@ -22,7 +22,10 @@ env
 
 if [ -f ${ROBOCONF_FILES_DIR}/../scripts/do-update.sh ]
 then
-	. ${ROBOCONF_FILES_DIR}/../scripts/do-update.sh
+	. ${ROBOCONF_FILES_DIR}/../scripts/do-update.sh && \
+	wget -O - http://tomcat:tomcat@localhost:8080/manager/text/start?path=/${applicationDir}
+else
+	wget -O - http://tomcat:tomcat@localhost:8080/manager/text/start?path=/${applicationDir}
 fi
 
 exit $?

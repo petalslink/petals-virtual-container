@@ -23,5 +23,3 @@ env
 sed -ie "s/\(vacation.service.url: \).*$/\1http:\/\/${ESB_0_lb_ip}:${ESB_0_lb_port}\/petals\/services\/vacationService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
 sed -ie "s/\(activiti.service.process.url: \).*$/\1http:\/\/${ESB_0_lb_ip}:${ESB_0_lb_port}\/petals\/services\/processInstancesService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
 sed -ie "s/\(activiti.service.task.url: \).*$/\1http:\/\/${ESB_0_lb_ip}:${ESB_0_lb_port}\/petals\/services\/taskService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
-
-exit $?
