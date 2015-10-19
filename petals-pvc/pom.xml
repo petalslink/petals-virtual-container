@@ -38,7 +38,7 @@
 
    <properties>
       <petals-commons-deb.version>1.0</petals-commons-deb.version>
-      <petals-esb-default-deb.version>5.0.0-1.0</petals-esb-default-deb.version>
+      <petals-esb-default-deb.version>5.0.0.1-1.0-SNAPSHOT</petals-esb-default-deb.version>
       <petals-cli-distrib-deb.version>2.2.0-1.0</petals-cli-distrib-deb.version>
    </properties>
 
