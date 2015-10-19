@@ -39,8 +39,9 @@ then
    #
    # Domain definition of the container. We use temporary domain and sub-domain names
    #
-   DOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_domainName}_$RANDOM`
-   SUBDOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_subdomainName}_$RANDOM`
+   RANDOM=`tr -cd 0-9 </dev/urandom | head -c 10`
+   DOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_domainName}_${RANDOM}`
+   SUBDOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_subdomainName}_${RANDOM}`
    BOOTSTRAP_CONTAINER_NAME=`echo ${PetalsContainerBootstrap_0_name} | cut -d'/' -f 3`
    
    generate_topology ${DOMAIN_NAME} ${SUBDOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
