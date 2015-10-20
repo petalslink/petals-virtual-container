@@ -72,7 +72,7 @@ instance of PetalsContainer-VM {
 		    name: petals-sl-postgresql-9.4-1201-jdbc4;
 		}
 		
-		instance of PetalsBCSoap {
+		instance of PetalsBCSoapConsumer {
 		    name: petals-bc-soap;
 		    
 		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'propertiesFile' (https://github.com/roboconf/roboconf-platform/issues/420)
@@ -82,21 +82,37 @@ instance of PetalsContainer-VM {
 			    name: su-SOAP-vacationService-consume;
 			}
 		
-			instance of SU-SOAP-NotificationServiceProvider {
-			    name: su-SOAP-notifyVacationService-provide;
-			}
+			# Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
+			# and others Petals container to run services used by Activiti processes.
+			# TODO: Uncomment this instance when Activiti problem will be solved 
+			#instance of SU-SOAP-NotificationServiceProvider {
+			#    name: su-SOAP-notifyVacationService-provide;
+			#}
 		
-			instance of SU-SOAP-ArchivingServiceProvider {
-			    name: su-SOAP-archiveService-provide;
-			}
+			# Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
+			# and others Petals container to run services used by Activiti processes.
+			# TODO: Uncomment this instance when Activiti problem will be solved 
+			#instance of SU-SOAP-ArchivingServiceProvider {
+			#    name: su-SOAP-archiveService-provide;
+			#}
 		
 			instance of SU-SOAP-ActivitiIntegrationConsumer {
 			    name: su-SOAP-activitiIntegrationService-consume;
+			}
+		
+			instance of SU-SOAP-NotificationServiceConsumer {
+			    name: su-SOAP-notifyVacationService-consume;
+			}
+		
+			instance of SU-SOAP-ArchivingServiceConsumer {
+			    name: su-SOAP-archiveService-consume;
 			}
 		}
 		
 		instance of PetalsSEActiviti {
 		    name: petals-se-activiti;
+		    
+		    engineEnableJobExecutor: true;
 		    
 		    instance of SU-Activiti-VacationRequest {
 			    name: su-activiti-vacationService-provide;
@@ -111,19 +127,25 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainer {
 		name: container-node;
 
-		instance of PetalsSLPostgreSQL {
-		    name: petals-sl-postgresql-9.4-1201-jdbc4;
-		}
+		# Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
+		# and others Petals container to run services used by Activiti processes.
+		# TODO: Uncomment this instance when Activiti problem will be solved 
+		#instance of PetalsSLPostgreSQL {
+		#    name: petals-sl-postgresql-9.4-1201-jdbc4;
+		#}
 		
-		instance of PetalsBCSoap {
+		instance of PetalsBCSoapProvider {
 		    name: petals-bc-soap;
 		    
 		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'propertiesFile' (https://github.com/roboconf/roboconf-platform/issues/420)
 		    PetalsJBIComponent.propertiesFile: /etc/petals-esb/container-available/${container-name}/${component-name}.properties;
 		    
-		    instance of SU-SOAP-VacationServiceConsumer {
-			    name: su-SOAP-vacationService-consume;
-			}
+		    # Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
+			# and others Petals container to run services used by Activiti processes.
+			# TODO: Uncomment this instance when Activiti problem will be solved 
+			#instance of SU-SOAP-VacationServiceConsumer {
+			#    name: su-SOAP-vacationService-consume;
+			#}
 		
 			instance of SU-SOAP-NotificationServiceProvider {
 			    name: su-SOAP-notifyVacationService-provide;
@@ -133,18 +155,26 @@ instance of PetalsContainer-VM {
 			    name: su-SOAP-archiveService-provide;
 			}
 		
-			instance of SU-SOAP-ActivitiIntegrationConsumer {
-			    name: su-SOAP-activitiIntegrationService-consume;
-			}
+			# Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
+			# and others Petals container to run services used by Activiti processes.
+			# TODO: Uncomment this instance when Activiti problem will be solved 
+			# instance of SU-SOAP-ActivitiIntegrationConsumer {
+			#    name: su-SOAP-activitiIntegrationService-consume;
+			#}
 		}
 		
-		instance of PetalsSEActiviti {
-		    name: petals-se-activiti;
-		    
-		    instance of SU-Activiti-VacationRequest {
-			    name: su-activiti-vacationService-provide;
-			}
-		}
+		# Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
+		# and others Petals container to run services used by Activiti processes.
+		# TODO: Uncomment this instance when Activiti problem will be solved 
+		#instance of PetalsSEActiviti {
+		#    name: petals-se-activiti;
+		#    
+		#    engineEnableJobExecutor: true;
+		#    
+		#    instance of SU-Activiti-VacationRequest {
+		#	    name: su-activiti-vacationService-provide;
+		#	}
+		#}
 	}
 }
 

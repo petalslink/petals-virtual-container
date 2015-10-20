@@ -101,20 +101,20 @@ frontend http-in
 backend servers
 EOF
 
-if [ -z "$PetalsBCSoap_size" ]
+if [ -z "$PetalsBCSoapConsumer_size" ]
 then
    i=0
 else
-   i=$PetalsBCSoap_size
+   i=$PetalsBCSoapConsumer_size
 fi
 while [ $i -gt 0 ]
 do
    i=`expr $i - 1`
    
-   remote_port_var_name="PetalsBCSoap_${i}_httpPort"
+   remote_port_var_name="PetalsBCSoapConsumer_${i}_httpPort"
    eval remote_port=\$${remote_port_var_name}
    
-   remote_ip_var_name="PetalsBCSoap_${i}_ip"
+   remote_ip_var_name="PetalsBCSoapConsumer_${i}_ip"
    eval remote_ip=\$${remote_ip_var_name}
    
    cat >> /etc/haproxy/haproxy.cfg << EOF

@@ -17,5 +17,5 @@
 #
 
 # Check that the number of current requests processed by the Petals SE Activiti is upper than 5
-[EVENT petals check-requests-nb-on-se-activiti-upper-5]
-attribute org.ow2.petals:type=custom,name=monitoring_petals-se-activiti MessageExchangeProcessorThreadPoolAllocatedThreadsCurrent > 5
+[EVENT petals check-requests-nb-on-bc-soap-upper-5]
+attribute org.ow2.petals:type=custom,name=monitoring_petals-bc-soap MessageExchangeProcessorThreadPoolAllocatedThreadsCurrent > 5

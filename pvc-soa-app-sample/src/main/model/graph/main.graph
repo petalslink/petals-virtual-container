@@ -26,11 +26,16 @@ HAProxy_VM {
 # TODO: Should be mutualized with the load-balancer of haproxy-tomcat
 HAProxy {
 	installer: script;
-	imports: PetalsBCSoap.httpPort (optional), PetalsBCSoap.ip (optional);
+	imports: PetalsBCSoapConsumer.httpPort (optional), PetalsBCSoapConsumer.ip (optional);
 	exports: ip, httpPort = 80, statsPort = 8080;
 }
 
-PetalsBCSoap {
+PetalsBCSoapConsumer {
+    extends: PetalsBC;
+    exports: httpPort = 8084, ip;
+}
+
+PetalsBCSoapProvider {
     extends: PetalsBC;
     exports: httpPort = 8084, ip;
 }
@@ -56,6 +61,7 @@ PetalsSLPostgreSQL {
 
 PetalsSEActiviti {
     extends: PetalsSE;
+    exports: engineEnableJobExecutor = true;
     # See comment on PetalsSL
 	imports: PetalsSLPostgreSQL.present, ActivitiPgSQLDatabase.*;
 }
@@ -68,11 +74,19 @@ SU-SOAP-VacationServiceConsumer {
     extends: PetalsSU;
 }
 
+SU-SOAP-NotificationServiceConsumer {
+    extends: PetalsSU;
+}
+
 SU-SOAP-NotificationServiceProvider {
     extends: PetalsSU;
     
     exports: notifyService.url = http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/notifyVacationService;
     imports: external TomcatCluster.lb-ip, external TomcatCluster.lb-port;
+}
+
+SU-SOAP-ArchivingServiceConsumer {
+    extends: PetalsSU;
 }
 
 SU-SOAP-ArchivingServiceProvider {
