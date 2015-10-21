@@ -67,7 +67,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
 
     @Override
     public void start(final Instance instance) throws PluginException {
-        // Start the SA previously generated
+        // Start the artifact previously deployed
         this.logger
                 .fine(this.agentId + ": starting the " + this.getManagedArtifactType() + " for instance " + instance);
         try {
@@ -96,7 +96,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
 
     @Override
     public void stop(final Instance instance) throws PluginException {
-        // Stop the SA previously generated
+        // Stop the artifact previously deployed
         this.logger
                 .fine(this.agentId + ": stopping the " + this.getManagedArtifactType() + " for instance " + instance);
         try {
@@ -114,7 +114,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
 
     @Override
     public void undeploy(final Instance instance) throws PluginException {
-        // Undeploy the SA previously generated
+        // Undeploy the artifact previously deployed
         this.logger.fine(this.agentId + ": undeploying the " + this.getManagedArtifactType() + " for instance "
                 + instance);
         try {

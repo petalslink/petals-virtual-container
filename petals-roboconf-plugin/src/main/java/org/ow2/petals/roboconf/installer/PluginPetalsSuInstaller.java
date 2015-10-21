@@ -76,6 +76,12 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
 
     @Override
     public void deploy(final Instance instance) throws PluginException {
+        // NOP: Hack to workaround https://github.com/roboconf/roboconf-platform/issues/331
+        // TODO: Rename localDeploy(...) into deploy(...) when https://github.com/roboconf/roboconf-platform/issues/331
+        // will be fixed
+    }
+
+    private void localDeploy(final Instance instance) throws PluginException {
 
         File instanceDirectory = InstanceHelpers.findInstanceDirectoryOnAgent(instance);
         final File suFile = new File(instanceDirectory, instance.getName() + ".zip");
@@ -151,6 +157,10 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
 
     @Override
     public void start(final Instance suInstance) throws PluginException {
+        // NOP: Hack to workaround https://github.com/roboconf/roboconf-platform/issues/331
+        // TODO: Remove when https://github.com/roboconf/roboconf-platform/issues/331 will be fixed
+        this.localDeploy(suInstance);
+
         this.updatePropertiesFile(suInstance);
         super.start(suInstance);
     }
