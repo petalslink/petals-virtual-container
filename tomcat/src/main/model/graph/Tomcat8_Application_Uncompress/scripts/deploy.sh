@@ -22,4 +22,7 @@ env
 
 unzip ${ROBOCONF_FILES_DIR}/${applicationFile} -d /var/lib/tomcat8/webapps/${applicationDir}
 
+# Wait 10s to have the web app started
+sleep 10
+
 exit $?
