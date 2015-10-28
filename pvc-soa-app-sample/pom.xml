@@ -13,11 +13,10 @@
  for more details.
 
  You should have received a copy of the GNU Lesser General Public License
- along with this program/library; If not, see <http://www.gnu.org/licenses/>
+ along with this program/library; If not, see <http://www.gnu.org/licenses />
  for the GNU Lesser General Public License version 2.1.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
 
@@ -30,7 +29,7 @@
 
    <groupId>org.ow2.petals.cloud</groupId>
    <artifactId>pvc-soa-app-sample</artifactId>
-   <version>1.0.0-SNAPSHOT</version>
+   <version>1.0.0</version>
    <packaging>roboconf-app</packaging>
 
    <name>Sample SOA Application for Petals PVC</name>
@@ -327,5 +326,6 @@
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
+    <tag>pvc-soa-app-sample-1.0.0</tag>
   </scm>
 </project>
