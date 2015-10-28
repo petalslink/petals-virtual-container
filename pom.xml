@@ -38,4 +38,22 @@
       <module>tomcat</module>
       <module>pvc-portal-sample</module>
    </modules>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+               <!-- Do not deploy, because mvn deploy is called on this on the CI server -->
+               <skip>true</skip>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+   <scm>
+      <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
+      <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
+   </scm>
 </project>
