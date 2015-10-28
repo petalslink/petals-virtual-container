@@ -29,7 +29,7 @@
 
    <groupId>org.ow2.petals.cloud</groupId>
    <artifactId>pvc-portal-sample</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.1-SNAPSHOT</version>
    <packaging>roboconf-app</packaging>
 
    <name>Sample Portal for Sample SOA Application for Petals PVC</name>
@@ -107,6 +107,6 @@
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
-    <tag>pvc-portal-sample-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 </project>
