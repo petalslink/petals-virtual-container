@@ -29,7 +29,7 @@
 
    <groupId>org.ow2.petals.cloud</groupId>
    <artifactId>petals-tomcat</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.1-SNAPSHOT</version>
    <packaging>roboconf-app</packaging>
 
    <name>Empty Tomcat server</name>
@@ -47,6 +47,6 @@
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
-    <tag>petals-tomcat-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 </project>
