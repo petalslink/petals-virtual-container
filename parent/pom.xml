@@ -37,7 +37,7 @@
       <timestamp>${maven.build.timestamp}</timestamp>
       <maven.build.timestamp.format>yyyy-MM-dd--HH-mm</maven.build.timestamp.format>
       
-      <roboconf.version>0.5-SNAPSHOT</roboconf.version>
+      <roboconf.version>0.5</roboconf.version>
   
    </properties>
 

@@ -1,0 +1,49 @@
+Scénario de démo du PVC:
+===========================
+
+
+- Phase 1:
+----------
+  - Toutes les images docker sauf celle des HAProxies sont déjà générées
+       --> montrer que l'image docker HAPRoxy n'existe pas
+  - Le DM est fraichement installé (il ne doit pas y avoir la target Amazon)
+
+  - Action 1: déploiment de l'appli Portal
+       --> webapp en attente de l'ESB
+  - Action 2: déploiment de l'appli TomcatCluster
+       --> l'image docker HAProxy est générée
+  - Action 3: déploiement de l'appli ESB
+     - 3.1: chargement du template ESB
+     - 3.2: création de l'appli ESB
+     - 3.3: binding entre ESB et TomcatCluster
+     - 3.4: binding entre Portal et ESB
+     - 3.5: deploy and start all de ESB
+       --> la webapp Portal est à l'état déployée puisque ESB est disponible
+  - Action 4: créer une instance du processus vacation
+
+- Phase 2: Autonomic:
+---------------------
+  - Action 0: configurer le projet SoapUI 'Petals Virtual Container - Demo Vacation Process'
+              pour setter l'@IP du point d'entree ESB dans les propriétés du projet SoapUI
+  - Action 1: lancer le loadTest soapUI 'Roboconf autonomic demo' du test case 'SOAP Proxy'
+       --> plusieurs nouvelles instances ESB sont instanciées et démarrées
+  - Action 2: Limiter le nombre d'instances créables par l'autonomic
+       - 2.1: Editer le fichier $ROBOCONF_DM/etc/net.roboconf.dm.configuration.cfg
+       - 2.2: pour mettre la valeur 1 au paramètre 'autonomic-max-roots'
+  - Action 3: Undeployer l'appli ESB
+  - Action 4: Redeployer l'appli ESB
+  - Action 5: lancer le loadTest soapUI 'Roboconf autonomic demo' du test case 'SOAP Proxy'
+       --> une seule nouvelle instance ESB est instanciée et démarrée
+       --> et pourtant il y a plus de 5 requetes simultanées sur les serveurs. C'est dû à la
+           contrainte max sur le nombre à instancier:
+              > petals-cli -h 172.17.0.79 -n 7700 -u petals -p petals -c -- monitoring -o generic -f mex-processor-thread-pool -- -n petals-bc-soap
+
+
+- Phase 3: Multi-IaaS:
+----------------------
+  - Action 1: Undeployer les 3 applications
+  - Action 2: Démarré le RabbitMQ sur Amazon
+  - Action 3: Reconfiguer le DM pour utiliser le RabbitMQ Amazon
+  - Action 4: Installer la target Amazon dans le DM
+  - Action 5: Déployer le cluster Tomcat
+       --> Il y a des VMs sur Docker et une sur Amazon

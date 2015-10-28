@@ -34,7 +34,7 @@
    <description>Petals plug-in for Roboconf providing Petals artifact installation capabilities and a measure extension for Petals</description>
 
    <properties>
-      <roboconf.version>0.5-SNAPSHOT</roboconf.version>
+      <roboconf.version>0.5</roboconf.version>
    </properties>
 
    <dependencies>
