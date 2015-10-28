@@ -28,7 +28,7 @@
    <groupId>org.ow2.petals</groupId>
    <artifactId>petals-roboconf-plugin</artifactId>
    <packaging>bundle</packaging>
-   <version>1.0.0</version>
+   <version>1.0.1-SNAPSHOT</version>
    <name>Petals plug-in for Roboconf</name>
    <description>Petals plug-in for Roboconf providing Petals artifact installation capabilities and a measure extension for Petals</description>
 
@@ -171,8 +171,7 @@
             </executions>
             <configuration>
                <metadata><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-                  <ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
-                         xmlns="org.apache.felix.ipojo">
+                  <ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd" xmlns="org.apache.felix.ipojo">
                          
                       <!-- Installers -->
                   
@@ -265,6 +264,6 @@
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
-     <tag>petals-roboconf-plugin-1.0.0</tag>
+     <tag>HEAD</tag>
   </scm>
 </project>
