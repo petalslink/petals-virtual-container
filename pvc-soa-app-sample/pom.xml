@@ -157,7 +157,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-SOAP-vacationService-consume</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-vacationService-consume.zip</destFileName>
                         </artifactItem>
@@ -178,7 +178,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-SOAP-notifyVacationService-consume</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-notifyVacationService-consume.zip</destFileName>
                         </artifactItem>
@@ -199,7 +199,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-SOAP-notifyVacationService-provide</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-notifyVacationService-provide.zip</destFileName>
                         </artifactItem>
@@ -220,7 +220,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-SOAP-archiveService-consume</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-archiveService-consume.zip</destFileName>
                         </artifactItem>
@@ -241,7 +241,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-SOAP-archiveService-provide</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-archiveService-provide.zip</destFileName>
                         </artifactItem>
@@ -262,7 +262,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-SOAP-activitiIntegrationService-consume</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-activitiIntegrationService-consume.zip</destFileName>
                         </artifactItem>
@@ -283,7 +283,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>su-activiti-vacationService-provide</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>zip</type>
                            <destFileName>su-activiti-vacationService-provide.zip</destFileName>
                         </artifactItem>

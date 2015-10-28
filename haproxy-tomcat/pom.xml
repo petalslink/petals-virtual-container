@@ -66,7 +66,7 @@
                         <artifactItem>
                            <groupId>org.ow2.petals.samples</groupId>
                            <artifactId>samples-SOAP-services</artifactId>
-                           <version>5.0.0-SNAPSHOT</version>
+                           <version>5.0.0-M1</version>
                            <type>war</type>
                            <destFileName>samples-SOAP-services.war</destFileName>
                         </artifactItem>
