@@ -44,4 +44,9 @@
          </plugin>
       </plugins>
    </build>
+
+   <scm>
+      <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
+      <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
+  </scm>
 </project>
