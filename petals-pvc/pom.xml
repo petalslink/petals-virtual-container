@@ -40,6 +40,7 @@
       <petals-commons-deb.version>1.0</petals-commons-deb.version>
       <petals-esb-default-deb.version>5.0.0.1-1.0</petals-esb-default-deb.version>
       <petals-cli-distrib-deb.version>2.2.0-1.0</petals-cli-distrib-deb.version>
+      <petals-registry-overlay-deb.version>1.0.0-1.0</petals-registry-overlay-deb.version>
    </properties>
 
    <build>
@@ -52,6 +53,62 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
+               <execution>
+                  <id>copy-packages-for-PetalsRegistryBootstrap</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-commons-deb</artifactId>
+                           <version>${petals-commons-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-commons.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-registry-overlay-deb</artifactId>
+                           <version>${petals-registry-overlay-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-registry-overlay-deb.deb</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsRegistryBootstrap/packages</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-packages-for-PetalsRegistry</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-commons-deb</artifactId>
+                           <version>${petals-commons-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-commons.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-registry-overlay-deb</artifactId>
+                           <version>${petals-registry-overlay-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-registry-overlay-deb.deb</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsRegistry/packages</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
                <execution>
                   <id>copy-packages-for-PetalsContainerBootstrap</id>
                   <phase>prepare-package</phase>

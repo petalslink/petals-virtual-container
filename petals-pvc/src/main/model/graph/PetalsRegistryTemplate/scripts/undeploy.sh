@@ -18,8 +18,5 @@
 #
 #############################################################################
 
-. ./env.sh
-
-dpkg -P ${PETALS_COMMON_DEB_FILE} ${PETALS_REGISTRY_DEB_FILE}
-
-rm -rf ${PETALS_COMMON_DEB_FILE} ${PETALS_REGISTRY_DEB_FILE}
+dpkg -P petals-commons petals-registry-overlay-deb
+exit $?
