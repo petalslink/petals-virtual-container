@@ -35,7 +35,7 @@
       <module>parent</module>
       <module>haproxy-tomcat</module>
       <module>petals-roboconf-plugin</module>
-      <module>tomcat</module>
+      <module>petals-tomcat</module>
       <module>pvc-portal-sample</module>
    </modules>
 
