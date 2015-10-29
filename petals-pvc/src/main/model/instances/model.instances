@@ -46,6 +46,7 @@ instance of PetalsContainer-VM {
 		name: container-bootstrap-node;
 
 		domainName: roboconf-demo;
+		PetalsContainerTemplate.enableMonitTraces: true;
 	}
 }
 
@@ -54,5 +55,7 @@ instance of PetalsContainer-VM {
 
 	instance of PetalsContainer {
 		name: container-node;
+		
+		PetalsContainerTemplate.enableMonitTraces: true;
 	}
 }

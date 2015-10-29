@@ -39,7 +39,7 @@ then
                      ${PetalsRegistryTemplate_0_port} ${PetalsRegistryTemplate_0_credentialsGroup} ${PetalsRegistryTemplate_0_credentialsPassword} \
                      ${jmxPort} && \
    generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
-   generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} && \
+   generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} ${enableMonitTraces} && \
    start_container ${ROBOCONF_INSTANCE_NAME}
    exit $?
 else

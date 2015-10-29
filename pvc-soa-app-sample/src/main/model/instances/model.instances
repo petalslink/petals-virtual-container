@@ -66,6 +66,7 @@ instance of PetalsContainer-VM {
 		name: container-bootstrap-node;
 
 		domainName: roboconf-demo;
+		PetalsContainerTemplate.enableMonitTraces: false;
 		
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql-9.4-1201-jdbc4;
@@ -125,6 +126,8 @@ instance of PetalsContainer-VM {
 
 	instance of PetalsContainer {
 		name: container-node;
+		
+		PetalsContainer.enableMonitTraces: false;
 
 		# Because of a problem when using several Activiti engine, we specialize the container bootstrap to run only Activiti stuff,
 		# and others Petals container to run services used by Activiti processes.

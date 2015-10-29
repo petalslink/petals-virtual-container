@@ -47,7 +47,7 @@ then
                      ${PetalsRegistryTemplate_0_port} ${PetalsRegistryTemplate_0_credentialsGroup} ${PetalsRegistryTemplate_0_credentialsPassword} \
                      ${jmxPort} && \
    generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
-   generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} && \
+   generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} ${enableMonitTraces} && \
    start_container ${ROBOCONF_INSTANCE_NAME} && \
    attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_domainName} ${BOOTSTRAP_CONTAINER_NAME} ${PetalsContainerBootstrap_0_ip}
    exit $?

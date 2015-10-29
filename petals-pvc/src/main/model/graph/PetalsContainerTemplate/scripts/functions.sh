@@ -498,10 +498,11 @@ EOF
 # Generates the logging configuration of the container (loggers.properties)
 #
 # Usage:
-#   generate_loggers_properties <containerId>
+#   generate_loggers_properties <containerId> <enableMonitTraces>
 #
 # where:
 #   <contrainerId> is the identifier of the container for which we generate the logging configuration.
+#   <enableMonitTraces>, if 'true', the MONIT traces will be enable.
 #
 # Returns:
 #   0: The local container configuration generation is successfully attached,
@@ -513,6 +514,14 @@ EOF
 generate_loggers_properties()
 {
    CONTAINER_ID=$1
+   ENABLE_MONIT_TRACES=$2
+   
+   if [ "${ENABLE_MONIT_TRACES}" = "true" ]
+   then
+      COMPONENTS_LOG_LEVEL="MONIT"
+   else
+      COMPONENTS_LOG_LEVEL="INFO"
+   fi
    
    cat > /etc/petals-esb/container-available/${CONTAINER_ID}/loggers.properties << EOF
 #
@@ -568,7 +577,7 @@ org.ow2.petals.log.handler.PetalsPayloadDumperFileHandler.basedir=/var/log/petal
 Petals.level=INFO
 
 #Petals.Container.level=FINEST
-Petals.Container.Components.level=MONIT
+Petals.Container.Components.level=${COMPONENTS_LOG_LEVEL}
 
 EOF
 }

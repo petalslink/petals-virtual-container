@@ -56,7 +56,7 @@ PetalsContainer-VM {
 # TODO: Replace PetalsContainerBootstrap and PetalsContainer by only one component when Roboconf will support it
 PetalsContainerTemplate {
     installer: script;
-	exports: ip, jmxPort = 7700, jmxUser = petals, jmxPassword = petals;
+	exports: ip, jmxPort = 7700, jmxUser = petals, jmxPassword = petals, enableMonitTraces = true;
 	imports: PetalsRegistryTemplate.ip, PetalsRegistryTemplate.port, PetalsRegistryTemplate.credentialsGroup, PetalsRegistryTemplate.credentialsPassword;
 	children: PetalsJBIComponent, PetalsSL;
 }
