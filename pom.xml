@@ -32,7 +32,7 @@
    <modules>
       <module>petals-pvc</module>
       <module>pvc-soa-app-sample</module>
-      <module>parent</module>
+      <module>pvc-parent</module>
       <module>haproxy-tomcat</module>
       <module>petals-roboconf-plugin</module>
       <module>petals-tomcat</module>
