@@ -22,7 +22,7 @@
 
 #
 # Undeploy the container :
-#   - the container must be detached from the PVC sub-domain:
+#   - the container must be detached from the PVC domain:
 #       - we must restart it because the container is stopped (see Roboconf lifecycle),
 #       - next, detach it,
 #       - next, stop it.

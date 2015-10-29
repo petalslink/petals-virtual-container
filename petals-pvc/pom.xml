@@ -37,9 +37,9 @@
 
    <properties>
       <petals-commons-deb.version>1.0</petals-commons-deb.version>
-      <petals-esb-default-deb.version>5.0.0.1-1.0</petals-esb-default-deb.version>
-      <petals-cli-distrib-deb.version>2.2.0-1.0</petals-cli-distrib-deb.version>
-      <petals-registry-overlay-deb.version>1.0.0-1.0</petals-registry-overlay-deb.version>
+      <petals-esb-default-deb.version>5.0.1-1.0-SNAPSHOT</petals-esb-default-deb.version>
+      <petals-cli-distrib-deb.version>2.3.0-1.0-SNAPSHOT</petals-cli-distrib-deb.version>
+      <petals-registry-overlay-deb.version>1.0.1-1.0-SNAPSHOT</petals-registry-overlay-deb.version>
    </properties>
 
    <build>
@@ -186,6 +186,38 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
             <executions>
+               <execution>
+                  <id>copy-scripts-for-PetalsRegistryBootstrap</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${basedir}/target/roboconf-model/graph/PetalsRegistryBootstrap</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/main/model/graph/PetalsRegistryTemplate</directory>
+                           <filtering>false</filtering>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-scripts-for-PetalsRegistry</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${basedir}/target/roboconf-model/graph/PetalsRegistry</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/main/model/graph/PetalsRegistryTemplate</directory>
+                           <filtering>false</filtering>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
                <execution>
                   <id>copy-scripts-for-PetalsContainerBootstrap</id>
                   <phase>prepare-package</phase>

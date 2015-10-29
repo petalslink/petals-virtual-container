@@ -26,7 +26,7 @@
 # On the first start:
 #   - the container configuration is generated,
 #   - the container is started,
-#   - the container is attached to the PVC sub-domain
+#   - the container is attached to the PVC domain
 # On next starts, the container is only started.
 #
 # To know if it is the first start, we check existence of the directory containing the container configuration files
@@ -37,20 +37,19 @@ env
 if [ ! -e /etc/petals-esb/container-available/${ROBOCONF_INSTANCE_NAME} ]
 then
    #
-   # Domain definition of the container. We use temporary domain and sub-domain names
+   # Domain definition of the container. We use a temporary domain name
    #
    RANDOM=`tr -cd 0-9 </dev/urandom | head -c 10`
    DOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_domainName}_${RANDOM}`
-   SUBDOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_subdomainName}_${RANDOM}`
    BOOTSTRAP_CONTAINER_NAME=`echo ${PetalsContainerBootstrap_0_name} | cut -d'/' -f 3`
    
-   generate_topology ${DOMAIN_NAME} ${SUBDOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
+   generate_topology ${DOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
                      ${PetalsRegistryTemplate_0_port} ${PetalsRegistryTemplate_0_credentialsGroup} ${PetalsRegistryTemplate_0_credentialsPassword} \
                      ${jmxPort} && \
    generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
    generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} && \
    start_container ${ROBOCONF_INSTANCE_NAME} && \
-   attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_subdomainName} ${BOOTSTRAP_CONTAINER_NAME} ${PetalsContainerBootstrap_0_ip}
+   attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_domainName} ${BOOTSTRAP_CONTAINER_NAME} ${PetalsContainerBootstrap_0_ip}
    exit $?
 else
    start_container ${ROBOCONF_INSTANCE_NAME}

@@ -106,17 +106,17 @@ stop_container()
 }
 
 #
-# Attaches a container to the PVC sub-domain:
+# Attaches a container to the PVC domain:
 #
 # Usage:
-#   attach_container <containerIp> <jmxPort> <pvcSubdomain> <targetContainerName> <targetContainerHost>
+#   attach_container <containerIp> <jmxPort> <pvcDomain> <targetContainerName> <targetContainerHost>
 #
 # where:
-#   <contrainerIp> is the host-name or IP address of the container to attach to the PVC sub-domain,
+#   <contrainerIp> is the host-name or IP address of the container to attach to the PVC domain,
 #   <jmxPort> is the JMX port of the container to attach,
-#   <pvcSubdomain> is the sub-domain name of the PVC to join,
-#   <targetContainerName> is the identifier of a container already attached to the PVC sub-domain,
-#   <targetContainerHost> is the host-name of a container (the same used for <targetContainerName>) already attached to the PVC sub-domain.
+#   <pvcDomain> is the domain name of the PVC to join,
+#   <targetContainerName> is the identifier of a container already attached to the PVC domain,
+#   <targetContainerHost> is the host-name of a container (the same used for <targetContainerName>) already attached to the PVC domain.
 #
 # Returns:
 #   0: The container is successfully attached,
@@ -129,10 +129,10 @@ attach_container()
 {
    CONTAINER_IP=$1
    JMX_PORT=$2
-   PVC_SUBDOMAIN=$3
+   PVC_DOMAIN=$3
    TARGET_CONTAINER_NAME=$4
    TARGET_CONTAINER_HOST=$5
-   petals-cli -h ${CONTAINER_IP} -n ${JMX_PORT} -u petals -p petals -c -- move-container --target-subdomain ${PVC_SUBDOMAIN} \
+   petals-cli -h ${CONTAINER_IP} -n ${JMX_PORT} -u petals -p petals -c -- move-container --target-domain ${PVC_DOMAIN} \
        --target-name ${TARGET_CONTAINER_NAME} --target-host ${TARGET_CONTAINER_HOST} --target-port 7700 --target-user petals \
        --target-pwd petals --target-pass-phrase petals -y
    if [ $? -eq 0 ]
@@ -144,13 +144,13 @@ attach_container()
 }
 
 #
-# Detaches a container from the PVC sub-domain:
+# Detaches a container from the PVC domain:
 #
 # Usage:
 #   detach_container <containerIp>
 #
 # where:
-#   <contrainerIp> is the host-name or IP address of the container to detach from the PVC sub-domain,
+#   <contrainerIp> is the host-name or IP address of the container to detach from the PVC domain,
 #   <jmxPort> is the JMX port of the container to attach.
 #
 # Returns:
@@ -177,11 +177,10 @@ detach_container()
 # Generates the topology configuration
 #
 # Usage:
-#   generate-topology <domainName> <subdomainName> <containerId> <containerIp> <registryHostIp> <registryHostPort> <registryCredentialsGroup> <registryCredentialsPwd> <jmxPort>
+#   generate-topology <domainName> <containerId> <containerIp> <registryHostIp> <registryHostPort> <registryCredentialsGroup> <registryCredentialsPwd> <jmxPort>
 #
 # where:
 #   <domainName> is the domain name in which the container will run,
-#   <subdomainName> is the sub-domain name in which the container will run,
 #   <contrainerId> is the identifier of the container for which we generate the topology,
 #   <containerIp> is the host-name of the container for which we generate the topology,
 #   <registryHostIp> is the host-name of a registry member that must be used by the container,
@@ -200,14 +199,13 @@ detach_container()
 generate_topology()
 {
    DOMAIN_NAME=$1
-   SUBDOMAIN_NAME=$2
-   CONTAINER_ID=$3
-   CONTAINER_IP=$4
-   REGISTRY_HOST_IP=$5
-   REGISTRY_HOST_PORT=$6
-   REGISTRY_CREDENTIALS_GROUP=$7
-   REGISTRY_CREDENTIALS_PWD=$8
-   JMX_PORT=$9
+   CONTAINER_ID=$2
+   CONTAINER_IP=$3
+   REGISTRY_HOST_IP=$4
+   REGISTRY_HOST_PORT=$5
+   REGISTRY_CREDENTIALS_GROUP=$6
+   REGISTRY_CREDENTIALS_PWD=$7
+   JMX_PORT=$8
    
    
    mkdir -p /etc/petals-esb/container-available/${CONTAINER_ID}
@@ -233,37 +231,35 @@ generate_topology()
 <tns:topology xmlns:tns="http://petals.ow2.org/topology"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://petals.ow2.org/topology petalsTopology.xsd">
-	<tns:domain name="${DOMAIN_NAME}">
-		<tns:sub-domain name="${SUBDOMAIN_NAME}" mode="dynamic">
-			<tns:description>A sample sub-domain 0 configuration</tns:description>
+	<tns:domain name="${DOMAIN_NAME}" mode="dynamic">
+		<tns:description>A sample domain configuration</tns:description>
 			
-			<!-- Registry implementation to used over the sub-domain, -->
-			<!-- The default implementation "Petals Registry Overlay Client" is loaded from the classloader -->
-			<!--tns:registry-implementation>org.ow2.petals.microkernel.registry.overlay.RegistryOverlayImpl</tns:registry-implementation--> 
+		<!-- Registry implementation to used over the domain, -->
+		<!-- The default implementation "Petals Registry Overlay Client" is loaded from the classloader -->
+		<!--tns:registry-implementation>org.ow2.petals.microkernel.registry.overlay.RegistryOverlayImpl</tns:registry-implementation--> 
 			
-			<!-- Containers of the sub-domain -->
-			<tns:container name="${CONTAINER_ID}">
-				<tns:description>description of the container 0</tns:description>
-				<tns:host>${CONTAINER_IP}</tns:host>
-				<tns:user>petals</tns:user>
-				<tns:password>petals</tns:password>
-				<tns:jmx-service>
-					<tns:rmi-port>${JMX_PORT}</tns:rmi-port>
-				</tns:jmx-service>
-				<tns:transport-service>
-					<tns:tcp-port>7800</tns:tcp-port>
-				</tns:transport-service>
-			</tns:container>
+		<!-- Containers of the domain -->
+		<tns:container name="${CONTAINER_ID}">
+			<tns:description>description of the container 0</tns:description>
+			<tns:host>${CONTAINER_IP}</tns:host>
+			<tns:user>petals</tns:user>
+			<tns:password>petals</tns:password>
+			<tns:jmx-service>
+				<tns:rmi-port>${JMX_PORT}</tns:rmi-port>
+			</tns:jmx-service>
+			<tns:transport-service>
+				<tns:tcp-port>7800</tns:tcp-port>
+			</tns:transport-service>
+		</tns:container>
 			
-            <!-- Default configuration of the default registry implementation -->
-            <registry:configuration xmlns:registry="http://petals.ow2.org/petals-registry-overlay-client/configuration">
-               <registry:group-name>${REGISTRY_CREDENTIALS_GROUP}</registry:group-name>
-               <registry:group-password>${REGISTRY_CREDENTIALS_PWD}</registry:group-password>
-               <registry:overlay-members>
-                  <registry:overlay-member port="${REGISTRY_HOST_PORT}">${REGISTRY_HOST_IP}</registry:overlay-member>
-               </registry:overlay-members>
-            </registry:configuration>
-		</tns:sub-domain>
+        <!-- Default configuration of the default registry implementation -->
+        <registry:configuration xmlns:registry="http://petals.ow2.org/petals-registry-overlay-client/configuration">
+            <registry:group-name>${REGISTRY_CREDENTIALS_GROUP}</registry:group-name>
+            <registry:group-password>${REGISTRY_CREDENTIALS_PWD}</registry:group-password>
+            <registry:overlay-members>
+                <registry:overlay-member port="${REGISTRY_HOST_PORT}">${REGISTRY_HOST_IP}</registry:overlay-member>
+            </registry:overlay-members>
+        </registry:configuration>
 	</tns:domain>
 </tns:topology>
 EOF

@@ -35,7 +35,7 @@ env
 
 if [ ! -e /etc/petals-esb/container-available/${ROBOCONF_INSTANCE_NAME} ]
 then
-   generate_topology ${domainName} ${subdomainName} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
+   generate_topology ${domainName} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
                      ${PetalsRegistryTemplate_0_port} ${PetalsRegistryTemplate_0_credentialsGroup} ${PetalsRegistryTemplate_0_credentialsPassword} \
                      ${jmxPort} && \
    generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \

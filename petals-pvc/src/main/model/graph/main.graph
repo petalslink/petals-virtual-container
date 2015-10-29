@@ -52,7 +52,7 @@ PetalsContainer-VM {
 	children: PetalsContainerTemplate;
 }
 
-# Note: To be able to move a container into another sub-domain, we must known at least one container of the target sub-domain, the container "bootstrap"
+# Note: To be able to move a container into another domain, we must known at least one container of the target domain, the container "bootstrap"
 # TODO: Replace PetalsContainerBootstrap and PetalsContainer by only one component when Roboconf will support it
 PetalsContainerTemplate {
     installer: script;
@@ -63,7 +63,7 @@ PetalsContainerTemplate {
 
 PetalsContainerBootstrap {
     extends: PetalsContainerTemplate;
-    exports: domainName = sample-domain, subdomainName = sample-subdomain;
+    exports: domainName = sample-domain;
 }
 
 PetalsContainer {

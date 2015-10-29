@@ -46,7 +46,6 @@ instance of PetalsContainer-VM {
 		name: container-bootstrap-node;
 
 		domainName: roboconf-demo;
-		subdomainName: roboconf-demo-1;
 	}
 }
 
