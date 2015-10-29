@@ -26,7 +26,7 @@
 
    <groupId>org.ow2.petals.cloud</groupId>
    <artifactId>pvc-parent</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.1-SNAPSHOT</version>
    <packaging>pom</packaging>
 
    <name>Petals Virtual Container - Parent POM</name>
@@ -118,6 +118,6 @@
       <url>scm:git:https://github.com/petalslink/petals-virtual-container.git</url>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
-    <tag>pvc-parent-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 </project>
