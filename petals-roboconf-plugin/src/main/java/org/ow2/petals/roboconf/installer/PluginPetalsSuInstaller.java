@@ -217,8 +217,6 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                 }
 
                 // Update property values with values coming from SU imports
-                final Map<String, String> allExportedVariables = InstanceHelpers.findAllExportedVariables(suInstance);
-                this.logger.fine(String.format("Placeholders used by the SU: %s", allExportedVariables.toString()));
                 final Map<String, Collection<Import>> allImportedVariables = suInstance.getImports();
                 final Properties importedValues = new Properties();
                 for (final Entry<String, Collection<Import>> importEntry : allImportedVariables.entrySet()) {
@@ -230,6 +228,9 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                 }
                 this.logger.fine(String.format("Imported variables used by the SU: %s", importedValues.toString()));
 
+                final Map<String, String> allExportedVariables = InstanceHelpers.findAllExportedVariables(suInstance);
+                this.logger
+                        .fine(String.format("All exported variables of the SU: %s", allExportedVariables.toString()));
                 for (final Entry<String, String> entry : allExportedVariables.entrySet()) {
                     // We must remove the SU component name implicitely added in exported variables
                     final String keyName;
@@ -244,9 +245,8 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                         final String keyValue = PropertiesHelper.resolveString(entry.getValue(), importedValues);
                         properties.setProperty(keyName, keyValue);
                     } catch (final PropertiesException e) {
-                        throw new PluginException(String.format(
-                                "Unable to resolve placeholder ('%s') of component '%s'.", entry.getValue(),
-                                componentInstance.getName()), e);
+                        throw new PluginException(String.format("Unable to resolve placeholder ('%s') of the SU '%s'.",
+                                entry.getValue(), suInstance.getName()), e);
                     }
                 }
 

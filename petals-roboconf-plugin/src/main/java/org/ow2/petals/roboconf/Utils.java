@@ -71,17 +71,23 @@ public class Utils {
      * Store the properties file of a JBI component
      * 
      * @param properties
-     *            The properties to store
+     *            The properties to store. Not <code>null</code>.
      * @param propertiesFile
-     *            The file in which properties are stored
+     *            The file in which properties are stored Not <code>null</code>.
      * @param componentName
-     *            The component name for which the properties file is stored
+     *            The component name for which the properties file is stored Not <code>null</code>.
      * @param logger
      * @throws PluginException
      */
     public static final void storePropertiesFile(final Properties properties, final File propertiesFile,
             final String componentName, final Logger logger) throws PluginException {
+
+        assert properties != null;
+        assert propertiesFile != null;
+        assert componentName != null;
+
         try {
+            propertiesFile.getParentFile().mkdirs();
             final FileOutputStream fos = new FileOutputStream(propertiesFile);
             try {
                 properties

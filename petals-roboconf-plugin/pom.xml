@@ -76,12 +76,12 @@
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-api</artifactId>
-         <version>1.4.0</version>
+         <version>1.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-jmx</artifactId>
-         <version>1.4.0</version>
+         <version>1.4.1-SNAPSHOT</version>
          <scope>runtime</scope>
       </dependency>
       <dependency>
@@ -92,12 +92,12 @@
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-api</artifactId>
-         <version>1.0.1</version>
+         <version>1.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-impl</artifactId>
-         <version>1.0.1</version>
+         <version>1.0.2-SNAPSHOT</version>
       </dependency>
       
       <!-- Test dependencies -->
@@ -109,13 +109,13 @@
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-admin-mock</artifactId>
-         <version>1.0.0</version>
+         <version>1.0.1-SNAPSHOT</version>
          <scope>test</scope>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jmx-api-impl</artifactId>
-         <version>1.0.1</version>
+         <version>1.0.2-SNAPSHOT</version>
          <type>test-jar</type>
          <scope>test</scope>
       </dependency>

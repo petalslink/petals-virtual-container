@@ -61,7 +61,7 @@ PetalsSLPostgreSQL {
 
 PetalsSEActiviti {
     extends: PetalsSE;
-    exports: engineEnableJobExecutor = true;
+    exports: engineEnableJobExecutor = true, jdbcDriver = org.postgresql.Driver, jdbcUrl = jdbc:postgresql://${ActivitiPgSQLDatabase.ip}/${ActivitiPgSQLDatabase.databaseName}, jdbcUsername = ${ActivitiPgSQLDatabase.databaseUser}, jdbcPassword = ${ActivitiPgSQLDatabase.databasePwd};
     # See comment on PetalsSL
 	imports: PetalsSLPostgreSQL.present, ActivitiPgSQLDatabase.*;
 }

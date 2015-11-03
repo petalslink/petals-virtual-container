@@ -21,6 +21,7 @@ import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_ABTRACT_CONTA
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Map;
 import java.util.Properties;
 
 import net.roboconf.core.model.beans.Component;
@@ -29,6 +30,8 @@ import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
 
+import org.ow2.petals.admin.api.artifact.ConfigurationPropertiesCallback;
+import org.ow2.petals.admin.api.artifact.exception.ConfigurationParamComputeException;
 import org.ow2.petals.admin.api.exception.ArtifactAdministrationException;
 import org.ow2.petals.admin.api.exception.ContainerAdministrationException;
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
@@ -55,7 +58,20 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
             this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
                 this.artifactAdministration.deployAndStartArtifact(jbiArtifactFile.toURI().toURL(),
-                        this.getConfigurationProperties(instance), true);
+                        new ConfigurationPropertiesCallback() {
+
+                            @Override
+                            public Properties compute(final Map<String, String> oldConfigParam)
+                                    throws ConfigurationParamComputeException {
+                                try {
+                                return PluginPetalsJbiArtifactInstaller.this.getConfigurationProperties(instance,
+                                        oldConfigParam);
+                                } catch (final PluginException e) {
+                                    throw new ConfigurationParamComputeException(e);
+                                }
+                            }
+                        }, true);
+
             } catch (final MalformedURLException e) {
                 // This error should not occur
                 throw new PluginException(e);
@@ -69,7 +85,8 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
         }
     }
 
-    protected Properties getConfigurationProperties(final Instance jbiArtifactInstance) throws PluginException {
+    protected Properties getConfigurationProperties(final Instance jbiArtifactInstance,
+            final Map<String, String> existingConfParams) throws PluginException {
         return new Properties();
     }
 

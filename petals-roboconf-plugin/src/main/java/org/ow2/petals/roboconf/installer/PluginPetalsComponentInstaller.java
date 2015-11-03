@@ -21,13 +21,16 @@ import static org.ow2.petals.roboconf.Constants.COMPONENT_VARIABLE_NAME_PROPERTI
 import static org.ow2.petals.roboconf.Constants.ROBOCONF_COMPONENT_SU_COMPONENT;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.logging.Level;
 
+import net.roboconf.core.model.beans.Component;
 import net.roboconf.core.model.beans.Import;
 import net.roboconf.core.model.beans.Instance;
 import net.roboconf.core.model.beans.Instance.InstanceStatus;
+import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.plugin.api.PluginException;
 
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
@@ -58,7 +61,8 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
     }
 
     @Override
-    protected Properties getConfigurationProperties(final Instance componentInstance) throws PluginException {
+    protected Properties getConfigurationProperties(final Instance componentInstance,
+            final Map<String, String> existingConfParams) throws PluginException {
 
         // We generate the component properties file containing all configuration parameters of children service units
         final String propertiesFileName = this.getPropertiesFileName(componentInstance);
@@ -91,23 +95,62 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
                     componentInstance.getName(), componentInstance.overriddenExports.toString()));
         }
 
-        // We configure the component
+        // We configure the component ...
+        final Properties configurationProperties = super.getConfigurationProperties(componentInstance,
+                existingConfParams);
+        // ... with placeholders coming from specific values
         final Properties placeHolders = new Properties();
         placeHolders.setProperty("container-name", this.retrieveContainerInstance(componentInstance).getName());
         placeHolders.setProperty("component-name", componentInstance.getName());
-        final Properties configurationProperties = super.getConfigurationProperties(componentInstance);
-        for (final Entry<String, String> entry : componentInstance.overriddenExports.entrySet()) {
-            final String propertyName = entry.getKey().substring(entry.getKey().lastIndexOf('.') + 1);
-            try {
-                configurationProperties.setProperty(propertyName,
-                        PropertiesHelper.resolveString(entry.getValue(), placeHolders));
-            } catch (final PropertiesException e) {
-                this.logger.log(Level.WARNING,
-                        String.format("An error occurs resolving the property '%s'", entry.getKey()), e);
+        // ... with placeholders coming from imports ...
+        final Map<String, Collection<Import>> allImportedVariables = componentInstance.getImports();
+        for (final Entry<String, Collection<Import>> importEntry : allImportedVariables.entrySet()) {
+            for (final Import anImport : importEntry.getValue()) {
+                for (final Entry<String, String> anExportImported : anImport.getExportedVars().entrySet()) {
+                    placeHolders.setProperty(anExportImported.getKey(), anExportImported.getValue());
+                }
             }
         }
+        this.logger.fine(String.format("Place holders to configure the component '%s': %s",
+                componentInstance.getName(), placeHolders.toString()));
+        // ... to resolve configuration parameter values
+        final Map<String, String> allExportedVariables = InstanceHelpers.findAllExportedVariables(componentInstance);
+        this.logger.fine(String.format("All exported variables of the component '%s': %s", componentInstance.getName(),
+                allExportedVariables.toString()));
+        for (final Object configurationParamNameObj : existingConfParams.keySet()) {
+            final String configurationParamName = (String) configurationParamNameObj;
+            final String valueToResolve = retrieveConfParamValueFromHierarchy(allExportedVariables,
+                    componentInstance.getComponent(), configurationParamName);
+            if (valueToResolve != null) {
+                try {
+                    final String value = PropertiesHelper.resolveString(valueToResolve, placeHolders);
+                    configurationProperties.setProperty(configurationParamName, value);
+                } catch (final PropertiesException e) {
+                    throw new PluginException(String.format("Unable to resolve placeholder ('%s') of component '%s'.",
+                            valueToResolve, componentInstance.getName()), e);
+                }
+            }
+        }
+        this.logger.fine(String.format("Configuration parameters of the compoennt '%s': %s",
+                componentInstance.getName(), configurationProperties.toString()));
 
         return configurationProperties;
+    }
+
+    private static String retrieveConfParamValueFromHierarchy(final Map<String, String> allExportedVariables,
+            final Component component, final String configurationParamName) {
+        final String currentParamName = component.getName() + '.' + configurationParamName;
+        final String currentParamValue = allExportedVariables.get(currentParamName);
+        if (currentParamValue != null) {
+            return currentParamValue;
+        } else {
+            final Component parent = component.getExtendedComponent();
+            if (parent != null) {
+                return retrieveConfParamValueFromHierarchy(allExportedVariables, parent, configurationParamName);
+            } else {
+                return null;
+            }
+        }
     }
 
     /**
@@ -126,7 +169,7 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
      */
     private String getPropertiesFileName(final Instance componentInstance) throws PluginException {
 
-        final String propertiesFileName = componentInstance.overriddenExports
+        final String propertiesFileName = InstanceHelpers.findAllExportedVariables(componentInstance)
                 .get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE);
         return Utils.resolvePropertiesFileName(propertiesFileName, this.retrieveContainerInstance(componentInstance)
                 .getName(), componentInstance.getName());
