@@ -181,9 +181,12 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
         this.logger.fine(this.agentId + ": updating the properties file for JBI component instance "
                 + componentInstance);
 
-        final String propertiesFileName = Utils.resolvePropertiesFileName(componentInstance.overriddenExports
+        final String propertiesFileName = Utils
+                .resolvePropertiesFileName(
+                        InstanceHelpers.findAllExportedVariables(componentInstance)
                 .get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE), this.retrieveContainerInstance(suInstance).getName(),
                 componentInstance.getName());
+        this.logger.fine("Updated file: " + propertiesFileName);
         if (propertiesFileName != null && !propertiesFileName.isEmpty()) {
             final File propertiesFile = new File(propertiesFileName);
             if (!propertiesFile.exists()
