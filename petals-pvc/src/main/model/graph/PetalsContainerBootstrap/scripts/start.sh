@@ -40,6 +40,7 @@ then
                      ${jmxPort} && \
    generate_server_properties ${ROBOCONF_INSTANCE_NAME} && \
    generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} ${enableMonitTraces} && \
+   generate_env ${ROBOCONF_INSTANCE_NAME} ${maxHeapSize} && \
    start_container ${ROBOCONF_INSTANCE_NAME}
    exit $?
 else

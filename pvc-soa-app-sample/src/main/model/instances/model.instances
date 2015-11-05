@@ -66,7 +66,8 @@ instance of PetalsContainer-VM {
 		name: container-bootstrap-node;
 
 		domainName: roboconf-demo;
-		PetalsContainerTemplate.enableMonitTraces: false;
+		PetalsContainerBootstrap.enableMonitTraces: false;
+		PetalsContainerBootstrap.maxHeapSize: 256m;
 		
 		instance of PetalsBCSoapConsumer {
 		    name: petals-bc-soap;
@@ -100,6 +101,7 @@ instance of PetalsContainer-VM {
 		name: container-cons-node-1;
 		
 		PetalsContainer.enableMonitTraces: false;
+		PetalsContainer.maxHeapSize: 256m;
 		
 		instance of PetalsBCSoapConsumer {
 		    name: petals-bc-soap;
@@ -130,6 +132,7 @@ instance of PetalsContainer-VM {
 		name: container-prov-node-1;
 		
 		PetalsContainer.enableMonitTraces: false;
+		PetalsContainer.maxHeapSize: 256m;
 
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql-9.4-1201-jdbc4;
@@ -166,6 +169,7 @@ instance of PetalsContainer-VM {
 		name: container-prov-node-2;
 		
 		PetalsContainer.enableMonitTraces: false;
+		PetalsContainer.maxHeapSize: 256m;
 
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql-9.4-1201-jdbc4;

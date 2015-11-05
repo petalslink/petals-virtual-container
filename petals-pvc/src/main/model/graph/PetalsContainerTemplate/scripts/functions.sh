@@ -190,7 +190,7 @@ detach_container()
 #   <jmxPort> is the port listening JMX requests.
 #
 # Returns:
-#   0: The topology generation is successfully attached,
+#   0: The topology generation is successfully generated,
 #   1: An error occurs.
 #
 # Note:
@@ -266,6 +266,30 @@ EOF
 }
 
 #
+# Generates the system environment configuration (env.sh)
+#
+# Usage:
+#   generate_env <containerId>
+#
+# where:
+#   <contrainerId> is the identifier of the container for which we generate the system environment configuration.
+#
+# Returns:
+#   0: The system environment configuration generation is successfully generated,
+#   1: An error occurs.
+#
+# Note:
+#   The container configuration is expected in the directory /etc/petals-esb/container-available/<containerId>
+#
+generate_env()
+{
+   CONTAINER_ID=$1
+   MAX_HEAP_SIZE=$2
+   
+   sed -e "s/-Xmx[0-9]*[mgMG]/-Xmx${MAX_HEAP_SIZE}/" /etc/petals-esb/default-env.sh > /etc/petals-esb/container-available/${CONTAINER_ID}/env.sh
+}
+
+#
 # Generates the local container configuration (server.properties)
 #
 # Usage:
@@ -275,7 +299,7 @@ EOF
 #   <contrainerId> is the identifier of the container for which we generate the local container configuration.
 #
 # Returns:
-#   0: The local container configuration generation is successfully attached,
+#   0: The local container configuration generation is successfully generated,
 #   1: An error occurs.
 #
 # Note:
@@ -332,7 +356,7 @@ petals.data.basedir=/var/lib/petals-esb/\${petals.container.name}
 
 # This property defines the environment configuration file. Check the Petals documentation
 # for more information about the default value.
-#petals.environment.config.file=/etc/petals-esb/default-env.sh
+petals.environment.config.file=/etc/petals-esb/container-available/${CONTAINER_ID}/env.sh
 
 # This property sets the maximum duration of the processing of a life-cycle operation on a JBI
 # components and SAs (start, stop, ...). It prevents from hanging threads. 
