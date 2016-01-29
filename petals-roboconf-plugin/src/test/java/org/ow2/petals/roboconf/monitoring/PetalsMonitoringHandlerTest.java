@@ -36,15 +36,15 @@ import javax.management.NotCompliantMBeanException;
 import javax.management.RuntimeOperationsException;
 import javax.management.modelmbean.InvalidTargetObjectTypeException;
 
-import net.roboconf.core.model.beans.Component;
-import net.roboconf.core.model.beans.Instance;
-
 import org.apache.mina.util.AvailablePortFinder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.ow2.petals.jmx.api.api.JMXClient;
 import org.ow2.petals.jmx.api.impl.EmbeddedJmxServerConnector;
 import org.ow2.petals.jmx.api.impl.mbean.monitoring.component.framework.ComponentMonitoringService;
+
+import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.Instance;
 
 /**
  * Unit test of {@link PetalsMonitoringHandler}
@@ -71,10 +71,11 @@ public class PetalsMonitoringHandlerTest {
             InstanceNotFoundException, MalformedObjectNameException, MBeanException, InvalidTargetObjectTypeException {
 
         // Initialize the MBean part
-        final int messageExchangeProcessorThreadPoolAllocatedThreadsCurrent = 123;
+        final int messageExchangeProcessorThreadPoolActiveThreadsCurrent = 123;
         final ComponentMonitoringService compMonitSvc = new ComponentMonitoringService();
         compMonitSvc
-                .setMessageExchangeProcessorThreadPoolAllocatedThreadsCurrent(messageExchangeProcessorThreadPoolAllocatedThreadsCurrent);
+.setMessageExchangeProcessorThreadPoolActiveThreadsCurrent(
+                messageExchangeProcessorThreadPoolActiveThreadsCurrent);
         this.embeddedJmxSrvCon.registerComponentMonitoringService(compMonitSvc, COMPONENT_ID);
 
         // Initialize the Roboconf instance that is measured
@@ -100,7 +101,7 @@ public class PetalsMonitoringHandlerTest {
         final PetalsMonitoringHandler monitoringHandler = new PetalsMonitoringHandler();
         monitoringHandler.setAgentId(APP_NAME, SCOPED_INSTANCE_PATH);
         final String mBeanName = "org.ow2.petals:type=custom,name=monitoring_" + COMPONENT_ID;
-        final String attributeName = "MessageExchangeProcessorThreadPoolAllocatedThreadsCurrent";
+        final String attributeName = "MessageExchangeProcessorThreadPoolActiveThreadsCurrent";
         final String query = "attribute " + mBeanName + " " + attributeName + " ";
 
         monitoringHandler.reset(bcSoapInstance, EVENT_NAME, query + "= 0");
@@ -111,11 +112,11 @@ public class PetalsMonitoringHandlerTest {
         assertNull(monitoringHandler.process());
 
         monitoringHandler.reset(bcSoapInstance, EVENT_NAME, query + "= "
-                + messageExchangeProcessorThreadPoolAllocatedThreadsCurrent);
+ + messageExchangeProcessorThreadPoolActiveThreadsCurrent);
         assertEquals(mBeanName, monitoringHandler.getMBeanName());
         assertEquals(attributeName, monitoringHandler.getAttributeName());
         assertEquals("=", monitoringHandler.getConditionOperator());
-        assertEquals(Integer.toString(messageExchangeProcessorThreadPoolAllocatedThreadsCurrent),
+        assertEquals(Integer.toString(messageExchangeProcessorThreadPoolActiveThreadsCurrent),
                 monitoringHandler.getConditionThreshold());
         assertNotNull(monitoringHandler.process());
 
@@ -127,11 +128,11 @@ public class PetalsMonitoringHandlerTest {
         assertNull(monitoringHandler.process());
 
         monitoringHandler.reset(bcSoapInstance, EVENT_NAME, query + "== "
-                + messageExchangeProcessorThreadPoolAllocatedThreadsCurrent);
+ + messageExchangeProcessorThreadPoolActiveThreadsCurrent);
         assertEquals(mBeanName, monitoringHandler.getMBeanName());
         assertEquals(attributeName, monitoringHandler.getAttributeName());
         assertEquals("==", monitoringHandler.getConditionOperator());
-        assertEquals(Integer.toString(messageExchangeProcessorThreadPoolAllocatedThreadsCurrent),
+        assertEquals(Integer.toString(messageExchangeProcessorThreadPoolActiveThreadsCurrent),
                 monitoringHandler.getConditionThreshold());
         assertNotNull(monitoringHandler.process());
 
