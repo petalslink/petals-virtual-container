@@ -22,7 +22,7 @@
       <groupId>org.ow2.petals</groupId>
       <artifactId>petals-root-parent</artifactId>
       <relativePath />
-      <version>20.2.3</version>
+      <version>20.2.5-SNAPSHOT</version>
    </parent>
 
    <groupId>org.ow2.petals</groupId>
@@ -31,6 +31,14 @@
    <version>1.0.1-SNAPSHOT</version>
    <name>Petals plug-in for Roboconf</name>
    <description>Petals plug-in for Roboconf providing Petals artifact installation capabilities and a measure extension for Petals</description>
+
+   <inceptionYear>2015</inceptionYear>   
+   <licenses>
+      <license>
+         <name>GNU LESSER GENERAL PUBLIC LICENSE Version 2.1</name>
+         <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+      </license>
+   </licenses>
 
    <properties>
       <roboconf.version>0.5</roboconf.version>
@@ -71,7 +79,7 @@
       <dependency>
          <groupId>org.ow2.petals</groupId>
          <artifactId>petals-jbi-descriptor</artifactId>
-         <version>2.3.2</version>
+         <version>2.3.3-SNAPSHOT</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
@@ -87,7 +95,7 @@
       <dependency>
          <groupId>org.ow2.easycommons</groupId>
          <artifactId>easycommons-properties</artifactId>
-         <version>1.2.0</version>
+         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
          <groupId>org.ow2.petals</groupId>
@@ -249,6 +257,7 @@
 
    <repositories>
       <repository>
+         <!-- Repository where Roboconf snapshot artifacts are available -->
          <id>sonatype.snapshot</id>
          <name>Sonatype - SNAPSHOT</name>
          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
