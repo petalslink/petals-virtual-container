@@ -227,21 +227,6 @@
                   <id>analyze</id>
                   <configuration>
                      <usedDependencies>
-                        <!-- This one is needed for runtime -->
-                        <usedDependency>org.ow2.petals:petals-admin-jmx</usedDependency>
-                     </usedDependencies>
-                  </configuration>
-               </execution>
-            </executions>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-               <execution>
-                  <id>analyze</id>
-                  <configuration>
-                     <usedDependencies>
                         <!-- As petals-admin-jmx is used only at runtime, not required for
                              compilation, we should force its usage otherwise the analyze
                              fails because it is detected as not used -->
