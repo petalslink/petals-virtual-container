@@ -1,6 +1,6 @@
 #!/bin/sh -x
 #
-# Copyright (c) 2015 Linagora
+# Copyright (c) 2015-2016 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -22,7 +22,7 @@ mkdir -p /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}
 cat > /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/cluster.xml << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2015 Linagora
+ Copyright (c) 2015-2016 Linagora
 
  This program/library is free software: you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by

@@ -1,6 +1,6 @@
 #!/bin/sh -x
 #
-# Copyright (c) 2015 Linagora
+# Copyright (c) 2015-2016 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -212,7 +212,7 @@ generate_topology()
    cat > /etc/petals-esb/container-available/${CONTAINER_ID}/topology.xml << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2015 Linagora
+ Copyright (c) 2015-2016 Linagora
 
  This program/library is free software: you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by
@@ -311,7 +311,7 @@ generate_server_properties()
    
    cat > /etc/petals-esb/container-available/${CONTAINER_ID}/server.properties << EOF
 #
-# Copyright (c) 2015 Linagora
+# Copyright (c) 2015-2016 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -549,7 +549,7 @@ generate_loggers_properties()
    
    cat > /etc/petals-esb/container-available/${CONTAINER_ID}/loggers.properties << EOF
 #
-# Copyright (c) 2015 Linagora
+# Copyright (c) 2015-2016 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
