@@ -19,8 +19,8 @@
 #
 # Create the Activiti database
 #
-echo "host	${databaseName}	${databaseUser}	samenet	md5" >> /etc/postgresql/9.3/main/pg_hba.conf && \
-pg_ctlcluster 9.3 main reload && \
+echo "host	${databaseName}	${databaseUser}	samenet	md5" >> /etc/postgresql/9.4/main/pg_hba.conf && \
+pg_ctlcluster 9.4 main reload && \
 sudo -u postgres psql --echo-all -c "CREATE USER ${databaseUser} WITH CREATEDB PASSWORD '${databasePwd}'" && \
 sudo -u postgres createdb --echo --owner=${databaseUser} ${databaseName} && \
 sudo -u postgres psql --echo-all -c "GRANT CONNECT ON DATABASE ${databaseName} to ${databaseUser}" && \

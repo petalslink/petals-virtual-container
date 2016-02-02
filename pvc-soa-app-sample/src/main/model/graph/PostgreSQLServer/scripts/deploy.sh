@@ -16,6 +16,6 @@
 #
 #############################################################################
 
-echo "listen_addresses = '*'" >> /etc/postgresql/9.3/main/postgresql.conf
+echo "listen_addresses = '*'" >> /etc/postgresql/9.4/main/postgresql.conf
 service postgresql restart
 
