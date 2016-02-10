@@ -37,11 +37,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import net.roboconf.core.model.beans.Component;
-import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.helpers.InstanceHelpers;
-import net.roboconf.plugin.api.PluginException;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,6 +44,13 @@ import org.junit.rules.TemporaryFolder;
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
 import org.ow2.petals.admin.junit.PetalsAdministrationApi;
+import org.ow2.petals.admin.junit.exception.NoDomainRegisteredException;
+import org.ow2.petals.admin.junit.utils.ContainerUtils;
+
+import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.Instance;
+import net.roboconf.core.model.helpers.InstanceHelpers;
+import net.roboconf.plugin.api.PluginException;
 
 /**
  * Unit tests of {@link PluginPetalsSuInstaller}
@@ -68,7 +70,9 @@ public class PluginPetalsSuInstallerTest {
 
     @Test
     public void start() throws PluginException, DuplicatedServiceException, MissingServiceException,
-            FileNotFoundException, IOException {
+            FileNotFoundException, IOException, NoDomainRegisteredException {
+
+        this.petalsAdminApi.registerDomain().registerContainer();
 
         final File rootFolder = this.tempFolder.newFolder();
 
@@ -84,10 +88,11 @@ public class PluginPetalsSuInstallerTest {
         final String containerName = "my-container";
         final Instance containerInstance = new Instance(containerName);
         containerInstance.component(containerComponent);
-        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_IP, "localhost");
-        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPORT, "7700");
-        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXUSER, "petals");
-        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPASSWORD, "petals");
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_IP, ContainerUtils.CONTAINER_HOST);
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPORT,
+                Integer.toString(ContainerUtils.CONTAINER_JMX_PORT));
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXUSER, ContainerUtils.CONTAINER_USER);
+        containerInstance.overriddenExports.put(CONTAINER_VARIABLE_NAME_JMXPASSWORD, ContainerUtils.CONTAINER_PWD);
 
         final String componentName = "my-container-component-id";
         final Instance jbiComponentInstance = new Instance(componentName);
@@ -126,12 +131,12 @@ public class PluginPetalsSuInstallerTest {
             new FileOutputStream(new File(suInstanceDirectory, INSTANCE_SU_NAME + ".zip")).close();
 
             final PluginPetalsBcInstaller ppbi = new PluginPetalsBcInstaller();
-            ppbi.setPetalsAdministrationApi(this.petalsAdminApi.getPetalsAdministrationFactory());
+            ppbi.setPetalsAdministrationApi(this.petalsAdminApi);
             ppbi.deploy(jbiComponentInstance);
             ppbi.start(jbiComponentInstance);
 
             final PluginPetalsSuInstaller ppsi = new PluginPetalsSuInstaller();
-            ppsi.setPetalsAdministrationApi(this.petalsAdminApi.getPetalsAdministrationFactory());
+            ppsi.setPetalsAdministrationApi(this.petalsAdminApi);
 
             ppsi.deploy(suInstance);
             ppsi.start(suInstance);

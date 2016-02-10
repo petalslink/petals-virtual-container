@@ -24,18 +24,18 @@ import java.net.MalformedURLException;
 import java.util.Map;
 import java.util.Properties;
 
-import net.roboconf.core.model.beans.Component;
-import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.helpers.InstanceHelpers;
-import net.roboconf.plugin.api.PluginException;
-import net.roboconf.plugin.api.PluginInterface;
-
 import org.ow2.petals.admin.api.artifact.ConfigurationPropertiesCallback;
 import org.ow2.petals.admin.api.artifact.exception.ConfigurationParamComputeException;
 import org.ow2.petals.admin.api.exception.ArtifactAdministrationException;
 import org.ow2.petals.admin.api.exception.ContainerAdministrationException;
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
+
+import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.Instance;
+import net.roboconf.core.model.helpers.InstanceHelpers;
+import net.roboconf.plugin.api.PluginException;
+import net.roboconf.plugin.api.PluginInterface;
 
 public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstractInstaller implements PluginInterface {
 
@@ -57,7 +57,7 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
         try {
             this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
-                this.artifactAdministration.deployAndStartArtifact(jbiArtifactFile.toURI().toURL(),
+                this.adminApi.newArtifactAdministration().deployAndStartArtifact(jbiArtifactFile.toURI().toURL(),
                         new ConfigurationPropertiesCallback() {
 
                             @Override
@@ -76,7 +76,7 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
                 // This error should not occur
                 throw new PluginException(e);
             } finally {
-                this.containerAdministration.disconnect();
+                this.adminApi.newContainerAdministration().disconnect();
             }
         } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
             throw new PluginException(e);

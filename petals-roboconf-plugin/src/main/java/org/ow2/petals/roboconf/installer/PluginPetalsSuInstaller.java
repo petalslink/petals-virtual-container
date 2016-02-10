@@ -40,14 +40,6 @@ import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import net.roboconf.core.model.beans.Component;
-import net.roboconf.core.model.beans.Import;
-import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.beans.Instance.InstanceStatus;
-import net.roboconf.core.model.helpers.InstanceHelpers;
-import net.roboconf.plugin.api.PluginException;
-import net.roboconf.plugin.api.PluginInterface;
-
 import org.apache.commons.io.IOUtils;
 import org.ow2.petals.admin.api.exception.ArtifactAdministrationException;
 import org.ow2.petals.admin.api.exception.ContainerAdministrationException;
@@ -63,6 +55,14 @@ import org.ow2.petals.roboconf.Utils;
 
 import com.ebmwebsourcing.easycommons.properties.PropertiesException;
 import com.ebmwebsourcing.easycommons.properties.PropertiesHelper;
+
+import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.Import;
+import net.roboconf.core.model.beans.Instance;
+import net.roboconf.core.model.beans.Instance.InstanceStatus;
+import net.roboconf.core.model.helpers.InstanceHelpers;
+import net.roboconf.plugin.api.PluginException;
+import net.roboconf.plugin.api.PluginInterface;
 
 public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller implements PluginInterface {
 
@@ -138,14 +138,14 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
             this.logger.fine(this.agentId + ": deploying the SA for instance " + instance);
             this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
-                this.artifactAdministration.deployAndStartArtifact(saFile.toURI().toURL(), true);
+                this.adminApi.newArtifactAdministration().deployAndStartArtifact(saFile.toURI().toURL(), true);
             } catch (final MalformedURLException e) {
                 // This error should not occur because the URL is generated from a local file
                 this.logger.log(Level.WARNING, "An error occurs", e);
             } catch (final NumberFormatException e) {
                 throw new PluginException("Invalid value for JMX port (Not a number)", e);
             } finally {
-                this.containerAdministration.disconnect();
+                this.adminApi.newContainerAdministration().disconnect();
             }
         } catch (final Throwable e) {
             this.logger.log(Level.SEVERE, "An error occurs", e);
@@ -260,9 +260,9 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                 try {
                     this.connectToContainer(this.retrieveContainerInstance(suInstance));
                     try {
-                        this.artifactAdministration.reloadConfiguration(componentInstance.getName());
+                        this.adminApi.newArtifactAdministration().reloadConfiguration(componentInstance.getName());
                     } finally {
-                        this.containerAdministration.disconnect();
+                        this.adminApi.newContainerAdministration().disconnect();
                     }
                 } catch (final ContainerAdministrationException | ArtifactAdministrationException e) {
                     throw new PluginException(e);
