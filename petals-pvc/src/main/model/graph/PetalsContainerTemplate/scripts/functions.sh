@@ -267,10 +267,12 @@ EOF
 # Generates the system environment configuration (env.sh)
 #
 # Usage:
-#   generate_env <containerId>
+#   generate_env <containerId> <max_heap_size> <snmp_agent_port>
 #
 # where:
 #   <contrainerId> is the identifier of the container for which we generate the system environment configuration.
+#   <max_heap_size> is the max size of the JVM Heap
+#   <snmp_agent_port>, optional, if set the SNMP agent is enable at JVM level and listens SNMP requests on the given port
 #
 # Returns:
 #   0: The system environment configuration generation is successfully generated,
@@ -283,8 +285,17 @@ generate_env()
 {
    CONTAINER_ID=$1
    MAX_HEAP_SIZE=$2
+   SNMP_AGENT_PORT=$3
    
-   sed -e "s/-Xmx[0-9]*[mgMG]/-Xmx${MAX_HEAP_SIZE}/" /etc/petals-esb/default-env.sh > /etc/petals-esb/container-available/${CONTAINER_ID}/env.sh
+   if [ -n "${SNMP_AGENT_PORT}" ]
+   then
+      cat /etc/petals-esb/default-env.sh | \
+          sed -e "s/-Xmx[0-9]*[mgMG]/-Xmx${MAX_HEAP_SIZE}/" | \
+          sed -e 's/^#\(JAVA_OPTS="$JAVA_OPTS -Dcom\.sun\.management\.snmp\..*$\)/\1/' | \
+          sed -e "s/^\(JAVA_OPTS=\"\$JAVA_OPTS -Dcom\.sun\.management\.snmp\.port=\).*$/\1${SNMP_AGENT_PORT}\"/" > /etc/petals-esb/container-available/${CONTAINER_ID}/env.sh
+   else
+      cat /etc/petals-esb/default-env.sh | sed -e "s/-Xmx[0-9]*[mgMG]/-Xmx${MAX_HEAP_SIZE}/" > /etc/petals-esb/container-available/${CONTAINER_ID}/env.sh
+   fi
 }
 
 #
