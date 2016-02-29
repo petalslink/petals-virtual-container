@@ -43,6 +43,7 @@ Cacti_DB {
 Cacti {
 	installer: script;
 	
-	imports: MySQL.*, Cacti_DB.*, external ESB.* (optional);
+	imports: MySQL.*, Cacti_DB.*;
+	imports: external ESB.* (optional);
 	exports: ip, AdminPwd = cacti;
 }

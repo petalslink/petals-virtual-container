@@ -16,5 +16,10 @@
 #
 #############################################################################
 
-# TODO: Should we stop Apache2 to stop Cacti ?
-# TODO: Should we stop the metrics pooling ?
+# Stop the Cacti application:
+#    - Stop the service 'Cron' required by the Cacti poller
+#    - TODO: Should we stop Apache2 ?
+#    - TODO: Should we remove all data collected previously ?
+#    - TODO: Should we remove all graphs ? 
+service cron stop
+

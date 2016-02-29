@@ -33,11 +33,67 @@
    <name>PVC Supervision with Cacti</name>
    <description>PVC Supervision with Cacti</description>
 
+   <properties>
+      <petals-commons-deb.version>1.0</petals-commons-deb.version>
+      <petals-cli-distrib-deb.version>2.3.0-1.0-SNAPSHOT</petals-cli-distrib-deb.version>
+      <petals-cli-cmd-monitoring-deb.version>1.0.3-1.0-SNAPSHOT</petals-cli-cmd-monitoring-deb.version>
+      <petals-cli-cmd-monitoring-mo-cacti-deb.version>1.0.2-1.0-SNAPSHOT</petals-cli-cmd-monitoring-mo-cacti-deb.version>
+   </properties>
+
    <build>
       <plugins>
          <plugin>
             <groupId>net.roboconf</groupId>
             <artifactId>roboconf-maven-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+               <execution>
+                  <!-- Petals CLI is required to get metrics -->
+                  <id>copy-package-for-Petals-CLI</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-commons-deb</artifactId>
+                           <version>${petals-commons-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-commons.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-cli-distrib-deb</artifactId>
+                           <version>${petals-cli-distrib-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-cli.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-cli-cmd-monitoring-deb</artifactId>
+                           <version>${petals-cli-cmd-monitoring-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-cli-cmd-monitoring.deb</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                           <groupId>org.ow2.petals</groupId>
+                           <artifactId>petals-cli-cmd-monitoring-mo-cacti-deb</artifactId>
+                           <version>${petals-cli-cmd-monitoring-mo-cacti-deb.version}</version>
+                           <type>deb</type>
+                           <destFileName>petals-cli-cmd-monitoring-mo-cacti.deb</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/Cacti/packages</outputDirectory>
+                     <overWriteReleases>false</overWriteReleases>
+                     <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+               </execution>
+            </executions>
          </plugin>
       </plugins>
    </build>
