@@ -51,32 +51,31 @@ create_all_graphs_for_one_container() {
    new_petals_host "${CONTAINER_NAME}" "${CONTAINER_IP}" && \
    create_container_tree_entry "${CONTAINER_NAME}" "${CONTAINER_IP}" "${CONTAINER_JMX_PORT}" "${CONTAINER_JMX_USER}" "${CONTAINER_JMX_PWD}" && \
    create_graph_remote_transporter_outgoing_messages "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmGCcount" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmGCtime" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryHeapCommitted" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryHeapMaxSize" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryHeapUsed" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryNonHeapCommited" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryNonHeapMaxSize" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryNonHeapUsed" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadDaemonCount" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadLiveCount" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadPeakCount" "${CONTAINER_NAME}" && \
-   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadTotalStartedCount" "${CONTAINER_NAME}"
+   create_graph_remote_transporter_incoming_messages "${CONTAINER_NAME}"
+
+# We must use an Oracle JVM to have an embedded SNMP agent:
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmGCcount" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmGCtime" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryHeapCommitted" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryHeapMaxSize" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryHeapUsed" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryNonHeapCommited" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryNonHeapMaxSize" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmMemoryNonHeapUsed" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadDaemonCount" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadLiveCount" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadPeakCount" "${CONTAINER_NAME}" && \
+#   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmThreadTotalStartedCount" "${CONTAINER_NAME}"
 }
 
 #
 # Create the following graph for the given container: Delivered outgoing messages of the remote transporter
 #
 # Usage:
-#   create_graph_remote_transporter_outgoing_messages <container_name> <container_ip> <container_jmx_port> <container_jmx_user> <container_jmx_pwd>
+#   create_graph_remote_transporter_outgoing_messages <container_name>
 #
 # where:
 #   <container_name> is the Petals container host name
-#   <container_ip> is the Petals container host ip
-#   <container_jmx_port> is the Petals container JMX port
-#   <container_jmx_user> is the user part of the Petals container JMX credentials
-#   <container_jmx_pwd> is the password part of the Petals container JMX credentials
 #
 # Returns:
 #   0: The container graph creations succeed,
@@ -90,6 +89,34 @@ create_graph_remote_transporter_outgoing_messages() {
    GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
    DATA_QUERY_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-snmp-queries | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
    DATA_QUERY_TYPE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-query-types --snmp-query-id=${DATA_QUERY_ID} | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
+   REMOTE_CONTAINERS=`php ${CACTI_CLI}/add_graphs.php --list-snmp-values --host-id=${DEVICE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-field=filterName | tail -n+2`
+   for REMOTE_CONTAINER in ${REMOTE_CONTAINERS}
+   do
+      php -q ${CACTI_CLI}/add_graphs.php --host-id=${DEVICE_ID} --graph-type=ds --graph-template-id=${GRAPH_TEMPLATE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-query-type-id=${DATA_QUERY_TYPE_ID} --snmp-field=filterName --snmp-value=${REMOTE_CONTAINER}
+   done
+}
+
+#
+# Create the following graph for the given container: Delivered incoming messages from the remote transporter
+#
+# Usage:
+#   create_graph_remote_transporter_incoming_messages <container_name>
+#
+# where:
+#   <container_name> is the Petals container host name
+#
+# Returns:
+#   0: The container graph creations succeed,
+#   1: An error occurs.
+#
+create_graph_remote_transporter_incoming_messages() {
+   CONTAINER_NAME="$1"
+
+   # Associate the data query to the device linked to the given container
+   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_NAME}" | cut -f1`
+   GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
+   DATA_QUERY_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-snmp-queries | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
+   DATA_QUERY_TYPE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-query-types --snmp-query-id=${DATA_QUERY_ID} | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
    REMOTE_CONTAINERS=`php ${CACTI_CLI}/add_graphs.php --list-snmp-values --host-id=${DEVICE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-field=filterName | tail -n+2`
    for REMOTE_CONTAINER in ${REMOTE_CONTAINERS}
    do
@@ -218,7 +245,7 @@ new_petals_host()
    CONTAINER_NAME="$1"
    CONTAINER_IP="$2"
 
-   PETALS_HOST_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_device.php --list-host-templates | grep "JVM Host" | cut -f1` && \
+   PETALS_HOST_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_device.php --list-host-templates | grep "Petals container Host" | cut -f1` && \
    php -q ${CACTI_CLI}/add_device.php --description="${CONTAINER_NAME}" --ip="${CONTAINER_IP}" --template="${PETALS_HOST_TEMPLATE_ID}" --avail=ping --ping_method=tcp
    return $?
 }

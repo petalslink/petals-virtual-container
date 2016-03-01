@@ -27,7 +27,7 @@ load_all_petals_stuff()
    CACTI_HOSTNAME=$1
    ADMIN_PWD=$2
 
-   import_template_file ${CACTI_HOSTNAME} ${ADMIN_PWD} /usr/share/cacti/resource/petals/imports/cacti_host_template_petals_host.xml
+   import_template_file ${CACTI_HOSTNAME} ${ADMIN_PWD} /usr/share/cacti/resource/petals/imports/cacti_host_template_petals_container_host.xml
    return $?
 }
 

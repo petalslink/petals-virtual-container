@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2016 Linagora
+
+ This program/library is free software: you can redistribute it and/or modify
+ it under the terms of the New BSD License (3-clause license).
+
+ This program/library is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE. See the New BSD License (3-clause license)
+ for more details.
+
+ You should have received a copy of the New BSD License (3-clause license)
+ along with this program/library; If not, see <http://directory.fsf.org/wiki/License:BSD_3Clause/>
+ for the New BSD License (3-clause license).
+-->
+<interface>
+        <name>Incoming messages delivered by the remote transporter from the given remote container</name>
+        <script_path>petals-cli.sh</script_path>
+        <arg_prepend>-h |host_hostname| -n 7700 -u petals -p petals -c -- monitoring -o tcp-transporter -f delivered-incoming-messages</arg_prepend>
+        <arg_index>-- --list-containers</arg_index>
+        <arg_query>-- --query-containers</arg_query>
+        <arg_get>-- --query-containers</arg_get>
+        <output_delimeter>!</output_delimeter>
+        <index_order>filterName</index_order>
+        <index_order_type>alphanumeric</index_order_type>
+        <!--index_title_format>|chosen_order_field|</index_title_format-->
+
+        <fields>
+                <filterName>
+                        <name>Remote container name</name>
+                        <direction>input</direction>
+                        <query_name>NAME</query_name>
+                </filterName>
+                <pendingDeliveredMsgs>
+                        <name>Pending message delivery counter</name>
+                        <direction>output</direction>
+                        <query_name>PENDING</query_name>
+                </pendingDeliveredMsgs>
+                <succeededDeliveredMsgs>
+                        <name>Succeeded message delivery counter</name>
+                        <direction>output</direction>
+                        <query_name>SUCCEEDED</query_name>
+                </succeededDeliveredMsgs>
+                <errorDeliveredMsgs>
+                        <name>Error message delivery counter</name>
+                        <direction>output</direction>
+                        <query_name>ERROR</query_name>
+                </errorDeliveredMsgs>
+        </fields>
+</interface>
