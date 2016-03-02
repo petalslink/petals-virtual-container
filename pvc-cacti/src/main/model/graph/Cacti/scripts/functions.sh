@@ -50,8 +50,8 @@ create_all_graphs_for_one_container() {
    
    new_petals_host "${CONTAINER_NAME}" "${CONTAINER_IP}" && \
    create_container_tree_entry "${CONTAINER_NAME}" "${CONTAINER_IP}" "${CONTAINER_JMX_PORT}" "${CONTAINER_JMX_USER}" "${CONTAINER_JMX_PWD}" && \
-   create_graph_remote_transporter_outgoing_messages "${CONTAINER_NAME}" && \
-   create_graph_remote_transporter_incoming_messages "${CONTAINER_NAME}"
+   create_graphs_remote_transporter_outgoing_messages "${CONTAINER_NAME}" && \
+   create_graphs_remote_transporter_incoming_messages "${CONTAINER_NAME}"
 
 # We must use an Oracle JVM to have an embedded SNMP agent:
 #   new_data_source ${CACTI_HOSTNAME} "${ADMIN_PWD}" "jvmGCcount" "${CONTAINER_NAME}" && \
@@ -69,59 +69,134 @@ create_all_graphs_for_one_container() {
 }
 
 #
-# Create the following graph for the given container: Delivered outgoing messages of the remote transporter
+# Update graphs of the given Petals container host according to:
+#    - a new remote container known
 #
 # Usage:
-#   create_graph_remote_transporter_outgoing_messages <container_name>
+#   update_all_graphs_for_one_container <container_name> <remote-container-name> <remote-container-ip>
 #
 # where:
-#   <container_name> is the Petals container host name
+#   <container_name> is @IP of the Petals container
+#   <remote-container-name> is the identifier of the new remote Petals container known
+#   <remote-container-ip> is the @IP of the new remote Petals container known
+#
+# Returns:
+#   0: The import succeeds,
+#   1: An error occurs.
+#
+update_all_graphs_for_one_container() {
+   CONTAINER_IP="$1"
+   REMOTE_CONTAINER_NAME="$2"
+   REMOTE_CONTAINER_IP="$3"
+   
+   create_one_graph_remote_transporter_outgoing_messages "${CONTAINER_IP}" "${REMOTE_CONTAINER_NAME}"
+   create_one_graph_remote_transporter_incoming_messages "${CONTAINER_IP}" "${REMOTE_CONTAINER_IP}"
+}
+
+#
+# Create the graphs "Delivered outgoing messages of the remote transporter" of the given container, on graph per remote containers known at this time.
+#
+# Usage:
+#   create_graphs_remote_transporter_outgoing_messages <container_name>
+#
+# where:
+#   <container_name> is @IP of the Petals container
 #
 # Returns:
 #   0: The container graph creations succeed,
 #   1: An error occurs.
 #
-create_graph_remote_transporter_outgoing_messages() {
-   CONTAINER_NAME="$1"
+create_graphs_remote_transporter_outgoing_messages() {
+   CONTAINER_IP="$1"
 
    # Associate the data query to the device linked to the given container
-   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_NAME}" | cut -f1`
+   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_IP}" | cut -f1`
    GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
    DATA_QUERY_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-snmp-queries | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
    DATA_QUERY_TYPE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-query-types --snmp-query-id=${DATA_QUERY_ID} | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
-   REMOTE_CONTAINERS=`php ${CACTI_CLI}/add_graphs.php --list-snmp-values --host-id=${DEVICE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-field=filterName | tail -n+2`
-   for REMOTE_CONTAINER in ${REMOTE_CONTAINERS}
+   REMOTE_CONTAINERS_NAME=`php ${CACTI_CLI}/add_graphs.php --list-snmp-values --host-id=${DEVICE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-field=filterName | tail -n+2`
+   for REMOTE_CONTAINER_NAME in ${REMOTE_CONTAINERS_NAME}
    do
-      php -q ${CACTI_CLI}/add_graphs.php --host-id=${DEVICE_ID} --graph-type=ds --graph-template-id=${GRAPH_TEMPLATE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-query-type-id=${DATA_QUERY_TYPE_ID} --snmp-field=filterName --snmp-value=${REMOTE_CONTAINER}
+      create_one_graph_remote_transporter_outgoing_messages "${CONTAINER_IP}" "${REMOTE_CONTAINER_NAME}"
    done
 }
 
 #
-# Create the following graph for the given container: Delivered incoming messages from the remote transporter
+# Create the graph "Delivered outgoing messages of the remote transporter" of the given container, and for the given remote containers.
 #
 # Usage:
-#   create_graph_remote_transporter_incoming_messages <container_name>
+#   create_graph_remote_transporter_outgoing_messages <container_name> <remote-container-name>
 #
 # where:
-#   <container_name> is the Petals container host name
+#   <container_name> is @IP of the Petals container
+#   <remote-container-name> is the remote Petals container identifier
 #
 # Returns:
 #   0: The container graph creations succeed,
 #   1: An error occurs.
 #
-create_graph_remote_transporter_incoming_messages() {
-   CONTAINER_NAME="$1"
+create_one_graph_remote_transporter_outgoing_messages() {
+   CONTAINER_IP="$1"
+   REMOTE_CONTAINER_NAME="$2"
+
+   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_IP}" | cut -f1`
+   GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
+   DATA_QUERY_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-snmp-queries | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
+   DATA_QUERY_TYPE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-query-types --snmp-query-id=${DATA_QUERY_ID} | grep -e "\sPetals - Container - Remote transporter - Outgoing delivered messages" | cut -f1`
+   php -q ${CACTI_CLI}/add_graphs.php --host-id=${DEVICE_ID} --graph-type=ds --graph-template-id=${GRAPH_TEMPLATE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-query-type-id=${DATA_QUERY_TYPE_ID} --snmp-field=filterName --snmp-value=${REMOTE_CONTAINER_NAME}
+}
+
+#
+# Create the graphs "Delivered incoming messages from the remote transporter" of the given container, on graph per remote containers known at this time.
+#
+# Usage:
+#   create_graphs_remote_transporter_incoming_messages <container_name>
+#
+# where:
+#   <container_name> is @IP of the Petals container
+#
+# Returns:
+#   0: The container graph creations succeed,
+#   1: An error occurs.
+#
+create_graphs_remote_transporter_incoming_messages() {
+   CONTAINER_IP="$1"
 
    # Associate the data query to the device linked to the given container
-   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_NAME}" | cut -f1`
+   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_IP}" | cut -f1`
    GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
    DATA_QUERY_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-snmp-queries | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
    DATA_QUERY_TYPE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-query-types --snmp-query-id=${DATA_QUERY_ID} | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
-   REMOTE_CONTAINERS=`php ${CACTI_CLI}/add_graphs.php --list-snmp-values --host-id=${DEVICE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-field=filterName | tail -n+2`
-   for REMOTE_CONTAINER in ${REMOTE_CONTAINERS}
+   REMOTE_CONTAINERS_IP=`php ${CACTI_CLI}/add_graphs.php --list-snmp-values --host-id=${DEVICE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-field=filterName | tail -n+2`
+   for REMOTE_CONTAINER_IP in ${REMOTE_CONTAINERS_IP}
    do
-      php -q ${CACTI_CLI}/add_graphs.php --host-id=${DEVICE_ID} --graph-type=ds --graph-template-id=${GRAPH_TEMPLATE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-query-type-id=${DATA_QUERY_TYPE_ID} --snmp-field=filterName --snmp-value=${REMOTE_CONTAINER}
+      create_one_graph_remote_transporter_incoming_messages "${CONTAINER_IP}" "${REMOTE_CONTAINER_IP}"
    done
+}
+
+#
+# Create the graph "Delivered incoming messages of the remote transporter" of the given container, and for the given remote containers.
+#
+# Usage:
+#   create_one_graph_remote_transporter_incoming_messages <container_name> <remote-container-ip>
+#
+# where:
+#   <container_name> is @IP of the Petals container
+#   <remote-container-ip> is @IP of the remote Petals container
+#
+# Returns:
+#   0: The container graph creations succeed,
+#   1: An error occurs.
+#
+create_one_graph_remote_transporter_incoming_messages() {
+   CONTAINER_IP="$1"
+   REMOTE_CONTAINER_IP="$2"
+
+   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_IP}" | cut -f1`
+   GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
+   DATA_QUERY_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-snmp-queries | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
+   DATA_QUERY_TYPE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-query-types --snmp-query-id=${DATA_QUERY_ID} | grep -e "\sPetals - Container - Remote transporter - Incoming delivered messages" | cut -f1`
+   php -q ${CACTI_CLI}/add_graphs.php --host-id=${DEVICE_ID} --graph-type=ds --graph-template-id=${GRAPH_TEMPLATE_ID} --snmp-query-id=${DATA_QUERY_ID} --snmp-query-type-id=${DATA_QUERY_TYPE_ID} --snmp-field=filterName --snmp-value=${REMOTE_CONTAINER_IP}
 }
 
 #

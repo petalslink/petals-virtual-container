@@ -39,20 +39,27 @@ create_all_graphs_for_all_containers_known()
       container_name_var_name="ESB_${i}_name"
       eval container_name_full=\$${container_name_var_name}
       container_name=`echo ${container_name_full} | cut -d'/' -f 3`
-      
+     
       container_ip_var_name="ESB_${i}_container_ip"
       eval container_ip=\$${container_ip_var_name}
+
+      if [ -n "${container_ip}" ]
+      then
+         # The Roboconf component is a Petals container, we can add its graphs
+         container_jmxPort_var_name="ESB_${i}_container_jmxPort"
+         eval container_jmxPort=\$${container_jmxPort_var_name}
       
-      container_jmxPort_var_name="ESB_${i}_container_jmxPort"
-      eval container_jmxPort=\$${container_jmxPort_var_name}
+         container_jmxUser_var_name="ESB_${i}_container_jmxUser"
+         eval container_jmxUser=\$${container_jmxUser_var_name}
       
-      container_jmxUser_var_name="ESB_${i}_container_jmxUser"
-      eval container_jmxUser=\$${container_jmxUser_var_name}
+         container_jmxPwd_var_name="ESB_${i}_container_jmxPassword"
+         eval container_jmxPwd=\$${container_jmxPwd_var_name}
       
-      container_jmxPwd_var_name="ESB_${i}_container_jmxPassword"
-      eval container_jmxPwd=\$${container_jmxPwd_var_name}
-      
-      create_all_graphs_for_one_container ${CACTI_HOSTNAME} "${ADMIN_PWD}" "${container_name}" "${container_ip}" "${container_jmxPort}" "${container_jmxUser}" "${container_jmxPwd}"
+         create_all_graphs_for_one_container ${CACTI_HOSTNAME} "${ADMIN_PWD}" "${container_name}" "${container_ip}" "${container_jmxPort}" "${container_jmxUser}" "${container_jmxPwd}"
+      else
+         # TODO: add graphs for other Roboconf components of the PVC
+         echo "The Roboconf component is not a Petals container"
+      fi
    done
 }
 
