@@ -2,7 +2,7 @@
 	<hash_020024b349976d3a2b185b0530c05157c8ad9c>
 		<name>Petals container Host</name>
 		<graph_templates>hash_000024146cd89a408e20e4169cdec31f596a9e|hash_0000247b595a66534ef5abe42afaa3efdf54ba|hash_000024e2fc8b8812e514b27c03d5e04791ab19|hash_00002407e9dbfe08dbd03cf73a7df1b06f0c92</graph_templates>
-		<data_queries>hash_040024c3fddffad40e6d534ce145ad122369ce|hash_040024b9f4f9d4e2cf1354268d200e00f5965c</data_queries>
+		<data_queries>hash_040024c3fddffad40e6d534ce145ad122369ce|hash_040024b9f4f9d4e2cf1354268d200e00f5965c|hash_0400240b6c4ab61bc20c23082e1913e63f1b1c</data_queries>
 	</hash_020024b349976d3a2b185b0530c05157c8ad9c>
 	<hash_000024146cd89a408e20e4169cdec31f596a9e>
 		<name>JVM Heap Usage</name>
@@ -927,7 +927,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>4</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Pending</text_format>
@@ -940,7 +940,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>4</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Current:</text_format>
@@ -953,7 +953,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Average:</text_format>
@@ -966,7 +966,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>3</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Maximum:</text_format>
@@ -979,7 +979,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>4</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Succeeded</text_format>
@@ -992,7 +992,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>4</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Current:</text_format>
@@ -1005,7 +1005,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Average:</text_format>
@@ -1018,7 +1018,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>3</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Maximum:</text_format>
@@ -1031,7 +1031,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>4</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Error</text_format>
@@ -1044,7 +1044,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>4</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Current:</text_format>
@@ -1057,7 +1057,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Average:</text_format>
@@ -1070,7 +1070,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>3</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Maximum:</text_format>
@@ -1146,7 +1146,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>4</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Pending</text_format>
@@ -1159,7 +1159,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>4</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Current:</text_format>
@@ -1172,7 +1172,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Average:</text_format>
@@ -1185,7 +1185,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>3</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Maximum:</text_format>
@@ -1198,7 +1198,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>4</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Succeeded</text_format>
@@ -1211,7 +1211,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>4</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Current:</text_format>
@@ -1224,7 +1224,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Average:</text_format>
@@ -1237,7 +1237,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>3</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Maximum:</text_format>
@@ -1250,7 +1250,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>4</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Error</text_format>
@@ -1263,7 +1263,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>4</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Current:</text_format>
@@ -1276,7 +1276,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>1</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Average:</text_format>
@@ -1289,7 +1289,7 @@
 				<alpha>FF</alpha>
 				<graph_type_id>9</graph_type_id>
 				<consolidation_function_id>3</consolidation_function_id>
-				<cdef_id>hash_050024e961cc8ec04fda6ed4981cf5ad501aa5</cdef_id>
+				<cdef_id>0</cdef_id>
 				<value></value>
 				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
 				<text_format>Maximum:</text_format>
@@ -1318,6 +1318,237 @@
 			</hash_0900240a7ada89cb008481f8cbf63ec73913d5>
 		</inputs>
 	</hash_00002461899fdb604a6d3e0e1f6bff34aa767b>
+	<hash_000024be6d9722a98abb4cf0ca00da930d5c0f>
+		<name>Petals - Container - Remote transporter - Incoming connections</name>
+		<graph>
+			<t_title></t_title>
+			<title>Incoming connections established with |query_filterName|</title>
+			<t_image_format_id></t_image_format_id>
+			<image_format_id>1</image_format_id>
+			<t_height></t_height>
+			<height>120</height>
+			<t_width></t_width>
+			<width>768</width>
+			<t_slope_mode></t_slope_mode>
+			<slope_mode>on</slope_mode>
+			<t_auto_scale></t_auto_scale>
+			<auto_scale>on</auto_scale>
+			<t_auto_scale_opts></t_auto_scale_opts>
+			<auto_scale_opts>2</auto_scale_opts>
+			<t_auto_scale_log></t_auto_scale_log>
+			<auto_scale_log></auto_scale_log>
+			<t_scale_log_units></t_scale_log_units>
+			<scale_log_units></scale_log_units>
+			<t_auto_scale_rigid></t_auto_scale_rigid>
+			<auto_scale_rigid></auto_scale_rigid>
+			<t_auto_padding></t_auto_padding>
+			<auto_padding>on</auto_padding>
+			<t_export></t_export>
+			<export>on</export>
+			<t_upper_limit></t_upper_limit>
+			<upper_limit>100</upper_limit>
+			<t_lower_limit></t_lower_limit>
+			<lower_limit>0</lower_limit>
+			<t_base_value></t_base_value>
+			<base_value>1000</base_value>
+			<t_unit_value></t_unit_value>
+			<unit_value></unit_value>
+			<t_unit_exponent_value></t_unit_exponent_value>
+			<unit_exponent_value></unit_exponent_value>
+			<t_vertical_label></t_vertical_label>
+			<vertical_label></vertical_label>
+		</graph>
+		<items>
+			<hash_10002499eaad918e8336df3b8862ad77f9c808>
+				<task_item_id>hash_08002408fccce770615ff7eb000f42d57765cf</task_item_id>
+				<color_id>4668E4</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>4</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Active connections</text_format>
+				<hard_return></hard_return>
+				<sequence>1</sequence>
+			</hash_10002499eaad918e8336df3b8862ad77f9c808>
+			<hash_10002413dec427a2c889577fc9db16d8ed27d9>
+				<task_item_id>hash_08002408fccce770615ff7eb000f42d57765cf</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>4</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Current:</text_format>
+				<hard_return></hard_return>
+				<sequence>2</sequence>
+			</hash_10002413dec427a2c889577fc9db16d8ed27d9>
+			<hash_100024f888e97935518d4674f790a70704d48a>
+				<task_item_id>hash_08002408fccce770615ff7eb000f42d57765cf</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Average:</text_format>
+				<hard_return></hard_return>
+				<sequence>3</sequence>
+			</hash_100024f888e97935518d4674f790a70704d48a>
+			<hash_1000246adae044594536af2299d50f4efc6e0c>
+				<task_item_id>hash_080024404e92fd7405cbfc5a06b3843f4afba0</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>3</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Maximum:</text_format>
+				<hard_return>on</hard_return>
+				<sequence>4</sequence>
+			</hash_1000246adae044594536af2299d50f4efc6e0c>
+			<hash_1000249d73e414c2c3424d3f818f2731b339a7>
+				<task_item_id>hash_080024bfad5df51fc3d9d07ab33c8d99ca8bde</task_item_id>
+				<color_id>FFF200</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>4</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Idle connections</text_format>
+				<hard_return></hard_return>
+				<sequence>5</sequence>
+			</hash_1000249d73e414c2c3424d3f818f2731b339a7>
+			<hash_100024a7a1f07749b9b6347691efbe24b393f5>
+				<task_item_id>hash_080024bfad5df51fc3d9d07ab33c8d99ca8bde</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>4</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Current:</text_format>
+				<hard_return></hard_return>
+				<sequence>6</sequence>
+			</hash_100024a7a1f07749b9b6347691efbe24b393f5>
+			<hash_100024a6c51d39ed472be9f7ddc7c21dfc0d6d>
+				<task_item_id>hash_080024bfad5df51fc3d9d07ab33c8d99ca8bde</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Average:</text_format>
+				<hard_return></hard_return>
+				<sequence>7</sequence>
+			</hash_100024a6c51d39ed472be9f7ddc7c21dfc0d6d>
+			<hash_1000243f2870d43055d8c42f07f0b114d85ee4>
+				<task_item_id>hash_080024768515eb43fb03d8409f72e8c9bc69e9</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>3</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Maximum:</text_format>
+				<hard_return>on</hard_return>
+				<sequence>8</sequence>
+			</hash_1000243f2870d43055d8c42f07f0b114d85ee4>
+			<hash_100024fdd0bbcad85defdaaa2955815b6652e6>
+				<task_item_id>hash_0800242aff468b3c66978b7fb28140a101af25</task_item_id>
+				<color_id>6EA100</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>4</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Connections established</text_format>
+				<hard_return></hard_return>
+				<sequence>9</sequence>
+			</hash_100024fdd0bbcad85defdaaa2955815b6652e6>
+			<hash_1000249516762e81b2f5096e2da88baf74eff6>
+				<task_item_id>hash_0800242aff468b3c66978b7fb28140a101af25</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>4</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Current:</text_format>
+				<hard_return></hard_return>
+				<sequence>10</sequence>
+			</hash_1000249516762e81b2f5096e2da88baf74eff6>
+			<hash_10002415487aa148a69d0aec2b645d9823864e>
+				<task_item_id>hash_0800242aff468b3c66978b7fb28140a101af25</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Average:</text_format>
+				<hard_return></hard_return>
+				<sequence>11</sequence>
+			</hash_10002415487aa148a69d0aec2b645d9823864e>
+			<hash_10002406bc9a4a67f578d5268797075a5aae6d>
+				<task_item_id>hash_0800242aff468b3c66978b7fb28140a101af25</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>3</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Maximum:</text_format>
+				<hard_return>on</hard_return>
+				<sequence>12</sequence>
+			</hash_10002406bc9a4a67f578d5268797075a5aae6d>
+		</items>
+		<inputs>
+			<hash_0900246440459fd006ba9f3e5f3851d36e3000>
+				<name>Data Source [currentActive]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_00002499eaad918e8336df3b8862ad77f9c808|hash_00002413dec427a2c889577fc9db16d8ed27d9|hash_000024f888e97935518d4674f790a70704d48a</items>
+			</hash_0900246440459fd006ba9f3e5f3851d36e3000>
+			<hash_090024f24de1ea70a2369f5db90d2aa2b8315d>
+				<name>Data Source [maxActive]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_0000246adae044594536af2299d50f4efc6e0c</items>
+			</hash_090024f24de1ea70a2369f5db90d2aa2b8315d>
+			<hash_0900248c4b9c3b986b166c9a27a634d23942ad>
+				<name>Data Source [currentIdle]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_0000249d73e414c2c3424d3f818f2731b339a7|hash_000024a7a1f07749b9b6347691efbe24b393f5|hash_000024a6c51d39ed472be9f7ddc7c21dfc0d6d</items>
+			</hash_0900248c4b9c3b986b166c9a27a634d23942ad>
+			<hash_090024f4905c31eabbe6156e12419d53743983>
+				<name>Data Source [maxIdle]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_0000243f2870d43055d8c42f07f0b114d85ee4</items>
+			</hash_090024f4905c31eabbe6156e12419d53743983>
+			<hash_0900244f02c6a78cfd204703f73f7a24ec7080>
+				<name>Data Source [established]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_000024fdd0bbcad85defdaaa2955815b6652e6|hash_0000249516762e81b2f5096e2da88baf74eff6|hash_00002415487aa148a69d0aec2b645d9823864e|hash_00002406bc9a4a67f578d5268797075a5aae6d</items>
+			</hash_0900244f02c6a78cfd204703f73f7a24ec7080>
+		</inputs>
+	</hash_000024be6d9722a98abb4cf0ca00da930d5c0f>
 	<hash_01002442cbfb102fa66fed138d09834982f239>
 		<name>jvmMemoryHeapUsed</name>
 		<ds>
@@ -2452,6 +2683,109 @@
 			</item_002>
 		</data>
 	</hash_01002437990873f13b22452eb9bbd5b1b44507>
+	<hash_01002426d3ed068bf91c7c66342f4255d40a28>
+		<name>Petals - Container - Remote transporter - Incoming connections</name>
+		<ds>
+			<t_name></t_name>
+			<name>Petals - Container - Remote transporter - Incoming connections</name>
+			<data_input_id>hash_03002480e9e4c4191a5da189ae26d0e237f015</data_input_id>
+			<t_rra_id></t_rra_id>
+			<t_rrd_step></t_rrd_step>
+			<rrd_step>300</rrd_step>
+			<t_active></t_active>
+			<active>on</active>
+			<rra_items>hash_150024c21df5178e5c955013591239eb0afd46|hash_1500240d9c0af8b8acdc7807943937b3208e29|hash_1500246fc2d038fb42950138b0ce3e9874cc60|hash_150024e36f3adb9f152adfa5dc50fd2b23337e</rra_items>
+		</ds>
+		<items>
+			<hash_080024404e92fd7405cbfc5a06b3843f4afba0>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>maxActive</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>1</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>0</data_input_field_id>
+			</hash_080024404e92fd7405cbfc5a06b3843f4afba0>
+			<hash_08002408fccce770615ff7eb000f42d57765cf>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>currentActive</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>1</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>0</data_input_field_id>
+			</hash_08002408fccce770615ff7eb000f42d57765cf>
+			<hash_080024768515eb43fb03d8409f72e8c9bc69e9>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>maxIdle</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>1</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>0</data_input_field_id>
+			</hash_080024768515eb43fb03d8409f72e8c9bc69e9>
+			<hash_080024bfad5df51fc3d9d07ab33c8d99ca8bde>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>currentIdle</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>1</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>0</data_input_field_id>
+			</hash_080024bfad5df51fc3d9d07ab33c8d99ca8bde>
+			<hash_0800242aff468b3c66978b7fb28140a101af25>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>established</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>2</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>0</data_input_field_id>
+			</hash_0800242aff468b3c66978b7fb28140a101af25>
+		</items>
+		<data>
+			<item_000>
+				<data_input_field_id>hash_07002474af2e42dc12956c4817c2ef5d9983f9</data_input_field_id>
+				<t_value>on</t_value>
+				<value></value>
+			</item_000>
+			<item_001>
+				<data_input_field_id>hash_0700243b7caa46eb809fc238de6ef18b6e10d5</data_input_field_id>
+				<t_value>on</t_value>
+				<value></value>
+			</item_001>
+			<item_002>
+				<data_input_field_id>hash_070024d39556ecad6166701bfb0e28c5a11108</data_input_field_id>
+				<t_value>on</t_value>
+				<value></value>
+			</item_002>
+		</data>
+	</hash_01002426d3ed068bf91c7c66342f4255d40a28>
 	<hash_0300243eb92bb845b9660a7445cf9740726522>
 		<name>Get SNMP Data</name>
 		<type_id>2</type_id>
@@ -2638,26 +2972,6 @@
 			</hash_140024014cd1ecb3509aee17a29604e7c6599d>
 		</items>
 	</hash_050024f37f07616ba7afa4ffee5153a573f118>
-	<hash_050024e961cc8ec04fda6ed4981cf5ad501aa5>
-		<name>Make Per 5 Minutes</name>
-		<items>
-			<hash_14002440bb7a1143b0f2e2efca14eb356236de>
-				<sequence>1</sequence>
-				<type>4</type>
-				<value>CURRENT_DATA_SOURCE</value>
-			</hash_14002440bb7a1143b0f2e2efca14eb356236de>
-			<hash_140024faf1b148b2c0e0527362ed5b8ca1d351>
-				<sequence>2</sequence>
-				<type>6</type>
-				<value>300</value>
-			</hash_140024faf1b148b2c0e0527362ed5b8ca1d351>
-			<hash_14002442686ea0925c0220924b7d333599cd67>
-				<sequence>3</sequence>
-				<type>2</type>
-				<value>3</value>
-			</hash_14002442686ea0925c0220924b7d333599cd67>
-		</items>
-	</hash_050024e961cc8ec04fda6ed4981cf5ad501aa5>
 	<hash_040024c3fddffad40e6d534ce145ad122369ce>
 		<name>Petals - Container - Remote transporter - Outgoing delivered messages</name>
 		<description>Get information about outgoing messages delivered by the remote transporter of a Petals Container</description>
@@ -2724,4 +3038,47 @@
 			</hash_110024b367c7842fd8de14c5a5498af9b31787>
 		</graphs>
 	</hash_040024b9f4f9d4e2cf1354268d200e00f5965c>
+	<hash_0400240b6c4ab61bc20c23082e1913e63f1b1c>
+		<name>Petals - Container - Remote transporter - Incoming connections</name>
+		<description>Get information about incoming connections established by the remote transporter of a Petals Container</description>
+		<xml_path>&lt;path_cacti&gt;/resource/petals/script_queries/petals-container/remote-container/incoming-connections.xml</xml_path>
+		<data_input_id>hash_03002480e9e4c4191a5da189ae26d0e237f015</data_input_id>
+		<graphs>
+			<hash_11002449014b5615f832f99f88ebf3dfedc2e2>
+				<name>Petals - Container - Remote transporter - Incoming connections</name>
+				<graph_template_id>hash_000024be6d9722a98abb4cf0ca00da930d5c0f</graph_template_id>
+				<rrd>
+					<item_000>
+						<snmp_field_name>maxActiveConnections</snmp_field_name>
+						<data_template_id>hash_01002426d3ed068bf91c7c66342f4255d40a28</data_template_id>
+						<data_template_rrd_id>hash_080024404e92fd7405cbfc5a06b3843f4afba0</data_template_rrd_id>
+					</item_000>
+					<item_001>
+						<snmp_field_name>currentActiveConnections</snmp_field_name>
+						<data_template_id>hash_01002426d3ed068bf91c7c66342f4255d40a28</data_template_id>
+						<data_template_rrd_id>hash_08002408fccce770615ff7eb000f42d57765cf</data_template_rrd_id>
+					</item_001>
+					<item_002>
+						<snmp_field_name>maxIdleConnections</snmp_field_name>
+						<data_template_id>hash_01002426d3ed068bf91c7c66342f4255d40a28</data_template_id>
+						<data_template_rrd_id>hash_080024768515eb43fb03d8409f72e8c9bc69e9</data_template_rrd_id>
+					</item_002>
+					<item_003>
+						<snmp_field_name>currentIdleConnections</snmp_field_name>
+						<data_template_id>hash_01002426d3ed068bf91c7c66342f4255d40a28</data_template_id>
+						<data_template_rrd_id>hash_080024bfad5df51fc3d9d07ab33c8d99ca8bde</data_template_rrd_id>
+					</item_003>
+					<item_004>
+						<snmp_field_name>establishedConnections</snmp_field_name>
+						<data_template_id>hash_01002426d3ed068bf91c7c66342f4255d40a28</data_template_id>
+						<data_template_rrd_id>hash_0800242aff468b3c66978b7fb28140a101af25</data_template_rrd_id>
+					</item_004>
+				</rrd>
+				<sv_graph>
+				</sv_graph>
+				<sv_data_source>
+				</sv_data_source>
+			</hash_11002449014b5615f832f99f88ebf3dfedc2e2>
+		</graphs>
+	</hash_0400240b6c4ab61bc20c23082e1913e63f1b1c>
 </cacti>

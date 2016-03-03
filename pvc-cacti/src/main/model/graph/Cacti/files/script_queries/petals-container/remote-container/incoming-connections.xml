@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2016 Linagora
+
+ This program/library is free software: you can redistribute it and/or modify
+ it under the terms of the New BSD License (3-clause license).
+
+ This program/library is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE. See the New BSD License (3-clause license)
+ for more details.
+
+ You should have received a copy of the New BSD License (3-clause license)
+ along with this program/library; If not, see <http://directory.fsf.org/wiki/License:BSD_3Clause/>
+ for the New BSD License (3-clause license).
+-->
+<interface>
+        <name>Incoming connections established by the remote transporter from the given remote container</name>
+        <script_path>petals-cli.sh</script_path>
+        <arg_prepend>-h |host_hostname| -n 7700 -u petals -p petals -c -- monitoring -o tcp-transporter -f incoming-connections</arg_prepend>
+        <arg_index>-- --list-containers</arg_index>
+        <arg_query>-- --query-containers</arg_query>
+        <arg_get>-- --query-containers</arg_get>
+        <output_delimeter>!</output_delimeter>
+        <index_order>filterName</index_order>
+        <index_order_type>alphanumeric</index_order_type>
+        <!--index_title_format>|chosen_order_field|</index_title_format-->
+
+        <fields>
+                <filterName>
+                        <name>Remote container name</name>
+                        <direction>input</direction>
+                        <query_name>NAME</query_name>
+                </filterName>
+                <maxActiveConnections>
+                        <name>Max number of active connections</name>
+                        <direction>output</direction>
+                        <query_name>MAX_ACTIVE</query_name>
+                </maxActiveConnections>
+                <currentActiveConnections>
+                        <name>Current number of active connections</name>
+                        <direction>output</direction>
+                        <query_name>ACTIVE</query_name>
+                </currentActiveConnections>
+                <maxIdleConnections>
+                        <name>Max number of idle connections</name>
+                        <direction>output</direction>
+                        <query_name>MAX_IDLE</query_name>
+                </maxIdleConnections>
+                <currentIdleConnections>
+                        <name>Current number of idle connections</name>
+                        <direction>output</direction>
+                        <query_name>IDLE</query_name>
+                </currentIdleConnections>
+                <establishedConnections>
+                        <name>Number of established connections</name>
+                        <direction>output</direction>
+                        <query_name>ESTABLISHED</query_name>
+                </establishedConnections>
+        </fields>
+</interface>
