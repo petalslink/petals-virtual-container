@@ -50,6 +50,7 @@ create_all_graphs_for_one_container() {
    
    new_petals_host "${CONTAINER_NAME}" "${CONTAINER_IP}" && \
    create_container_tree_entry "${CONTAINER_NAME}" "${CONTAINER_IP}" "${CONTAINER_JMX_PORT}" "${CONTAINER_JMX_USER}" "${CONTAINER_JMX_PWD}" && \
+   create_graph_local_transporter_delivered_messages "${CONTAINER_NAME}" "${CONTAINER_JMX_PORT}" "${CONTAINER_JMX_USER}" "${CONTAINER_JMX_PWD}" && \
    create_graphs_remote_transporter_outgoing_messages "${CONTAINER_NAME}" && \
    create_graphs_remote_transporter_outgoing_connections "${CONTAINER_NAME}" && \
    create_graphs_remote_transporter_incoming_messages "${CONTAINER_NAME}" && \
@@ -95,6 +96,34 @@ update_all_graphs_for_one_container() {
    create_one_graph_remote_transporter_outgoing_connections "${CONTAINER_IP}" "${REMOTE_CONTAINER_NAME}"
    create_one_graph_remote_transporter_incoming_messages "${CONTAINER_IP}" "${REMOTE_CONTAINER_IP}"
    create_one_graph_remote_transporter_incoming_connections "${CONTAINER_IP}" "${REMOTE_CONTAINER_IP}"
+}
+
+#
+# Create the graph "Delivered messages of the local transporter" of the given container.
+#
+# Usage:
+#   create_graph_local_transporter_delivered_messages <container_ip> <container_jmx_port> <container_jmx_user> <container_jmx_wdd>
+#
+# where:
+#   <container_ip> is @IP of the Petals container
+#   <container_jmx_port> is the Petals container JMX port
+#   <container_jmx_user> is the user part of the Petals container JMX credentials
+#   <container_jmx_pwd> is the password part of the Petals container JMX credentials
+#
+# Returns:
+#   0: The container graph creations succeed,
+#   1: An error occurs.
+#
+create_graph_local_transporter_delivered_messages() {
+   CONTAINER_IP="$1"
+   CONTAINER_JMX_PORT="$2"
+   CONTAINER_JMX_USER="$3"
+   CONTAINER_JMX_PWD="$4"
+
+   DEVICE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-hosts | grep -e "\s${CONTAINER_IP}" | cut -f1`
+   GRAPH_TEMPLATE_ID=`php -q ${CACTI_CLI}/add_graphs.php --list-graph-templates | grep -e "\sPetals - Container - Local transporter - Delivered messages" | cut -f1`
+   
+   php -q ${CACTI_CLI}/add_graphs.php --graph-type=cg --graph-template-id=${GRAPH_TEMPLATE_ID} --host-id=${DEVICE_ID} --input-fields="petals_jmx_port=${CONTAINER_JMX_PORT} petals_jmx_user=${CONTAINER_JMX_USER} petals_jmx_pwd=${CONTAINER_JMX_PWD}"
 }
 
 #

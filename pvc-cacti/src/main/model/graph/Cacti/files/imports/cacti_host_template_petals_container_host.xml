@@ -1,7 +1,7 @@
 <cacti>	
 	<hash_020024b349976d3a2b185b0530c05157c8ad9c>
 		<name>Petals container Host</name>
-		<graph_templates>hash_000024146cd89a408e20e4169cdec31f596a9e|hash_0000247b595a66534ef5abe42afaa3efdf54ba|hash_000024e2fc8b8812e514b27c03d5e04791ab19|hash_00002407e9dbfe08dbd03cf73a7df1b06f0c92</graph_templates>
+		<graph_templates>hash_000024146cd89a408e20e4169cdec31f596a9e|hash_0000247b595a66534ef5abe42afaa3efdf54ba|hash_000024e2fc8b8812e514b27c03d5e04791ab19|hash_00002407e9dbfe08dbd03cf73a7df1b06f0c92|hash_000024f32d6f2233195078fd45ca1e45df485c</graph_templates>
 		<data_queries>hash_040024c3fddffad40e6d534ce145ad122369ce|hash_040024b9f4f9d4e2cf1354268d200e00f5965c|hash_0400240b6c4ab61bc20c23082e1913e63f1b1c|hash_0400244773bdc2171028aa3f36c3741166e88d</data_queries>
 	</hash_020024b349976d3a2b185b0530c05157c8ad9c>
 	<hash_000024146cd89a408e20e4169cdec31f596a9e>
@@ -880,6 +880,225 @@
 			</hash_090024d72d74ee3b6147be04f8c4084e5da58c>
 		</inputs>
 	</hash_00002407e9dbfe08dbd03cf73a7df1b06f0c92>
+	<hash_000024f32d6f2233195078fd45ca1e45df485c>
+		<name>Petals - Container - Local transporter - Delivered messages</name>
+		<graph>
+			<t_title></t_title>
+			<title>Delivered messages by local transporter</title>
+			<t_image_format_id></t_image_format_id>
+			<image_format_id>1</image_format_id>
+			<t_height></t_height>
+			<height>120</height>
+			<t_width></t_width>
+			<width>768</width>
+			<t_slope_mode></t_slope_mode>
+			<slope_mode>on</slope_mode>
+			<t_auto_scale></t_auto_scale>
+			<auto_scale>on</auto_scale>
+			<t_auto_scale_opts></t_auto_scale_opts>
+			<auto_scale_opts>2</auto_scale_opts>
+			<t_auto_scale_log></t_auto_scale_log>
+			<auto_scale_log></auto_scale_log>
+			<t_scale_log_units></t_scale_log_units>
+			<scale_log_units></scale_log_units>
+			<t_auto_scale_rigid></t_auto_scale_rigid>
+			<auto_scale_rigid></auto_scale_rigid>
+			<t_auto_padding></t_auto_padding>
+			<auto_padding>on</auto_padding>
+			<t_export></t_export>
+			<export>on</export>
+			<t_upper_limit></t_upper_limit>
+			<upper_limit>100</upper_limit>
+			<t_lower_limit></t_lower_limit>
+			<lower_limit>0</lower_limit>
+			<t_base_value></t_base_value>
+			<base_value>1000</base_value>
+			<t_unit_value></t_unit_value>
+			<unit_value></unit_value>
+			<t_unit_exponent_value></t_unit_exponent_value>
+			<unit_exponent_value></unit_exponent_value>
+			<t_vertical_label></t_vertical_label>
+			<vertical_label></vertical_label>
+		</graph>
+		<items>
+			<hash_100024d5b50e351b9851b71ab39dd6367223f2>
+				<task_item_id>hash_0800245f79ef963b0b719cc595eb04721cdea9</task_item_id>
+				<color_id>FFF200</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>4</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Pending</text_format>
+				<hard_return></hard_return>
+				<sequence>1</sequence>
+			</hash_100024d5b50e351b9851b71ab39dd6367223f2>
+			<hash_100024d2390c708345d41edf792d8f15d095fa>
+				<task_item_id>hash_0800245f79ef963b0b719cc595eb04721cdea9</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>4</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Current:</text_format>
+				<hard_return></hard_return>
+				<sequence>2</sequence>
+			</hash_100024d2390c708345d41edf792d8f15d095fa>
+			<hash_1000245d92c51fe693c5a9aa922b8a866ff7bc>
+				<task_item_id>hash_0800245f79ef963b0b719cc595eb04721cdea9</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Average:</text_format>
+				<hard_return></hard_return>
+				<sequence>3</sequence>
+			</hash_1000245d92c51fe693c5a9aa922b8a866ff7bc>
+			<hash_100024ac2da4bebb6a8a39e8e8cf8d7aa2a790>
+				<task_item_id>hash_0800245f79ef963b0b719cc595eb04721cdea9</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>3</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Maximum:</text_format>
+				<hard_return>on</hard_return>
+				<sequence>4</sequence>
+			</hash_100024ac2da4bebb6a8a39e8e8cf8d7aa2a790>
+			<hash_100024607893ac76afa95acd492da03d0c433e>
+				<task_item_id>hash_08002429189a8891920b73ff482e00c44e88f5</task_item_id>
+				<color_id>6EA100</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>4</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Succeeded</text_format>
+				<hard_return></hard_return>
+				<sequence>5</sequence>
+			</hash_100024607893ac76afa95acd492da03d0c433e>
+			<hash_100024380120daec7d39e9ada8d05c15888c3e>
+				<task_item_id>hash_08002429189a8891920b73ff482e00c44e88f5</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>4</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Current:</text_format>
+				<hard_return></hard_return>
+				<sequence>6</sequence>
+			</hash_100024380120daec7d39e9ada8d05c15888c3e>
+			<hash_100024eb0d3c4aa582dd979cf6710f55fdaa7f>
+				<task_item_id>hash_08002429189a8891920b73ff482e00c44e88f5</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Average:</text_format>
+				<hard_return></hard_return>
+				<sequence>7</sequence>
+			</hash_100024eb0d3c4aa582dd979cf6710f55fdaa7f>
+			<hash_1000249910c12cc8115c84a455916383a118f4>
+				<task_item_id>hash_08002429189a8891920b73ff482e00c44e88f5</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>3</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Maximum:</text_format>
+				<hard_return>on</hard_return>
+				<sequence>8</sequence>
+			</hash_1000249910c12cc8115c84a455916383a118f4>
+			<hash_1000246ef2fa1e2fb3ac8e09880d2f7a822bce>
+				<task_item_id>hash_08002458e3f21dd48728b3e9aee269a8d39177</task_item_id>
+				<color_id>FF0000</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>4</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Error</text_format>
+				<hard_return></hard_return>
+				<sequence>9</sequence>
+			</hash_1000246ef2fa1e2fb3ac8e09880d2f7a822bce>
+			<hash_100024ffddc0b2e79106f17a45e6d4a545bc57>
+				<task_item_id>hash_08002458e3f21dd48728b3e9aee269a8d39177</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>4</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Current:</text_format>
+				<hard_return></hard_return>
+				<sequence>10</sequence>
+			</hash_100024ffddc0b2e79106f17a45e6d4a545bc57>
+			<hash_100024cbc81a3ca3e5b53b839b5201e5d1f22a>
+				<task_item_id>hash_08002458e3f21dd48728b3e9aee269a8d39177</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>1</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Average:</text_format>
+				<hard_return></hard_return>
+				<sequence>11</sequence>
+			</hash_100024cbc81a3ca3e5b53b839b5201e5d1f22a>
+			<hash_100024e963cc43dc7c1badac057697303c6250>
+				<task_item_id>hash_08002458e3f21dd48728b3e9aee269a8d39177</task_item_id>
+				<color_id>0</color_id>
+				<alpha>FF</alpha>
+				<graph_type_id>9</graph_type_id>
+				<consolidation_function_id>3</consolidation_function_id>
+				<cdef_id>0</cdef_id>
+				<value></value>
+				<gprint_id>hash_060024e9c43831e54eca8069317a2ce8c6f751</gprint_id>
+				<text_format>Maximum:</text_format>
+				<hard_return>on</hard_return>
+				<sequence>12</sequence>
+			</hash_100024e963cc43dc7c1badac057697303c6250>
+		</items>
+		<inputs>
+			<hash_09002496066f48184444fde20249ce93bb6da1>
+				<name>Data Source [Pending]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_000024d5b50e351b9851b71ab39dd6367223f2|hash_000024d2390c708345d41edf792d8f15d095fa|hash_0000245d92c51fe693c5a9aa922b8a866ff7bc|hash_000024ac2da4bebb6a8a39e8e8cf8d7aa2a790</items>
+			</hash_09002496066f48184444fde20249ce93bb6da1>
+			<hash_09002473e6150583cc354806183daba07356dd>
+				<name>Data Source [Succeeded]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_000024607893ac76afa95acd492da03d0c433e|hash_000024380120daec7d39e9ada8d05c15888c3e|hash_000024eb0d3c4aa582dd979cf6710f55fdaa7f|hash_0000249910c12cc8115c84a455916383a118f4</items>
+			</hash_09002473e6150583cc354806183daba07356dd>
+			<hash_090024b627b30683c433ba960ffa13ede51e58>
+				<name>Data Source [Error]</name>
+				<description></description>
+				<column_name>task_item_id</column_name>
+				<items>hash_0000246ef2fa1e2fb3ac8e09880d2f7a822bce|hash_000024ffddc0b2e79106f17a45e6d4a545bc57|hash_000024cbc81a3ca3e5b53b839b5201e5d1f22a|hash_000024e963cc43dc7c1badac057697303c6250</items>
+			</hash_090024b627b30683c433ba960ffa13ede51e58>
+		</inputs>
+	</hash_000024f32d6f2233195078fd45ca1e45df485c>
 	<hash_0000241665bb363fbea6437dbf18dddc536eee>
 		<name>Petals - Container - Remote transporter - Outgoing delivered messages</name>
 		<graph>
@@ -2828,6 +3047,86 @@
 			</item_009>
 		</data>
 	</hash_010024f24b1bdfb01d928ea9223de8a75f45d7>
+	<hash_010024ed2e22c4afc438de2fe5a102e4dd2b77>
+		<name>Petals - Container - Local transporter - Delivered messages</name>
+		<ds>
+			<t_name></t_name>
+			<name>Petals - Container - Local transporter - Delivered messages</name>
+			<data_input_id>hash_030024dab03d5cc3d0f648b3432ef12091c3d3</data_input_id>
+			<t_rra_id></t_rra_id>
+			<t_rrd_step></t_rrd_step>
+			<rrd_step>300</rrd_step>
+			<t_active></t_active>
+			<active>on</active>
+			<rra_items>hash_150024c21df5178e5c955013591239eb0afd46|hash_1500240d9c0af8b8acdc7807943937b3208e29|hash_1500246fc2d038fb42950138b0ce3e9874cc60|hash_150024e36f3adb9f152adfa5dc50fd2b23337e|hash_150024283ea2bf1634d92ce081ec82a634f513</rra_items>
+		</ds>
+		<items>
+			<hash_0800245f79ef963b0b719cc595eb04721cdea9>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>Pending</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>1</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>hash_0700246a38e3c9b879fe73ec5454a4cbd2d7d8</data_input_field_id>
+			</hash_0800245f79ef963b0b719cc595eb04721cdea9>
+			<hash_08002429189a8891920b73ff482e00c44e88f5>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>Succeeded</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>2</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>hash_070024a6a5c01d851eca85fa7f5f5e11e2416f</data_input_field_id>
+			</hash_08002429189a8891920b73ff482e00c44e88f5>
+			<hash_08002458e3f21dd48728b3e9aee269a8d39177>
+				<t_data_source_name></t_data_source_name>
+				<data_source_name>Error</data_source_name>
+				<t_rrd_minimum></t_rrd_minimum>
+				<rrd_minimum>0</rrd_minimum>
+				<t_rrd_maximum></t_rrd_maximum>
+				<rrd_maximum>U</rrd_maximum>
+				<t_data_source_type_id></t_data_source_type_id>
+				<data_source_type_id>2</data_source_type_id>
+				<t_rrd_heartbeat></t_rrd_heartbeat>
+				<rrd_heartbeat>600</rrd_heartbeat>
+				<t_data_input_field_id></t_data_input_field_id>
+				<data_input_field_id>hash_0700242ded04d697e47f2b20a1b58a644b980e</data_input_field_id>
+			</hash_08002458e3f21dd48728b3e9aee269a8d39177>
+		</items>
+		<data>
+			<item_000>
+				<data_input_field_id>hash_07002487edf83a3574260d3dbdb6cd32ba5ab1</data_input_field_id>
+				<t_value>on</t_value>
+				<value></value>
+			</item_000>
+			<item_001>
+				<data_input_field_id>hash_070024979ce2465cb3d7086adccb1af5f48aaa</data_input_field_id>
+				<t_value>on</t_value>
+				<value></value>
+			</item_001>
+			<item_002>
+				<data_input_field_id>hash_070024adb80f52619445c8f903728fc2ad0dd1</data_input_field_id>
+				<t_value>on</t_value>
+				<value></value>
+			</item_002>
+			<item_003>
+				<data_input_field_id>hash_070024f095f7e502f573a90375df14d4ce6a7d</data_input_field_id>
+				<t_value></t_value>
+				<value></value>
+			</item_003>
+		</data>
+	</hash_010024ed2e22c4afc438de2fe5a102e4dd2b77>
 	<hash_01002477653964c7b06f99f72c030da0b8ea6b>
 		<name>Petals - Container - Remote transporter - Outgoing delivered messages</name>
 		<ds>
@@ -3092,7 +3391,7 @@
 			<rrd_step>300</rrd_step>
 			<t_active></t_active>
 			<active>on</active>
-			<rra_items>hash_150024c21df5178e5c955013591239eb0afd46|hash_1500240d9c0af8b8acdc7807943937b3208e29|hash_1500246fc2d038fb42950138b0ce3e9874cc60|hash_150024e36f3adb9f152adfa5dc50fd2b23337e|hash_150024283ea2bf1634d92ce081ec82a634f513</rra_items>
+			<rra_items>hash_150024c21df5178e5c955013591239eb0afd46|hash_1500240d9c0af8b8acdc7807943937b3208e29|hash_1500246fc2d038fb42950138b0ce3e9874cc60|hash_150024e36f3adb9f152adfa5dc50fd2b23337e</rra_items>
 		</ds>
 		<items>
 			<hash_080024661be1a5880c7c6faca0b88123f6719f>
@@ -3309,6 +3608,76 @@
 			</hash_070024feda162701240101bc74148415ef415a>
 		</fields>
 	</hash_0300243eb92bb845b9660a7445cf9740726522>
+	<hash_030024dab03d5cc3d0f648b3432ef12091c3d3>
+		<name>Petals - Container - Local transporter - Delivered messages</name>
+		<type_id>1</type_id>
+		<input_string>petals-cli -h &lt;petals_host&gt; -n &lt;petals_jmx_port&gt; -u &lt;petals_jmx_user&gt; -p &lt;petals_jmx_pwd&gt; -c -- monitoring -o local-transporter -f delivered-messages</input_string>
+		<fields>
+			<hash_070024f095f7e502f573a90375df14d4ce6a7d>
+				<name>Petals hostname or IP adress</name>
+				<update_rra></update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls>on</allow_nulls>
+				<type_code>hostname</type_code>
+				<input_output>in</input_output>
+				<data_name>petals_host</data_name>
+			</hash_070024f095f7e502f573a90375df14d4ce6a7d>
+			<hash_070024adb80f52619445c8f903728fc2ad0dd1>
+				<name>JMX port of the Petals container</name>
+				<update_rra></update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls></allow_nulls>
+				<type_code></type_code>
+				<input_output>in</input_output>
+				<data_name>petals_jmx_port</data_name>
+			</hash_070024adb80f52619445c8f903728fc2ad0dd1>
+			<hash_070024979ce2465cb3d7086adccb1af5f48aaa>
+				<name>JMX username of the Petals container</name>
+				<update_rra></update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls></allow_nulls>
+				<type_code></type_code>
+				<input_output>in</input_output>
+				<data_name>petals_jmx_user</data_name>
+			</hash_070024979ce2465cb3d7086adccb1af5f48aaa>
+			<hash_07002487edf83a3574260d3dbdb6cd32ba5ab1>
+				<name>JMX password of the Petals container</name>
+				<update_rra></update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls></allow_nulls>
+				<type_code></type_code>
+				<input_output>in</input_output>
+				<data_name>petals_jmx_pwd</data_name>
+			</hash_07002487edf83a3574260d3dbdb6cd32ba5ab1>
+			<hash_0700246a38e3c9b879fe73ec5454a4cbd2d7d8>
+				<name>Delivered message with delivery status &#039;Pending&#039;</name>
+				<update_rra>on</update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls></allow_nulls>
+				<type_code></type_code>
+				<input_output>out</input_output>
+				<data_name>Pending</data_name>
+			</hash_0700246a38e3c9b879fe73ec5454a4cbd2d7d8>
+			<hash_070024a6a5c01d851eca85fa7f5f5e11e2416f>
+				<name>Delivered message with delivery status &#039;Succeeded&#039;</name>
+				<update_rra>on</update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls></allow_nulls>
+				<type_code></type_code>
+				<input_output>out</input_output>
+				<data_name>Succeeded</data_name>
+			</hash_070024a6a5c01d851eca85fa7f5f5e11e2416f>
+			<hash_0700242ded04d697e47f2b20a1b58a644b980e>
+				<name>Delivered message with delivery status &#039;Error&#039;</name>
+				<update_rra>on</update_rra>
+				<regexp_match></regexp_match>
+				<allow_nulls></allow_nulls>
+				<type_code></type_code>
+				<input_output>out</input_output>
+				<data_name>Error</data_name>
+			</hash_0700242ded04d697e47f2b20a1b58a644b980e>
+		</fields>
+	</hash_030024dab03d5cc3d0f648b3432ef12091c3d3>
 	<hash_03002480e9e4c4191a5da189ae26d0e237f015>
 		<name>Get Script Data (Indexed)</name>
 		<type_id>4</type_id>
