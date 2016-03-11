@@ -16,4 +16,10 @@
 #
 #############################################################################
 
+env
+
+# Hack waiting fix of Roboconf's issue #184 (https://github.com/roboconf/roboconf-platform/issues/184) about access of parent variables
+# TODO: To fix when issue #184 will be fixed
+./doDeploy.sh
+
 # No operation to do to start a DB schema

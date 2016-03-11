@@ -65,6 +65,11 @@ create_all_graphs_for_all_containers_known()
 
 env
 
+# Hack waiting fix of Roboconf's issue #331 (https://github.com/roboconf/roboconf-platform/issues/331), Cacti must
+# be deployed during startup to have its dependencies resolved.
+# TODO: To fix when issue #331 will be fixed
+./doDeploy.sh
+
 # Start the Cacti application:
 #    - Start the service 'Cron' required by the Cacti poller
 #    - Create all graphs associated to all known Petals containers in dedicated graph trees

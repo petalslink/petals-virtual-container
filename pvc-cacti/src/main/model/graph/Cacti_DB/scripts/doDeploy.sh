@@ -20,6 +20,8 @@
 # Deployment script inspired by http://forums.cacti.net/download/file.php?id=22710&sid=3533b205e05d0561eac738b481579ee4
 ##############################################################################################################################
 
+env
+
 mysqladmin -u root -p${MySQL_0_MySQLRootPwd} create ${MySQLCactiDB} && \
 echo "GRANT ALL ON cacti.* TO ${MySQLCactiUser}@localhost IDENTIFIED BY '${MySQLCactiPwd}';" | mysql -u root -p${MySQL_0_MySQLRootPwd} mysql
 
