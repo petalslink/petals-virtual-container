@@ -75,4 +75,8 @@ public class Constants {
      */
     public static final String COMPONENT_VARIABLE_NAME_PROPERTIESFILE = ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT
             + ".propertiesFile";
+
+    private Constants() {
+        // Utility class, no constructor
+    }
 }

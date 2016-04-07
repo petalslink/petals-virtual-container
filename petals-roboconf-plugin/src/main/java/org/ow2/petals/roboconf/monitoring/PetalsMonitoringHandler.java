@@ -38,14 +38,14 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 
+import org.ow2.petals.jmx.api.api.exception.ConnectionErrorException;
+import org.ow2.petals.jmx.api.impl.JMXConnection;
+
 import net.roboconf.agent.monitoring.api.IMonitoringHandler;
 import net.roboconf.core.model.beans.Component;
 import net.roboconf.core.model.beans.Instance;
 import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.messaging.api.messages.from_agent_to_dm.MsgNotifAutonomic;
-
-import org.ow2.petals.jmx.api.api.exception.ConnectionErrorException;
-import org.ow2.petals.jmx.api.impl.JMXConnection;
 
 /**
  * The Roboconf monitoring handler for Petals ESB
@@ -169,7 +169,7 @@ public class PetalsMonitoringHandler implements IMonitoringHandler {
             final Double thresholdValue = Double.parseDouble(this.conditionThreshold);
 
             // Do not use arithmetic operators with doubles...
-            int comparison = doubleValue.compareTo(thresholdValue);
+            final int comparison = doubleValue.compareTo(thresholdValue);
             if (">".equals(this.conditionOperator)) {
                 return comparison > 0;
             } else if (">=".equals(this.conditionOperator)) {
@@ -194,7 +194,7 @@ public class PetalsMonitoringHandler implements IMonitoringHandler {
      * Establishes the JMX connection to the right Petals container, retrieved from the Roboconf component instance
      * 
      * @param instance
-     *            The Roboconf instance measured
+     *            The Roboconf instance measured. Not {@code null}
      * @return A JMX connection
      * @throws ConnectionErrorException
      *             An error occurs on JMX connection
@@ -203,6 +203,8 @@ public class PetalsMonitoringHandler implements IMonitoringHandler {
 
         // TODO: Perhaps review how to retrieve container exported variables when
         // https://github.com/roboconf/roboconf-platform/issues/184 will be fixed
+
+        assert instance != null;
 
         Instance curInstance = instance;
         Instance containerInstance = null;

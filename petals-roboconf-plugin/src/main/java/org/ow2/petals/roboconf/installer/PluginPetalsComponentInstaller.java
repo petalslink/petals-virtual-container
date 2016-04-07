@@ -26,19 +26,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import net.roboconf.core.model.beans.Component;
-import net.roboconf.core.model.beans.Import;
-import net.roboconf.core.model.beans.Instance;
-import net.roboconf.core.model.beans.Instance.InstanceStatus;
-import net.roboconf.core.model.helpers.InstanceHelpers;
-import net.roboconf.plugin.api.PluginException;
-
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
 import org.ow2.petals.roboconf.Utils;
 
 import com.ebmwebsourcing.easycommons.properties.PropertiesException;
 import com.ebmwebsourcing.easycommons.properties.PropertiesHelper;
+
+import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.Import;
+import net.roboconf.core.model.beans.Instance;
+import net.roboconf.core.model.beans.Instance.InstanceStatus;
+import net.roboconf.core.model.helpers.InstanceHelpers;
+import net.roboconf.plugin.api.PluginException;
 
 public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArtifactInstaller {
 
@@ -188,7 +188,7 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
      * @return
      * @throws PluginException
      */
-    private final static Properties getServiceUnitProperties(final Instance componentInstance) throws PluginException {
+    private static Properties getServiceUnitProperties(final Instance componentInstance) throws PluginException {
 
         final Properties serviceUnitsProperties = new Properties();
         for (final Instance serviceUnitInstance : componentInstance.getChildren()) {

@@ -17,18 +17,18 @@
  */
 package org.ow2.petals.roboconf.installer;
 
-import net.roboconf.plugin.api.PluginInterface;
-
 import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
 import org.ow2.petals.admin.api.exception.MissingServiceException;
 
+import net.roboconf.plugin.api.PluginInterface;
+
 public class PluginPetalsSeInstaller extends PluginPetalsComponentInstaller implements PluginInterface {
+
+    private static final String PLUGIN_NAME = "petals-se-installer";
 
     public PluginPetalsSeInstaller() throws DuplicatedServiceException, MissingServiceException {
         super();
     }
-
-    private static final String PLUGIN_NAME = "petals-se-installer";
 
     @Override
     public String getPluginName() {

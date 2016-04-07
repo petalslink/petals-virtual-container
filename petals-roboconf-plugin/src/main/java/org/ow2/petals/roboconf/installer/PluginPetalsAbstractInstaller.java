@@ -60,14 +60,14 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
 
     @Override
     public void initialize(final Instance instance) throws PluginException {
-        this.logger.fine(this.agentId + ": initializing the plugin for instance " + instance);
+        this.logger.fine(String.format("%s: initializing the plugin for instance %s", this.agentId, instance));
     }
 
     @Override
     public void start(final Instance instance) throws PluginException {
         // Start the artifact previously deployed
-        this.logger
-                .fine(this.agentId + ": starting the " + this.getManagedArtifactType() + " for instance " + instance);
+        this.logger.fine(String.format("%s: starting the %s for instance %s", this.agentId,
+                this.getManagedArtifactType(), instance));
         try {
             this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
@@ -95,8 +95,8 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
     @Override
     public void stop(final Instance instance) throws PluginException {
         // Stop the artifact previously deployed
-        this.logger
-                .fine(this.agentId + ": stopping the " + this.getManagedArtifactType() + " for instance " + instance);
+        this.logger.fine(String.format("%s: stopping the %s for instance %s", this.agentId,
+                this.getManagedArtifactType(), instance));
         try {
             this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
@@ -113,8 +113,8 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
     @Override
     public void undeploy(final Instance instance) throws PluginException {
         // Undeploy the artifact previously deployed
-        this.logger.fine(this.agentId + ": undeploying the " + this.getManagedArtifactType() + " for instance "
-                + instance);
+        this.logger.fine(String.format("%s: undeploying the %s for instance %s", this.agentId,
+                this.getManagedArtifactType(), instance));
         try {
             this.connectToContainer(this.retrieveContainerInstance(instance));
             try {
