@@ -42,7 +42,7 @@
    </licenses>
 
    <properties>
-      <roboconf.version>0.5</roboconf.version>
+      <roboconf.version>0.6.1</roboconf.version>
    </properties>
 
    <dependencies>
