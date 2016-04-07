@@ -13,10 +13,11 @@
  for more details.
  
  You should have received a copy of the GNU Lesser General Public License
- along with this program/library; If not, see <http://www.gnu.org/licenses />
- for the GNU Lesser General Public License version 2.1. 
+ along with this program/library; If not, see <http://www.gnu.org/licenses/>
+ for the GNU Lesser General Public License version 2.1.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <groupId>org.ow2.petals</groupId>
@@ -32,7 +33,7 @@
    <name>Petals plug-in for Roboconf</name>
    <description>Petals plug-in for Roboconf providing Petals artifact installation capabilities and a measure extension for Petals</description>
 
-   <inceptionYear>2015</inceptionYear>   
+   <inceptionYear>2015</inceptionYear>
    <licenses>
       <license>
          <name>GNU LESSER GENERAL PUBLIC LICENSE Version 2.1</name>
@@ -258,6 +259,6 @@
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
-     <tag>HEAD</tag>
-  </scm>
+      <tag>HEAD</tag>
+   </scm>
 </project>
