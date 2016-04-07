@@ -48,6 +48,7 @@ import org.ow2.petals.admin.junit.exception.NoDomainRegisteredException;
 import org.ow2.petals.admin.junit.utils.ContainerUtils;
 
 import net.roboconf.core.model.beans.Component;
+import net.roboconf.core.model.beans.ExportedVariable;
 import net.roboconf.core.model.beans.Instance;
 import net.roboconf.core.model.helpers.InstanceHelpers;
 import net.roboconf.plugin.api.PluginException;
@@ -110,10 +111,10 @@ public class PluginPetalsSuInstallerTest {
         suInstance.component(suComponent);
         final String variable1 = "variable1";
         final String value1 = "http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/notifyVacationService";
-        suComponent.exportedVariables.put(variable1, value1);
+        suComponent.exportedVariables.put(variable1, new ExportedVariable(variable1, value1));
         final String variable2 = "variable2";
         final String value2 = "http://${TomcatCluster.lb-ip}:${TomcatCluster.lb-port}/samples-SOAP-services/services/archiveService";
-        suComponent.exportedVariables.put(variable2, value2);
+        suComponent.exportedVariables.put(variable2, new ExportedVariable(variable2, value2));
         // suComponent.importedVariables.put("TomcatCluster.lb-ip", new ImportedVariable(name, false, true));
         // suComponent.importedVariables.put("TomcatCluster.lb-port", new ImportedVariable(name, false, true));
         jbiComponentInstance.getChildren().add(suInstance);
