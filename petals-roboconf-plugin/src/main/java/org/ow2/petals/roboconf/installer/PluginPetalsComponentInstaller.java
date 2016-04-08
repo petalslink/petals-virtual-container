@@ -71,18 +71,15 @@ public abstract class PluginPetalsComponentInstaller extends PluginPetalsJbiArti
             if (!propertiesFile.exists()
                     || (propertiesFile.exists() && propertiesFile.canWrite() && propertiesFile.isFile())) {
 
-                if (!propertiesFile.getParentFile().exists()) {
-                    if (!propertiesFile.getParentFile().mkdirs()) {
-                        throw new PluginException(String.format(
-                                "Unable to create parent directories of the properties file '%s' of component '%s'.",
-                                propertiesFileName, componentInstance.getName()));
-                    }
+                if (!propertiesFile.getParentFile().exists() && !propertiesFile.getParentFile().mkdirs()) {
+                    throw new PluginException(String.format(
+                            "Unable to create parent directories of the properties file '%s' of component '%s'.",
+                            propertiesFileName, componentInstance.getName()));
                 }
 
                 final Properties serviceUnitProperties = PluginPetalsComponentInstaller
                         .getServiceUnitProperties(componentInstance);
-                Utils.storePropertiesFile(serviceUnitProperties, propertiesFile, componentInstance.getName(),
-                        this.logger);
+                Utils.storePropertiesFile(serviceUnitProperties, propertiesFile, componentInstance.getName());
 
             } else {
                 throw new PluginException(String.format(

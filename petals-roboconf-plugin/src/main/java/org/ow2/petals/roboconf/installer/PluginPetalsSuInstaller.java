@@ -169,8 +169,8 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
     public void update(final Instance suInstance, final Import importChanged, final InstanceStatus statusChanged)
             throws PluginException {
 
-        this.logger.fine(this.agentId + ": updating the " + this.getManagedArtifactType() + " for instance "
-                + suInstance);
+        this.logger
+                .fine(this.agentId + ": updating the " + this.getManagedArtifactType() + " for instance " + suInstance);
         this.updatePropertiesFile(suInstance);
     }
 
@@ -178,14 +178,12 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
 
         final Instance componentInstance = suInstance.getParent();
 
-        this.logger.fine(this.agentId + ": updating the properties file for JBI component instance "
-                + componentInstance);
+        this.logger
+                .fine(this.agentId + ": updating the properties file for JBI component instance " + componentInstance);
 
-        final String propertiesFileName = Utils
-                .resolvePropertiesFileName(
-                        InstanceHelpers.findAllExportedVariables(componentInstance)
-                .get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE), this.retrieveContainerInstance(suInstance).getName(),
-                componentInstance.getName());
+        final String propertiesFileName = Utils.resolvePropertiesFileName(
+                InstanceHelpers.findAllExportedVariables(componentInstance).get(COMPONENT_VARIABLE_NAME_PROPERTIESFILE),
+                this.retrieveContainerInstance(suInstance).getName(), componentInstance.getName());
         this.logger.fine("Updated file: " + propertiesFileName);
         if (propertiesFileName != null && !propertiesFileName.isEmpty()) {
             final File propertiesFile = new File(propertiesFileName);
@@ -246,7 +244,7 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                 }
 
                 // Store the properties file
-                Utils.storePropertiesFile(properties, propertiesFile, componentInstance.getName(), this.logger);
+                Utils.storePropertiesFile(properties, propertiesFile, componentInstance.getName());
 
                 // Signal the component to reload its properties file
                 try {
@@ -261,9 +259,9 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                 }
 
             } else {
-                throw new PluginException(String.format(
-                        "Unable to create or write into the properties file ('%s') of component '%s'.",
-                        propertiesFileName, componentInstance.getName()));
+                throw new PluginException(
+                        String.format("Unable to create or write into the properties file ('%s') of component '%s'.",
+                                propertiesFileName, componentInstance.getName()));
             }
         }
     }
@@ -296,23 +294,33 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
 
         final Instance seOrBcInstance = suInstance.getParent();
         final Component seOrBcComponent = seOrBcInstance.getComponent().getExtendedComponent();
-        if (seOrBcComponent == null || (!ROBOCONF_COMPONENT_SE_COMPONENT.equals(seOrBcComponent.getName())
-                && !ROBOCONF_COMPONENT_BC_COMPONENT.equals(seOrBcComponent.getName()))) {
+        if (seOrBcComponent == null) {
+            throw new PluginException(
+                    String.format("No parent defined for the Service Unit. It MUST be inherited from '%s' or '%s'",
+                            ROBOCONF_COMPONENT_SE_COMPONENT, ROBOCONF_COMPONENT_BC_COMPONENT));
+        } else if (!ROBOCONF_COMPONENT_SE_COMPONENT.equals(seOrBcComponent.getName())
+                && !ROBOCONF_COMPONENT_BC_COMPONENT.equals(seOrBcComponent.getName())) {
             throw new PluginException(String.format(
                     "Unexpected parent for the Service Unit. It MUST be inherited from '%s' or '%s' (current '%s')",
                     ROBOCONF_COMPONENT_SE_COMPONENT, ROBOCONF_COMPONENT_BC_COMPONENT, seOrBcComponent.getName()));
         } else {
             final Component jbiComponentComponent = seOrBcComponent.getExtendedComponent();
-            if (jbiComponentComponent == null
-                    || !ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT.equals(jbiComponentComponent.getName())) {
+            if (jbiComponentComponent == null) {
+                throw new PluginException(
+                        String.format("No parent defined for the Service Unit. It MUST be inherited from '%s'",
+                                ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT));
+            } else if (!ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT.equals(jbiComponentComponent.getName())) {
                 throw new PluginException(String.format(
                         "Unexpected parent for the Service Unit. It MUST be inherited from '%s' (current '%s')",
                         ROBOCONF_COMPONENT_ABTRACT_JBI_COMPONENT, jbiComponentComponent.getName()));
             } else {
                 final Instance containerInstance = seOrBcInstance.getParent();
                 final Component jbiComponentAbstractContainer = containerInstance.getComponent().getExtendedComponent();
-                if (jbiComponentAbstractContainer == null
-                        || !ROBOCONF_COMPONENT_ABTRACT_CONTAINER.equals(jbiComponentAbstractContainer.getName())) {
+                if (jbiComponentAbstractContainer == null) {
+                    throw new PluginException(String.format(
+                            "Unexpected parent for the JBI component running the Service Unit. It MUST be inherited from '%s'",
+                            ROBOCONF_COMPONENT_ABTRACT_CONTAINER));
+                } else if (!ROBOCONF_COMPONENT_ABTRACT_CONTAINER.equals(jbiComponentAbstractContainer.getName())) {
                     throw new PluginException(String.format(
                             "Unexpected parent for the JBI component running the Service Unit. It MUST be inherited from '%s' (current '%s')",
                             ROBOCONF_COMPONENT_ABTRACT_CONTAINER, jbiComponentAbstractContainer.getName()));

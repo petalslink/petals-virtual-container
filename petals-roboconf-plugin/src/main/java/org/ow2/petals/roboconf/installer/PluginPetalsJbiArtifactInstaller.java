@@ -109,13 +109,13 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
         final Instance containerInstance = jbiArtifactInstance.getParent();
         final Component jbiComponentAbstractContainer = containerInstance.getComponent().getExtendedComponent();
         if (jbiComponentAbstractContainer == null) {
-            throw new PluginException(String.format(
-                    "No parent defined for the " + this.getManagedArtifactType() + ". It MUST be inherited from '%s'",
-                    ROBOCONF_COMPONENT_ABTRACT_CONTAINER));
+            throw new PluginException(String.format("No parent defined for the %s. It MUST be inherited from '%s'",
+                    this.getManagedArtifactType(), ROBOCONF_COMPONENT_ABTRACT_CONTAINER));
         } else if (!ROBOCONF_COMPONENT_ABTRACT_CONTAINER.equals(jbiComponentAbstractContainer.getName())) {
-            throw new PluginException(String.format("Unexpected parent for the " + this.getManagedArtifactType()
-                    + ". It MUST be inherited from '%s' (current '%s')", ROBOCONF_COMPONENT_ABTRACT_CONTAINER,
-                    jbiComponentAbstractContainer.getName()));
+            throw new PluginException(
+                    String.format("Unexpected parent for the %s. It MUST be inherited from '%s' (current '%s')",
+                            this.getManagedArtifactType(), ROBOCONF_COMPONENT_ABTRACT_CONTAINER,
+                            jbiComponentAbstractContainer.getName()));
         }
         return containerInstance;
     }

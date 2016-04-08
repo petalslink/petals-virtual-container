@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import com.ebmwebsourcing.easycommons.properties.PropertiesException;
 import com.ebmwebsourcing.easycommons.properties.PropertiesHelper;
@@ -79,11 +78,10 @@ public class Utils {
      *            The file in which properties are stored Not <code>null</code>.
      * @param componentName
      *            The component name for which the properties file is stored Not <code>null</code>.
-     * @param logger
      * @throws PluginException
      */
     public static final void storePropertiesFile(final Properties properties, final File propertiesFile,
-            final String componentName, final Logger logger) throws PluginException {
+            final String componentName) throws PluginException {
 
         assert properties != null;
         assert propertiesFile != null;
