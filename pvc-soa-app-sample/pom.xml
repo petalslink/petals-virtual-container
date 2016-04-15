@@ -57,7 +57,7 @@
          </plugin>
          <plugin>
             <groupId>org.ow2.petals</groupId>
-            <artifactId>maven-petals-plugin</artifactId>
+            <artifactId>petals-maven-plugin</artifactId>
             <version>2.4.1-SNAPSHOT</version>
             <extensions>true</extensions>
             <configuration>
