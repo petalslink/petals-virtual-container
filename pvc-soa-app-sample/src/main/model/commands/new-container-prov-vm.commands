@@ -1,0 +1,23 @@
+#
+# Copyright (c) 2016 Linagora
+#
+# This program/library is free software: you can redistribute it and/or modify
+# it under the terms of the New BSD License (3-clause license).
+#
+# This program/library is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the New BSD License (3-clause license)
+# for more details.
+#
+# You should have received a copy of the New BSD License (3-clause license)
+# along with this program/library; If not, see <http://directory.fsf.org/wiki/License:BSD_3Clause/>
+# for the New BSD License (3-clause license).
+#
+
+# $(UUID) is a predefined variable that generates a random (unique) string.
+Define randomId = $(UUID)
+
+# When "check-requests-nb-on-bc-soap-upper-5" is triggered, instantiate a new
+# instance of Petals ESB container
+Replicate /container-prov-vm-1 as container-prov-vm-$(randomId)
+Deploy and start all /container-prov-vm-$(randomId)

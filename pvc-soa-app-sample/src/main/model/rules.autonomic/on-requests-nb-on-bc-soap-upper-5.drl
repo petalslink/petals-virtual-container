@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2015-2016 Linagora
+# Copyright (c) 2016 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the New BSD License (3-clause license).
@@ -14,7 +14,9 @@
 # for the New BSD License (3-clause license).
 #
 
-# When "check-requests-nb-on-bc-soap-upper-5" is triggered, instantiate a new
-# instance of Petals ESB container
-[reaction check-requests-nb-on-bc-soap-upper-5 Replicate-Instance]
-container-prov-vm-1 WHERE %2 with CPT
+rule "on-requests-nb-on-bc-soap-upper-5"
+   when
+      check-requests-nb-on-bc-soap-upper-5
+   then
+      new-container-prov-vm
+end
