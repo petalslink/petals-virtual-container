@@ -12,19 +12,19 @@
  * for more details.
  * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program/library; If not, see <http://www.gnu.org/licenses/>
+ * along with this program/library; If not, see http://www.gnu.org/licenses/
  * for the GNU Lesser General Public License version 2.1.
  */
 package org.ow2.petals.roboconf.installer;
+
+import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
+import org.ow2.petals.admin.api.exception.MissingServiceException;
 
 import net.roboconf.core.model.beans.Import;
 import net.roboconf.core.model.beans.Instance;
 import net.roboconf.core.model.beans.Instance.InstanceStatus;
 import net.roboconf.plugin.api.PluginException;
 import net.roboconf.plugin.api.PluginInterface;
-
-import org.ow2.petals.admin.api.exception.DuplicatedServiceException;
-import org.ow2.petals.admin.api.exception.MissingServiceException;
 
 public class PluginPetalsSlInstaller extends PluginPetalsJbiArtifactInstaller implements PluginInterface {
 

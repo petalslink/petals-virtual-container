@@ -10,11 +10,13 @@
 # for more details.
 #
 # You should have received a copy of the New BSD License (3-clause license)
-# along with this program/library; If not, see <http://directory.fsf.org/wiki/License:BSD_3Clause/>
+# along with this program/library; If not, see http://directory.fsf.org/wiki/License:BSD_3Clause/
 # for the New BSD License (3-clause license).
 #
 
 rule "on-requests-nb-on-bc-soap-upper-5"
+   # TODO: remove this sleep when Roboconf will be able to not launch a rule execution if one is already in progress.
+   sleep period is 50s
    when
       check-requests-nb-on-bc-soap-upper-5
    then
