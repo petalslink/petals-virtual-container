@@ -18,6 +18,27 @@
 
 env
 
-sed -ie "s/\(vacation.service.url: \).*$/\1http:\/\/${ESB_0_lb_ip}:${ESB_0_lb_port}\/petals\/services\/vacationService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
-sed -ie "s/\(activiti.service.process.url: \).*$/\1http:\/\/${ESB_0_lb_ip}:${ESB_0_lb_port}\/petals\/services\/processInstancesService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
-sed -ie "s/\(activiti.service.task.url: \).*$/\1http:\/\/${ESB_0_lb_ip}:${ESB_0_lb_port}\/petals\/services\/taskService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
+if [ -z "$ESB_size" ]
+then
+   i=0
+else
+   i=$ESB_size
+fi
+while [ $i -gt 0 ]
+do
+   i=`expr $i - 1`
+
+   esb_name_var_name="ESB_${i}_name"
+   eval esb_name=\$${esb_name_var_name}
+
+   if [ "${esb_name}" = "/HAProxy ESB VM/HAProxy ESB" ]
+   then
+      esb_lp_ip_var_name="ESB_${i}_lb_ip"
+      eval esb_lb_ip=\$${esb_lp_ip_var_name}
+      esb_lb_port_var_name="ESB_${i}_lb_port"
+      eval esb_lb_port=\$${esb_lb_port_var_name}
+      sed -ie "s/\(vacation.service.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/vacationService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
+      sed -ie "s/\(activiti.service.process.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/processInstancesService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
+      sed -ie "s/\(activiti.service.task.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/taskService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
+   fi
+done
