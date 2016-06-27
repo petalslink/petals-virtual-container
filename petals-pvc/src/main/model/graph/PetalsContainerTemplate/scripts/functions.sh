@@ -107,13 +107,12 @@ stop_container()
 # Attaches a container to the PVC domain:
 #
 # Usage:
-#   attach_container <containerIp> <jmxPort> <pvcDomain> <targetContainerName> <targetContainerHost>
+#   attach_container <containerIp> <jmxPort> <pvcDomain> <targetContainerHost>
 #
 # where:
 #   <contrainerIp> is the host-name or IP address of the container to attach to the PVC domain,
 #   <jmxPort> is the JMX port of the container to attach,
 #   <pvcDomain> is the domain name of the PVC to join,
-#   <targetContainerName> is the identifier of a container already attached to the PVC domain,
 #   <targetContainerHost> is the host-name of a container (the same used for <targetContainerName>) already attached to the PVC domain.
 #
 # Returns:
@@ -128,10 +127,9 @@ attach_container()
    CONTAINER_IP=$1
    JMX_PORT=$2
    PVC_DOMAIN=$3
-   TARGET_CONTAINER_NAME=$4
-   TARGET_CONTAINER_HOST=$5
+   TARGET_CONTAINER_HOST=$4
    petals-cli -h ${CONTAINER_IP} -n ${JMX_PORT} -u petals -p petals -c -- move-container --target-domain ${PVC_DOMAIN} \
-       --target-name ${TARGET_CONTAINER_NAME} --target-host ${TARGET_CONTAINER_HOST} --target-port 7700 --target-user petals \
+       --target-host ${TARGET_CONTAINER_HOST} --target-port 7700 --target-user petals \
        --target-pwd petals --target-pass-phrase petals -y
    if [ $? -eq 0 ]
    then

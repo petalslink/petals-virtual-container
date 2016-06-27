@@ -39,7 +39,6 @@ then
    #
    RANDOM=`tr -cd 0-9 </dev/urandom | head -c 10`
    DOMAIN_NAME=`echo ${PetalsContainerBootstrap_0_domainName}_${RANDOM}`
-   BOOTSTRAP_CONTAINER_NAME=`echo ${PetalsContainerBootstrap_0_name} | cut -d'/' -f 3`
    
    generate_topology ${DOMAIN_NAME} ${ROBOCONF_INSTANCE_NAME} ${ip} ${PetalsRegistryTemplate_0_ip} \
                      ${PetalsRegistryTemplate_0_port} ${PetalsRegistryTemplate_0_credentialsGroup} ${PetalsRegistryTemplate_0_credentialsPassword} \
@@ -48,7 +47,7 @@ then
    generate_loggers_properties ${ROBOCONF_INSTANCE_NAME} ${enableMonitTraces} && \
    generate_env ${ROBOCONF_INSTANCE_NAME} ${maxHeapSize} && \
    start_container ${ROBOCONF_INSTANCE_NAME} && \
-   attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_domainName} ${BOOTSTRAP_CONTAINER_NAME} ${PetalsContainerBootstrap_0_ip}
+   attach_container ${ip} ${jmxPort} ${PetalsContainerBootstrap_0_domainName} ${PetalsContainerBootstrap_0_ip}
    exit $?
 else
    start_container ${ROBOCONF_INSTANCE_NAME}
