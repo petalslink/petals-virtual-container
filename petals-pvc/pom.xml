@@ -34,7 +34,7 @@
    <description>Petals Virtual Container</description>
 
    <properties>
-      <petals-commons-deb.version>1.0</petals-commons-deb.version>
+      <petals-commons-deb.version>1.1.1-SNAPSHOT</petals-commons-deb.version>
       <petals-esb-default-deb.version>5.0.2-1.0-SNAPSHOT</petals-esb-default-deb.version>
       <petals-cli-distrib-deb.version>2.3.1-1.0-SNAPSHOT</petals-cli-distrib-deb.version>
       <petals-registry-overlay-deb.version>1.0.2-1.0-SNAPSHOT</petals-registry-overlay-deb.version>
