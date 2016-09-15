@@ -23,7 +23,7 @@
       <groupId>org.ow2.petals</groupId>
       <artifactId>petals-root-parent</artifactId>
       <relativePath />
-      <version>20.2.5</version>
+      <version>20.2.6-SNAPSHOT</version>
    </parent>
 
    <groupId>org.ow2.petals</groupId>
@@ -42,7 +42,7 @@
    </licenses>
 
    <properties>
-      <roboconf.version>0.6.1</roboconf.version>
+      <roboconf.version>0.8-SNAPSHOT</roboconf.version>
    </properties>
 
    <dependencies>

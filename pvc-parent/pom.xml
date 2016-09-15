@@ -22,7 +22,7 @@
       <groupId>org.ow2.petals</groupId>
       <artifactId>petals-root-parent</artifactId>
       <relativePath />
-      <version>20.2.5</version>
+      <version>20.2.6-SNAPSHOT</version>
    </parent>
 
    <prerequisites>
@@ -61,7 +61,7 @@
       <checkstyle-copyright-regexp>petals-copyright-bsd3-regexp-file</checkstyle-copyright-regexp>
       <checkstyle-license-regexp>petals-license-bsd3-regexp-file</checkstyle-license-regexp>
 
-      <roboconf.version>0.6.1</roboconf.version>
+      <roboconf.version>0.8-SNAPSHOT</roboconf.version>
    </properties>
 
    <build>

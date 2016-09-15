@@ -64,14 +64,13 @@ instance of PetalsContainer-VM {
 		name: container-bootstrap-node;
 
 		domainName: roboconf-demo;
-		PetalsContainerBootstrap.enableMonitTraces: false;
-		PetalsContainerBootstrap.maxHeapSize: 256m;
+		enableMonitTraces: false;
+		maxHeapSize: 256m;
 		
 		instance of PetalsBCSoapConsumer {
 		    name: petals-bc-soap;
 		    
-		    # TODO: Why PetalsJBIComponent must be used ? We should use only 'propertiesFile' (https://github.com/roboconf/roboconf-platform/issues/420)
-		    PetalsJBIComponent.propertiesFile: /etc/petals-esb/container-available/${container-name}/${component-name}.properties;
+		    propertiesFile: /etc/petals-esb/container-available/${container-name}/${component-name}.properties;
 		    
 		    instance of SU-SOAP-VacationServiceConsumer {
 			    name: su-SOAP-vacationService-consume;
@@ -98,8 +97,8 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainer {
 		name: container-cons-node-1;
 		
-		PetalsContainer.enableMonitTraces: false;
-		PetalsContainer.maxHeapSize: 256m;
+		enableMonitTraces: false;
+		maxHeapSize: 256m;
 		
 		instance of PetalsBCSoapConsumer {
 		    name: petals-bc-soap;
@@ -129,8 +128,8 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainer {
 		name: container-prov-node-1;
 		
-		PetalsContainer.enableMonitTraces: false;
-		PetalsContainer.maxHeapSize: 256m;
+		enableMonitTraces: false;
+		maxHeapSize: 256m;
 
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql-9.4-1201-jdbc4;
@@ -166,8 +165,8 @@ instance of PetalsContainer-VM {
 	instance of PetalsContainer {
 		name: container-prov-node-2;
 		
-		PetalsContainer.enableMonitTraces: false;
-		PetalsContainer.maxHeapSize: 256m;
+		enableMonitTraces: false;
+		maxHeapSize: 256m;
 
 		instance of PetalsSLPostgreSQL {
 		    name: petals-sl-postgresql-9.4-1201-jdbc4;
