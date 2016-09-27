@@ -34,11 +34,11 @@
    <description>Sample SOA Application for Petals PVC</description>
 
    <properties>
-      <activiti-engine.version>5.20.0</activiti-engine.version>
-      <petals-se-activiti.version>1.0.2-SNAPSHOT</petals-se-activiti.version>
-      <petals-se-activiti.samples.version>1.0.2-1.0.0-SNAPSHOT</petals-se-activiti.samples.version>
+      <activiti-engine.version>5.22.0-PETALS-0-SNAPSHOT</activiti-engine.version>
+      <petals-se-activiti.version>1.0.3-SNAPSHOT</petals-se-activiti.version>
+      <petals-se-activiti.samples.version>1.0.3-1.0.0-SNAPSHOT</petals-se-activiti.samples.version>
       <petals-sl-postgresql-9.4-1201-jdbc4.version>1.1.1</petals-sl-postgresql-9.4-1201-jdbc4.version>
-      <petals-bc-soap.version>4.4.2-SNAPSHOT</petals-bc-soap.version>
+      <petals-bc-soap.version>4.4.2</petals-bc-soap.version>
    </properties>
 
    <dependencies>
@@ -314,7 +314,7 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.activiti</groupId>
+                           <groupId>org.ow2.petals.activiti</groupId>
                            <artifactId>activiti-engine</artifactId>
                            <version>${activiti-engine.version}</version>
                            <type>jar</type>
