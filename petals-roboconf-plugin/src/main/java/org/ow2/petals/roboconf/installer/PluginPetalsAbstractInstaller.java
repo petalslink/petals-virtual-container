@@ -74,7 +74,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
                 this.adminApi.newArtifactAdministration().startArtifact(this.getManagedArtifactType(),
                         this.getManagedArtifactName(instance));
             } finally {
-                this.adminApi.newContainerAdministration().disconnect();
+                this.adminApi.disconnect();
             }
         } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
             throw new PluginException(e);
@@ -103,7 +103,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
                 this.adminApi.newArtifactAdministration().stopArtifact(this.getManagedArtifactType(),
                         this.getManagedArtifactName(instance));
             } finally {
-                this.adminApi.newContainerAdministration().disconnect();
+                this.adminApi.disconnect();
             }
         } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
             throw new PluginException(e);
@@ -121,7 +121,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
                 this.adminApi.newArtifactAdministration().stopAndUndeployArtifact(this.getManagedArtifactType(),
                         this.getManagedArtifactName(instance), this.getManagedArtifactVersion());
             } finally {
-                this.adminApi.newContainerAdministration().disconnect();
+                this.adminApi.disconnect();
             }
         } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
             throw new PluginException(e);
@@ -175,7 +175,7 @@ public abstract class PluginPetalsAbstractInstaller implements PluginInterface {
         }
 
         try {
-            this.adminApi.newContainerAdministration().connect(ip, Integer.parseInt(jmxPort), jmxUser, jmxPassword);
+            this.adminApi.connect(ip, Integer.parseInt(jmxPort), jmxUser, jmxPassword);
         } catch (final NumberFormatException e) {
             throw new PluginException("Invalid value for JMX port (Not a number)", e);
         }

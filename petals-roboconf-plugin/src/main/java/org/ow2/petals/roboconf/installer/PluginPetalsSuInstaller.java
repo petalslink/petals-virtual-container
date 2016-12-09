@@ -145,7 +145,7 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
             } catch (final NumberFormatException e) {
                 throw new PluginException("Invalid value for JMX port (Not a number)", e);
             } finally {
-                this.adminApi.newContainerAdministration().disconnect();
+                this.adminApi.disconnect();
             }
         } catch (final Exception e) {
             this.logger.log(Level.SEVERE, "An error occurs", e);
@@ -252,7 +252,7 @@ public class PluginPetalsSuInstaller extends PluginPetalsAbstractInstaller imple
                     try {
                         this.adminApi.newArtifactAdministration().reloadConfiguration(componentInstance.getName());
                     } finally {
-                        this.adminApi.newContainerAdministration().disconnect();
+                        this.adminApi.disconnect();
                     }
                 } catch (final ContainerAdministrationException | ArtifactAdministrationException e) {
                     throw new PluginException(e);

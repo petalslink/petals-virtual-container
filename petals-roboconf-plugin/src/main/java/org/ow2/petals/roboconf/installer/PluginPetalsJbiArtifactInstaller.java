@@ -76,7 +76,7 @@ public abstract class PluginPetalsJbiArtifactInstaller extends PluginPetalsAbstr
                 // This error should not occur
                 throw new PluginException(e);
             } finally {
-                this.adminApi.newContainerAdministration().disconnect();
+                this.adminApi.disconnect();
             }
         } catch (final ArtifactAdministrationException | ContainerAdministrationException e) {
             throw new PluginException(e);

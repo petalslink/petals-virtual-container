@@ -132,12 +132,12 @@ public class PluginPetalsSuInstallerTest {
             new FileOutputStream(new File(suInstanceDirectory, INSTANCE_SU_NAME + ".zip")).close();
 
             final PluginPetalsBcInstaller ppbi = new PluginPetalsBcInstaller();
-            ppbi.setPetalsAdministrationApi(this.petalsAdminApi);
+            ppbi.setPetalsAdministrationApi(this.petalsAdminApi.getSingleton());
             ppbi.deploy(jbiComponentInstance);
             ppbi.start(jbiComponentInstance);
 
             final PluginPetalsSuInstaller ppsi = new PluginPetalsSuInstaller();
-            ppsi.setPetalsAdministrationApi(this.petalsAdminApi);
+            ppsi.setPetalsAdministrationApi(this.petalsAdminApi.getSingleton());
 
             ppsi.deploy(suInstance);
             ppsi.start(suInstance);

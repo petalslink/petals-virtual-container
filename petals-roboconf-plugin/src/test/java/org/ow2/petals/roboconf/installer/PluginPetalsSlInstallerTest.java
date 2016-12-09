@@ -86,7 +86,7 @@ public class PluginPetalsSlInstallerTest {
             }
 
             final PluginPetalsSlInstaller ppsi = new PluginPetalsSlInstaller();
-            ppsi.setPetalsAdministrationApi(this.petalsAdminApi);
+            ppsi.setPetalsAdministrationApi(this.petalsAdminApi.getSingleton());
 
             ppsi.deploy(slInstance);
             ppsi.start(slInstance);

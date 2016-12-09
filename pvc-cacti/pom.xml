@@ -35,9 +35,9 @@
 
    <properties>
       <petals-commons-deb.version>1.1.1</petals-commons-deb.version>
-      <petals-cli-distrib-deb.version>2.3.1-1.0</petals-cli-distrib-deb.version>
-      <petals-cli-cmd-monitoring-deb.version>1.0.3-1.0</petals-cli-cmd-monitoring-deb.version>
-      <petals-cli-cmd-monitoring-mo-cacti-deb.version>1.0.2-1.0</petals-cli-cmd-monitoring-mo-cacti-deb.version>
+      <petals-cli-distrib-deb.version>3.0.0-1.0-SNAPSHOT</petals-cli-distrib-deb.version>
+      <petals-cli-cmd-monitoring-deb.version>2.0.0-1.0-SNAPSHOT</petals-cli-cmd-monitoring-deb.version>
+      <petals-cli-cmd-monitoring-mo-cacti-deb.version>2.0.0-1.0-SNAPSHOT</petals-cli-cmd-monitoring-mo-cacti-deb.version>
    </properties>
 
    <build>
