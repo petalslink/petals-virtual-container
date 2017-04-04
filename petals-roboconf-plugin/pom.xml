@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2015-2016 Linagora
+ Copyright (c) 2015-2017 Linagora
  
  This program/library is free software: you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by
@@ -23,7 +23,7 @@
       <groupId>org.ow2.petals</groupId>
       <artifactId>petals-root-parent</artifactId>
       <relativePath />
-      <version>20.2.6</version>
+      <version>20.2.7-SNAPSHOT</version>
    </parent>
 
    <groupId>org.ow2.petals</groupId>
@@ -49,6 +49,7 @@
       <dependency>
          <groupId>commons-io</groupId>
          <artifactId>commons-io</artifactId>
+         <version>2.4</version>
       </dependency>
       <!-- Roboconf dependencies -->
       <dependency>
@@ -113,6 +114,7 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
+         <version>4.12</version>
          <scope>test</scope>
       </dependency>
       <dependency>
