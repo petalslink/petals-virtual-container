@@ -17,7 +17,7 @@
 #############################################################################
 
 #
-# Create the Activiti database
+# Create the Flowable database
 #
 echo "host	${databaseName}	${databaseUser}	samenet	md5" >> /etc/postgresql/9.4/main/pg_hba.conf && \
 pg_ctlcluster 9.4 main reload && \
@@ -25,8 +25,8 @@ sudo -u postgres psql --echo-all -c "CREATE USER ${databaseUser} WITH CREATEDB P
 sudo -u postgres createdb --echo --owner=${databaseUser} ${databaseName} && \
 sudo -u postgres psql --echo-all -c "GRANT CONNECT ON DATABASE ${databaseName} to ${databaseUser}" && \
 sudo -u postgres psql --echo-all -d ${databaseName} -c "GRANT USAGE ON SCHEMA public to ${databaseUser}" && \
-sudo -u postgres psql --echo-all -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/activiti/db/create/activiti.postgres.create.engine.sql && \
-sudo -u postgres psql --echo-all -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/activiti/db/create/activiti.postgres.create.history.sql && \
+sudo -u postgres psql --echo-all -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/flowable/db/create/flowable.postgres.create.engine.sql && \
+sudo -u postgres psql --echo-all -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/flowable/db/create/flowable.postgres.create.history.sql && \
 sudo -u postgres psql --echo-all -d ${databaseName} -c "ALTER TABLE ACT_GE_BYTEARRAY ALTER COLUMN NAME_ TYPE VARCHAR(512)" && \
 sudo -u postgres psql --echo-all -d ${databaseName} -c "GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO ${databaseUser}" && \
 sudo -u postgres psql --echo-all -d ${databaseName} -c "GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO ${databaseUser}"

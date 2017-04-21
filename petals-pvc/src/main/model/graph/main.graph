@@ -95,7 +95,7 @@ PetalsSL {
 	# As SL are not supported by Roboconf because:
 	#   - a SL export no configuration parameter
 	#   - Roboconf is not able to manage local dependency
-	# We create a dummy exported variable and work with only one instance of Petals SE Activiti over all Petals containers
+	# We create a dummy exported variable and work with only one instance of Petals SE Flowable over all Petals containers
 	exports: present = true;
 }
 

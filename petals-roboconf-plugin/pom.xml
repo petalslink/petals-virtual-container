@@ -42,7 +42,7 @@
    </licenses>
 
    <properties>
-      <roboconf.version>0.8-SNAPSHOT</roboconf.version>
+      <roboconf.version>0.8</roboconf.version>
    </properties>
 
    <dependencies>

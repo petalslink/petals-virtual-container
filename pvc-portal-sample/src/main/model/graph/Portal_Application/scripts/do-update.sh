@@ -38,7 +38,7 @@ do
       esb_lb_port_var_name="ESB_${i}_lb_port"
       eval esb_lb_port=\$${esb_lb_port_var_name}
       sed -ie "s/\(vacation.service.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/vacationService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
-      sed -ie "s/\(activiti.service.process.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/processInstancesService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
-      sed -ie "s/\(activiti.service.task.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/taskService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
+      sed -ie "s/\(flowable.service.process.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/processInstancesService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties && \
+      sed -ie "s/\(flowable.service.task.url: \).*$/\1http:\/\/${esb_lb_ip}:${esb_lb_port}\/petals\/services\/taskService/" /var/lib/tomcat8/webapps/${applicationDir}/WEB-INF/classes/application.properties
    fi
 done

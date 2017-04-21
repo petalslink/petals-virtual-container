@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2015-2017 Linagora
+ Copyright (c) 2017 Linagora
 
  This program/library is free software: you can redistribute it and/or modify
  it under the terms of the New BSD License (3-clause license).
@@ -14,41 +14,30 @@
  along with this program/library; If not, see http://directory.fsf.org/wiki/License:BSD_3Clause/
  for the New BSD License (3-clause license).
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
-   <prerequisites>
-      <maven>3.0.3</maven>
-   </prerequisites>
+
+   <parent>
+      <groupId>org.ow2.petals.cloud</groupId>
+      <artifactId>pvc-parent</artifactId>
+      <version>1.0.1-SNAPSHOT</version>
+      <relativePath>../pvc-parent/pom.xml</relativePath>
+   </parent>
 
    <groupId>org.ow2.petals.cloud</groupId>
-   <artifactId>pvc-rootbuilder</artifactId>
+   <artifactId>vm-ec2-tomcat8</artifactId>
    <version>1.0.0-SNAPSHOT</version>
-   <packaging>pom</packaging>
+   <packaging>roboconf-target</packaging>
 
-   <modules>
-      <module>petals-pvc</module>
-      <module>pvc-soa-app-sample</module>
-      <module>pvc-parent</module>
-      <module>haproxy-tomcat</module>
-      <module>petals-roboconf-plugin</module>
-      <module>petals-tomcat</module>
-      <module>pvc-portal-sample</module>
-      <module>pvc-cacti</module>
-      <module>vm-docker-tomcat8</module>
-      <module>vm-ec2-tomcat8</module>
-   </modules>
+   <name>Target Roboconf 'tomcat8_vm_ec2'</name>
+   <description>Target Roboconf 'tomcat8_vm_ec2'</description>
 
    <build>
       <plugins>
          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <configuration>
-               <!-- Do not deploy, because mvn deploy is called on this on the CI server -->
-               <skip>true</skip>
-            </configuration>
+            <groupId>net.roboconf</groupId>
+            <artifactId>roboconf-maven-plugin</artifactId>
          </plugin>
       </plugins>
    </build>
@@ -56,5 +45,6 @@
    <scm>
       <connection>scm:git:https://github.com/petalslink/petals-virtual-container.git</connection>
       <developerConnection>scm:git:https://github.com/petalslink/petals-virtual-container.git</developerConnection>
-   </scm>
+    <tag>HEAD</tag>
+  </scm>
 </project>

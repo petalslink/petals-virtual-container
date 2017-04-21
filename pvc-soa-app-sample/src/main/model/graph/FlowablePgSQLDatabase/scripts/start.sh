@@ -17,11 +17,5 @@
 #############################################################################
 
 #
-# Drop the Activiti database
+# Nothing to do, the Flowable database has no lifecycle, only the database server can be started/stopped.
 #
-sudo -u postgres psql -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/activiti/db/create/activiti.postgres.drop.engine.sql && \
-sudo -u postgres psql -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/activiti/db/create/activiti.postgres.drop.history.sql && \
-sudo -u postgres psql -c "DROP DATABASE ${databaseName}" && \
-sudo -u postgres psql -c "DROP USER ${databaseUser}"
-
-exit $?

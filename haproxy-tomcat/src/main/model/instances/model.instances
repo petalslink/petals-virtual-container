@@ -35,7 +35,7 @@ instance of Tomcat8_VM_Docker {
 		name: Tomcat server;
 		
 		instance of Tomcat8_Application_WAR {
-			name: samplesActivitiSOAPservices;
+			name: samplesFlowableSOAPservices;
 			
 			applicationFile: samples-SOAP-services.war;
 		}
@@ -50,7 +50,7 @@ instance of Tomcat8_VM_Docker {
 		name: Tomcat server;
 		
 		instance of Tomcat8_Application_WAR {
-			name: samplesActivitiSOAPservices;
+			name: samplesFlowableSOAPservices;
 			
 			applicationFile: samples-SOAP-services.war;
 		}
@@ -65,7 +65,7 @@ instance of Tomcat8_VM_EC2 {
 		name: Tomcat server;
 		
 		instance of Tomcat8_Application_WAR {
-			name: samplesActivitiSOAPservices;
+			name: samplesFlowableSOAPservices;
 			
 			applicationFile: samples-SOAP-services.war;
 		}

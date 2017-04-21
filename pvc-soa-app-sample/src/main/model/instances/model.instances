@@ -24,13 +24,13 @@ instance of PostgreSQL-VM {
 	instance of PostgreSQLServer {
 		name: postgresql-server;
 
-		instance of ActivitiPgSQLDatabase {
-			name: activiti-database;
+		instance of FlowablePgSQLDatabase {
+			name: flowable-database;
 	
-			databaseName: activiti;
+			databaseName: flowable;
 			# The database user name must be defined in lower case and '-' is forbidden
-			databaseUser: petalsseactiviti;
-			databasePwd: PetalsSeActiviti;
+			databaseUser: petalsseflowable;
+			databasePwd: PetalsSeFlowable;
 		}
 	}
 }
@@ -76,8 +76,8 @@ instance of PetalsContainer-VM {
 			    name: su-SOAP-vacationService-consume;
 			}
 		
-			instance of SU-SOAP-ActivitiIntegrationConsumer {
-			    name: su-SOAP-activitiIntegrationService-consume;
+			instance of SU-SOAP-FlowableIntegrationConsumer {
+			    name: su-SOAP-flowableIntegrationService-consume;
 			}
 		
 			instance of SU-SOAP-NotificationServiceConsumer {
@@ -107,8 +107,8 @@ instance of PetalsContainer-VM {
 			    name: su-SOAP-vacationService-consume;
 			}
 		
-			instance of SU-SOAP-ActivitiIntegrationConsumer {
-			    name: su-SOAP-activitiIntegrationService-consume;
+			instance of SU-SOAP-FlowableIntegrationConsumer {
+			    name: su-SOAP-flowableIntegrationService-consume;
 			}
 		
 			instance of SU-SOAP-NotificationServiceConsumer {
@@ -147,13 +147,13 @@ instance of PetalsContainer-VM {
 			}
 		}
 		
-		instance of PetalsSEActiviti {
-		    name: petals-se-activiti;
+		instance of PetalsSEFlowable {
+		    name: petals-se-flowable;
 
 		    engineEnableJobExecutor: true;
 
-		    instance of SU-Activiti-VacationRequest {
-			    name: su-activiti-vacationService-provide;
+		    instance of SU-Flowable-VacationRequest {
+			    name: su-flowable-vacationService-provide;
 			}
 		}
 	}
@@ -184,13 +184,13 @@ instance of PetalsContainer-VM {
 			}
 		}
 		
-		instance of PetalsSEActiviti {
-		    name: petals-se-activiti;
+		instance of PetalsSEFlowable {
+		    name: petals-se-flowable;
 
 		    engineEnableJobExecutor: true;
 
-		    instance of SU-Activiti-VacationRequest {
-			    name: su-activiti-vacationService-provide;
+		    instance of SU-Flowable-VacationRequest {
+			    name: su-flowable-vacationService-provide;
 			}
 		}
 	}

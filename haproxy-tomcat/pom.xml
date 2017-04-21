@@ -62,7 +62,7 @@
                   </configuration>
                </execution>
                <execution>
-                  <id>copy-packages-for-samples_Activiti_SOAP_services</id>
+                  <id>copy-packages-for-samples_Flowable_SOAP_services</id>
                   <phase>prepare-package</phase>
                   <goals>
                      <goal>copy</goal>

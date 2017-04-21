@@ -45,10 +45,10 @@ PostgreSQL-VM {
 
 PostgreSQLServer {
     installer: script;
-	children: ActivitiPgSQLDatabase;
+	children: FlowablePgSQLDatabase;
 }
 
-ActivitiPgSQLDatabase {
+FlowablePgSQLDatabase {
 	installer: script;
 	exports: ip, databaseName = database-name, databaseUser = database-user, databasePwd = database-pwd;
 }
@@ -57,14 +57,14 @@ PetalsSLPostgreSQL {
 	extends: PetalsSL;
 }
 
-PetalsSEActiviti {
+PetalsSEFlowable {
     extends: PetalsSE;
-    exports: engineEnableJobExecutor = true, jdbcDriver = org.postgresql.Driver, jdbcUrl = jdbc:postgresql://${ActivitiPgSQLDatabase.ip}/${ActivitiPgSQLDatabase.databaseName}, jdbcUsername = ${ActivitiPgSQLDatabase.databaseUser}, jdbcPassword = ${ActivitiPgSQLDatabase.databasePwd};
+    exports: engineEnableJobExecutor = true, jdbcDriver = org.postgresql.Driver, jdbcUrl = jdbc:postgresql://${FlowablePgSQLDatabase.ip}/${FlowablePgSQLDatabase.databaseName}, jdbcUsername = ${FlowablePgSQLDatabase.databaseUser}, jdbcPassword = ${FlowablePgSQLDatabase.databasePwd};
     # See comment on PetalsSL
-	imports: PetalsSLPostgreSQL.present, ActivitiPgSQLDatabase.*;
+	imports: PetalsSLPostgreSQL.present, FlowablePgSQLDatabase.*;
 }
 
-SU-Activiti-VacationRequest {
+SU-Flowable-VacationRequest {
     extends: PetalsSU;
 }
 
@@ -94,6 +94,6 @@ SU-SOAP-ArchivingServiceProvider {
     imports: external TomcatCluster.lb-ip, external TomcatCluster.lb-port;
 }
 
-SU-SOAP-ActivitiIntegrationConsumer {
+SU-SOAP-FlowableIntegrationConsumer {
     extends: PetalsSU;
 }

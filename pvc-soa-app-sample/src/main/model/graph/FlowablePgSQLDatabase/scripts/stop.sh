@@ -17,5 +17,5 @@
 #############################################################################
 
 #
-# Nothing to do, the Activiti database has no lifecycle, only the database server can be started/stopped.
+# Nothing to do, the Flowable database has no lifecycle, only the database server can be started/stopped.
 #

@@ -1,3 +1,4 @@
+#!/bin/sh -x
 #
 # Copyright (c) 2015-2017 Linagora
 #
@@ -14,17 +15,13 @@
 # for the New BSD License (3-clause license).
 #
 #############################################################################
-id = tomcat8_vm_docker
-handler = docker
 
-docker.user = roboconf
-docker.password = roboconf
-docker.endpoint = tcp://localhost:4243
-docker.image = roboconf-tomcat8
-docker.base.image = ubuntu:15.10
-docker.generate.image = true
+#
+# Drop the Flowable database
+#
+sudo -u postgres psql -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/flowable/db/create/flowable.postgres.drop.engine.sql && \
+sudo -u postgres psql -d ${databaseName} -f ${ROBOCONF_FILES_DIR}/org/flowable/db/create/flowable.postgres.drop.history.sql && \
+sudo -u postgres psql -c "DROP DATABASE ${databaseName}" && \
+sudo -u postgres psql -c "DROP USER ${databaseUser}"
 
-# We install Tomcat8 and utility tools not provided with ubuntu:15.10
-docker.additional.packages = tomcat8 tomcat8-admin vim net-tools unzip wget
-# Tomcat runtime requires the Docker capability SYS_PTRACE
-docker.option.run.cap-add = SYS_PTRACE
+exit $?

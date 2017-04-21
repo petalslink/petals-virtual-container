@@ -34,9 +34,10 @@
    <description>Sample SOA Application for Petals PVC</description>
 
    <properties>
-      <activiti-engine.version>5.22.0-PETALS-0-SNAPSHOT</activiti-engine.version>
-      <petals-se-activiti.version>1.1.0-SNAPSHOT</petals-se-activiti.version>
-      <petals-se-activiti.samples.version>1.1.0-1.0.0-SNAPSHOT</petals-se-activiti.samples.version>
+      <flowable-engine.version>6.0.1-PETALS-0-SNAPSHOT</flowable-engine.version>
+      <flowable.groupId>org.ow2.petals.flowable</flowable.groupId>
+      <petals-se-flowable.version>1.0.0-SNAPSHOT</petals-se-flowable.version>
+      <petals-se-flowable.samples.version>1.0.0-1.0.0-SNAPSHOT</petals-se-flowable.samples.version>
       <petals-sl-postgresql-9.4-1201-jdbc4.version>1.1.1</petals-sl-postgresql-9.4-1201-jdbc4.version>
       <petals-bc-soap.version>4.4.2</petals-bc-soap.version>
    </properties>
@@ -66,7 +67,7 @@
             </configuration>
             <executions>
                <execution>
-                  <id>copy-se-activiti-archive</id>
+                  <id>copy-se-flowable-archive</id>
                   <phase>compile</phase>
                   <goals>
                      <goal>jbi-configure</goal>
@@ -74,10 +75,10 @@
                   <configuration>
                      <jbiSharedLibrariesMappingFileURL>file:${basedir}/src/main/resources/sharedlibraries.properties</jbiSharedLibrariesMappingFileURL>
                      <groupId>org.ow2.petals</groupId>
-                     <artifactId>petals-se-activiti</artifactId>
-                     <version>${petals-se-activiti.version}</version>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSEActiviti</outputDirectory>
-                     <targetName>petals-se-activiti</targetName>
+                     <artifactId>petals-se-flowable</artifactId>
+                     <version>${petals-se-flowable.version}</version>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/PetalsSEFlowable</outputDirectory>
+                     <targetName>petals-se-flowable</targetName>
                   </configuration>
                </execution>
             </executions>
@@ -167,9 +168,9 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
                            <artifactId>su-SOAP-vacationService-consume</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-vacationService-consume.zip</destFileName>
                         </artifactItem>
@@ -188,9 +189,9 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
                            <artifactId>su-SOAP-notifyVacationService-consume</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-notifyVacationService-consume.zip</destFileName>
                         </artifactItem>
@@ -209,9 +210,9 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
                            <artifactId>su-SOAP-notifyVacationService-provide</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-notifyVacationService-provide.zip</destFileName>
                         </artifactItem>
@@ -230,9 +231,9 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
                            <artifactId>su-SOAP-archiveService-consume</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-archiveService-consume.zip</destFileName>
                         </artifactItem>
@@ -251,9 +252,9 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
                            <artifactId>su-SOAP-archiveService-provide</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
                            <destFileName>su-SOAP-archiveService-provide.zip</destFileName>
                         </artifactItem>
@@ -264,7 +265,7 @@
                   </configuration>
                </execution>
                <execution>
-                  <id>copy-su-SOAP-activitiIntegrationService-consume</id>
+                  <id>copy-su-SOAP-flowableIntegrationService-consume</id>
                   <phase>prepare-package</phase>
                   <goals>
                      <goal>copy</goal>
@@ -272,20 +273,20 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
-                           <artifactId>su-SOAP-activitiIntegrationService-consume</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
+                           <artifactId>su-SOAP-flowableIntegrationService-consume</artifactId>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
-                           <destFileName>su-SOAP-activitiIntegrationService-consume.zip</destFileName>
+                           <destFileName>su-SOAP-flowableIntegrationService-consume.zip</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-SOAP-ActivitiIntegrationConsumer</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-SOAP-FlowableIntegrationConsumer</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
                </execution>
                <execution>
-                  <id>copy-su-activiti-vacationService-provide</id>
+                  <id>copy-su-flowable-vacationService-provide</id>
                   <phase>prepare-package</phase>
                   <goals>
                      <goal>copy</goal>
@@ -293,20 +294,20 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.samples</groupId>
-                           <artifactId>su-activiti-vacationService-provide</artifactId>
-                           <version>${petals-se-activiti.samples.version}</version>
+                           <groupId>org.ow2.petals.samples.flowable</groupId>
+                           <artifactId>su-flowable-vacationService-provide</artifactId>
+                           <version>${petals-se-flowable.samples.version}</version>
                            <type>zip</type>
-                           <destFileName>su-activiti-vacationService-provide.zip</destFileName>
+                           <destFileName>su-flowable-vacationService-provide.zip</destFileName>
                         </artifactItem>
                      </artifactItems>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-Activiti-VacationRequest</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/SU-Flowable-VacationRequest</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
                </execution>
                <execution>
-                  <id>unpack-activiti-database-scripts</id>
+                  <id>unpack-flowable-database-scripts</id>
                   <phase>prepare-package</phase>
                   <goals>
                      <goal>unpack</goal>
@@ -314,19 +315,19 @@
                   <configuration>
                      <artifactItems>
                         <artifactItem>
-                           <groupId>org.ow2.petals.activiti</groupId>
-                           <artifactId>activiti-engine</artifactId>
-                           <version>${activiti-engine.version}</version>
+                           <groupId>${flowable.groupId}</groupId>
+                           <artifactId>flowable-engine</artifactId>
+                           <version>${flowable-engine.version}</version>
                            <type>jar</type>
                         </artifactItem>
                      </artifactItems>
                      <includes>
-                        org/activiti/db/create/activiti.postgres.create.engine.sql, 
-                        org/activiti/db/create/activiti.postgres.create.history.sql,
-                        org/activiti/db/create/activiti.postgres.drop.engine.sql, 
-                        org/activiti/db/create/activiti.postgres.drop.history.sql
+                        org/flowable/db/create/flowable.postgres.create.engine.sql, 
+                        org/flowable/db/create/flowable.postgres.create.history.sql,
+                        org/flowable/db/create/flowable.postgres.drop.engine.sql, 
+                        org/flowable/db/create/flowable.postgres.drop.history.sql
                      </includes>
-                     <outputDirectory>${project.build.directory}/roboconf-model/graph/ActivitiPgSQLDatabase/files</outputDirectory>
+                     <outputDirectory>${project.build.directory}/roboconf-model/graph/FlowablePgSQLDatabase/files</outputDirectory>
                      <overWriteReleases>false</overWriteReleases>
                      <overWriteSnapshots>true</overWriteSnapshots>
                   </configuration>
