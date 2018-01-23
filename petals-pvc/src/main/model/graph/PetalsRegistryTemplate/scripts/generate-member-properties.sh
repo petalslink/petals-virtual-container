@@ -1,6 +1,6 @@
 #!/bin/sh -x
 #
-# Copyright (c) 2015-2017 Linagora
+# Copyright (c) 2015-2018 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the New BSD License (3-clause license).
@@ -18,7 +18,7 @@
 
 cat > /etc/petals-registry/member-available/${ROBOCONF_INSTANCE_NAME}/member.properties << EOF
 #
-# Copyright (c) 2013-2017 Linagora
+# Copyright (c) 2013-2018 Linagora
 #
 # This program/library is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
